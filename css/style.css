@@ -108,6 +108,8 @@ figure {
   .header-top .fh5co-social {
     text-align: center !important; } }
 
+#changepassword {
+  font-size: small; }
 #fh5co-hero {
   min-height: 700px;
   background: #fff url(../images/loader.gif) no-repeat center center;
