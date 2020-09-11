@@ -50,8 +50,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #form_general{
-  margin-left: 30%;
-  padding-left: 1em;
+  display: flexbox;
+  align-items: center;
+  padding-left: 30%;
+  border: #000;
+  border-style: solid;
+}
+
+.button-radio{
+  display: flexbox;
+  padding-left: 17%;
 }
 
 #primera_opc  {

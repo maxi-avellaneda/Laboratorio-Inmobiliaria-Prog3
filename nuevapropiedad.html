@@ -85,7 +85,7 @@
             <div class="form-group">
                 <label>Seleccione un opc</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" id="opc_casa" name="propiedad" value="1" onclick="formularioCasa()">
+                    <input class="form-check-input" type="radio" id="opc_casa" name="propiedad" value="1" onclick="formularioCasa()" >
                     <label class="form-check-label" for="opc_casa">Casa</label>
                 </div>
                 <div class="form-check">
@@ -101,80 +101,82 @@
         <form id="form_general" action="#" style="display: none;">
             <div class="form-group">
                 <label for="descripcion">Descripcion de la propiedad:</label>
-                <input type="text" name="descripcion">
+                <input type="textarea" name="descripcion" required>
             </div>
             <br>
             <div class="form-group">
                 <label for="fechaalta">Fecha de ingreso:</label>
-                <input type="date" name="fechaalta">
+                <input type="date" name="fechaalta" required>
             </div>
             <br>
             <div class="form-group">
                 <label for="metroscubiertos">Metros cubiertos:</label>
-                <input type="number" name="metroscubiertos">
+                <input type="number" name="metroscubiertos" required>
             </div>
             <div class="form-group">
                 <label for="metrossemicubiertos">Metros semi cubiertos:</label>
-                <input type="number" name="metrossemicubiertos">
+                <input type="number" name="metrossemicubiertos" required>
             </div>
             <div class="form-group">
                 <label for="capacidad_casa">Capacidad:</label>
-                <input type="number" name="capacidad">
+                <input type="number" name="capacidad" required>
             </div>
             <div class="form-group">
                 <label for="cantambientes">Cantidad de Ambientes:</label>
-                <input type="number" name="cantambientes">
+                <input type="number" name="cantambientes" required>
             </div>
             <div id="opc_cochera">
                 <label>DISPONE DE COCHERA?</label>
                 <div class="form-check form-check-inline">
-                    <input type="radio" id="opc_si" name="cochera" value="si">
+                    <input type="radio" id="opc_si" name="cochera" value="si" required>
                     <label for="opc_si"> SI</label><br>
-                    <input type="radio" id="opc_no" name="cochera" value="no">
+                    <input type="radio" id="opc_no" name="cochera" value="no" required>
                     <label for="opc_no"> NO</label><br>
                 </div>
             </div>
             <div class="form-group">
                 <label for="cantbaños_casa">Cantidad de Baños:</label>
-                <input type="number" name="cantbaños_casa">
+                <input type="number" name="cantbaños_casa" required>
             </div>
             <div id="opc_cancelacion_casa">
                 <label>PERMITE CANCELACION?</label>
                 <div class="form-check form-check-inline">
-                    <input type="radio" id="opc_si" name="cochera_casa" value="si">
+                    <input type="radio" id="opc_si" name="cochera_casa" value="si" required>
                     <label for="opc_si"> SI</label><br>
-                    <input type="radio" id="opc_no" name="cochera_casa" value="no">
+                    <input type="radio" id="opc_no" name="cochera_casa" value="no" required>
                     <label for="opc_no"> NO</label><br>
                 </div>
             </div>
             <div class="form-group">
                 <label for="tipoalquiler_casa">Tipo de alquiler:</label>
-                <input type="text" name="tipoalquiler_casa"> 
+                <input type="text" name="tipoalquiler_casa" required> 
             </div>  
             <div class="form-group">
                 <label for="descripcion_casa">Descripcion de alquiler:</label>
-                <input type="text" name="descripcion_casa">
+                <input type="text" name="descripcion_casa" required>
             </div>
             <div id="opciones_casa" style="display: none;">
                 <label>La casa tiene patio?</label>
                 <div class="form-check">
-                    <input type="radio" id="opc_si" name="patio_casa" value="si">
-                    <label for="opc_si"> SI</label><br>
-                    <input type="radio" id="opc_no" name="patio_casa" value="no">
-                    <label for="opc_no"> NO</label><br>
+                    <div class="button-radio">
+                        <input type="radio" id="opc_si" name="patio_casa" value="si" required>
+                        <label for="opc_si"> SI</label><br>
+                        <input type="radio" id="opc_no" name="patio_casa" value="no" required>
+                        <label for="opc_no"> NO</label><br>
+                    </div>
                 </div>
                 <label>La casa tiene pileta?</label>
                 <div class="form-check">
-                    <input type="radio" id="opc_si" name="pileta_casa" value="si">
+                    <input type="radio" id="opc_si" name="pileta_casa" value="si" required>
                     <label for="opc_si"> SI</label><br>
-                    <input type="radio" id="opc_no" name="pileta_casa" value="no">
+                    <input type="radio" id="opc_no" name="pileta_casa" value="no" required>
                     <label for="opc_no"> NO</label><br>
                 </div>
                 <label>La casa tiene terraza?</label>
                 <div class="form-check">
-                    <input type="radio" id="opc_si" name="terraza_casa" value="si">
+                    <input type="radio" id="opc_si" name="terraza_casa" value="si" required>
                     <label for="opc_si"> SI</label><br>
-                    <input type="radio" id="opc_no" name="terraza_casa" value="no">
+                    <input type="radio" id="opc_no" name="terraza_casa" value="no" required>
                     <label for="opc_no"> NO</label><br>
                 </div>
             </div>
@@ -202,15 +204,15 @@
                 </div>
             </div> 
             <div id="opciones_hab" style="display: none;">
+                <label>La Habitacion cuenta con baño individual?</label>
                 <div class="form-check">
-                    <label>La Habitacion cuenta con baño individual?</label>
                     <input type="radio" id="opc_si" name="baño_habitacion" value="si">
                     <label for="opc_si"> SI</label><br>
                     <input type="radio" id="opc_no" name="baño_habitacion" value="no">
                     <label for="opc_no"> NO</label><br>
                 </div>
             </div>
-            <button class="btn btn-primary">Guardar</button> 
+            <input class="btn btn-primary" type="submit" value="GUARDAR">
         </form>
     </body>
 </html>
