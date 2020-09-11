@@ -269,7 +269,7 @@ figure {
   text-transform: none;
   padding: 0.2em 1em !important;
   letter-spacing: 1px;
-  font-size: 14px !important; }
+  font-size: 9px !important; }
 
 .sf-menu li:hover a, .sf-menu li.sfHover a, .sf-menu ul li:hover a, .sf-menu ul li.sfHover a, .sf-menu li.active a {
   color: #44C662; }
