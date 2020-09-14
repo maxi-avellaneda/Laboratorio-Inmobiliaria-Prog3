@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Inmobiliaria Pilar</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
+        <meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+        <meta name="author" content="FREEHTML5.CO" />
+    
+        <meta property="og:title" content=""/>
+        <meta property="og:image" content=""/>
+        <meta property="og:url" content=""/>
+        <meta property="og:site_name" content=""/>
+        <meta property="og:description" content=""/>
+        <meta name="twitter:title" content="" />
+        <meta name="twitter:image" content="" />
+        <meta name="twitter:url" content="" />
+        <meta name="twitter:card" content="" />
+    
+        <!-- Los iconos tipo Solid de Fontawesome-->
+        <linkrel="stylesheet"href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+        
+        <script src="https://kit.fontawesome.com/940f134d7b.js" crossorigin="anonymous"></script>
+        <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        <script src="js/scripts.js"></script>
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="shortcut icon" href="favicon.ico">
+    
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,300' rel='stylesheet' type='text/css'>
+        
+        <!-- Animate.css -->
+        <link rel="stylesheet" href="css/animate.css">
+        <!-- Icomoon Icon Fonts-->
+        <link rel="stylesheet" href="css/icomoon.css">
+        <!-- Bootstrap  -->
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <!-- Superfish -->
+        <link rel="stylesheet" href="css/superfish.css">
+        <!-- Flexslider  -->
+        <link rel="stylesheet" href="css/flexslider.css">
+        <!-- Magnific Popup -->
+        <link rel="stylesheet" href="css/magnific-popup.css">
+        <!-- Date Picker -->
+        <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
+        <!-- CS Select -->
+        <link rel="stylesheet" href="css/cs-select.css">
+        <link rel="stylesheet" href="css/cs-skin-border.css">
+        
+        <link rel="stylesheet" href="css/style.css">
+        <title>Ingreso de propiedad</title>
+    </head>
+    <body>
+        <header id="fh5co-header-section" class="sticky-banner">
+            <div class="container">
+                <div class="nav-header">
+                    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+                    <h1 id="fh5co-logo"><a href="index.html"><i class="icon-home"></i>INMOBILIARIA <span>PILAR</span></a></h1>
+                    <!-- START #fh5co-menu-wrap . BARRA DE MENU -->
+                    <nav id="fh5co-menu-wrap" role="navigation">
+                        <ul class="sf-menu" id="fh5co-primary-menu">
+                            <li class="active"><a href="login.html">Ingresar</a></li>
+                            <li><a href="#">Registrarse</a></li>
+                            <li><a href="#">Gestion Propiedades</a></li>
+                            <li>
+                                <a href="#" class="fh5co-sub-ddown">Gestion Estadisticas</a>
+                                <ul class="fh5co-sub-menu" >
+                                    <li><a href="#">Zona de menos alquiler</a></li>
+                                    <li><a href="#">Porcentaje de ocupacion</a></li>
+                                    <li ><a href="#" >Preferencia por zona y tipo de prop.</a></li>
+                                    <li><a href="#">Preferencia por zona y tipo de alquiler</a></li>
+                                    <li><a href="#">Propiedades y tiempo sin alquilar</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Contactenos</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <h2 id="titulo_ingreso">Que propiedad desea ingresar?</h2>        
+        <br>
+        <div id="primera_opc">
+            <div class="form-group">
+                <label>Seleccione un opc</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="opc_casa" name="propiedad" value="1" onclick="formularioCasa()" >
+                    <label class="form-check-label" for="opc_casa">Casa</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="opc_dpto" name="propiedad" value="2" onclick="formularioDpto()">
+                    <label class="form-check-label" for="opc_dpto">Departamento</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="opc_hab" name="propiedad" value="3" onclick="formularioHab()">
+                    <label class="form-check-label" for="opc_hab">Habitacion</label>
+                </div>
+            </div>
+        </div>
+        <form id="form_general" action="#" style="display: none;">
+            <div class="col align-self-center">
+                <div class="form-group">
+                    <label for="descripcion">Descripcion de la propiedad:</label>
+                    <input type="textarea" name="descripcion" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="fechaalta">Fecha de ingreso:</label>
+                    <input type="date" name="fechaalta" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="metroscubiertos">Metros cubiertos:</label>
+                    <input type="number" name="metroscubiertos" required>
+                </div>
+                <div class="form-group">
+                    <label for="metrossemicubiertos">Metros semi cubiertos:</label>
+                    <input type="number" name="metrossemicubiertos" required>
+                </div>
+                <div class="form-group">
+                    <label for="capacidad_casa">Capacidad:</label>
+                    <input type="number" name="capacidad" required>
+                </div>
+                <div class="form-group">
+                    <label for="cantambientes">Cantidad de Ambientes:</label>
+                    <input type="number" name="cantambientes" required>
+                </div>
+                <div id="opc_cochera">
+                    <label>DISPONE DE COCHERA?</label>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="opc_si" name="cochera" value="si" required>
+                        <label for="opc_si"> SI</label><br>
+                        <input type="radio" id="opc_no" name="cochera" value="no" required>
+                        <label for="opc_no"> NO</label><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cantbaños_casa">Cantidad de Baños:</label>
+                    <input type="number" name="cantbaños_casa" required>
+                </div>
+                <div id="opc_cancelacion_casa">
+                    <label>PERMITE CANCELACION?</label>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" id="opc_si" name="cochera_casa" value="si" required>
+                        <label for="opc_si"> SI</label><br>
+                        <input type="radio" id="opc_no" name="cochera_casa" value="no" required>
+                        <label for="opc_no"> NO</label><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tipoalquiler_casa">Tipo de alquiler:</label>
+                    <input type="text" name="tipoalquiler_casa" required> 
+                </div>  
+                <div class="form-group">
+                    <label for="descripcion_casa">Descripcion de alquiler:</label>
+                    <input type="text" name="descripcion_casa" required>
+                </div>
+            </div>
+            <div id="opciones_casa" style="display: none;">
+                <label>La casa tiene patio?</label>
+                <div class="form-check">
+                    <div class="button-radio">
+                        <input type="radio" id="opc_si" name="patio_casa" value="si" required>
+                        <label for="opc_si"> SI</label><br>
+                        <input type="radio" id="opc_no" name="patio_casa" value="no" required>
+                        <label for="opc_no"> NO</label><br>
+                    </div>
+                </div>
+                <label>La casa tiene pileta?</label>
+                <div class="form-check">
+                    <input type="radio" id="opc_si" name="pileta_casa" value="si" required>
+                    <label for="opc_si"> SI</label><br>
+                    <input type="radio" id="opc_no" name="pileta_casa" value="no" required>
+                    <label for="opc_no"> NO</label><br>
+                </div>
+                <label>La casa tiene terraza?</label>
+                <div class="form-check">
+                    <input type="radio" id="opc_si" name="terraza_casa" value="si" required>
+                    <label for="opc_si"> SI</label><br>
+                    <input type="radio" id="opc_no" name="terraza_casa" value="no" required>
+                    <label for="opc_no"> NO</label><br>
+                </div>
+            </div>
+            <div id="opciones_dpto" style="display: none;">
+                <label>El Departamento cuenta con frente?</label>
+                <div class="form-check">
+                    <input type="radio" id="opc_si" name="frente_dpto" value="si">
+                    <label for="opc_si"> SI</label><br>
+                    <input type="radio" id="opc_no" name="frente_dpto" value="no">
+                    <label for="opc_no"> NO</label><br>
+                </div>
+                <label>El Departamento cuenta con Contrafrente?</label>
+                <div class="form-check">
+                    <input type="radio" id="opc_si" name="contrafrente_dpto" value="si">
+                    <label for="opc_si"> SI</label><br>
+                    <input type="radio" id="opc_no" name="contrafrente_dpto" value="no">
+                    <label for="opc_no"> NO</label><br>
+                </div>
+                <label>El departamento cuenta con espacios comunes?</label>
+                <div class="form-check">
+                    <input type="radio" id="opc_si" name="espcomunes_dpto" value="si">
+                    <label for="opc_si"> SI</label><br>
+                    <input type="radio" id="opc_no" name="espcomunes_dpto" value="no">
+                    <label for="opc_no"> NO</label><br>
+                </div>
+            </div> 
+            <div id="opciones_hab" style="display: none;">
+                <label>La Habitacion cuenta con baño individual?</label>
+                <div class="form-check">
+                    <input type="radio" id="opc_si" name="baño_habitacion" value="si">
+                    <label for="opc_si"> SI</label><br>
+                    <input type="radio" id="opc_no" name="baño_habitacion" value="no">
+                    <label for="opc_no"> NO</label><br>
+                </div>
+            </div>
+            <input class="btn btn-primary" type="submit" value="GUARDAR">
+        </form>
+    </body>
+</html>

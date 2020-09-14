@@ -42,6 +42,32 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   margin: 0 0 30px 0; }
 
+<<<<<<< Updated upstream
+=======
+#titulo_ingreso{
+  color: #5a5a5a;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+/* #form_general{
+  display: flexbox;
+  align-items: center;
+  padding-left: 30%;
+  border: #000;
+  border-style: solid;
+} */
+
+.button-radio{
+  display: flexbox;
+  padding-left: 17%;
+}
+
+#primera_opc  {
+  margin-left: 40%;}
+
+>>>>>>> Stashed changes
 figure {
   margin-bottom: 2em; }
 
