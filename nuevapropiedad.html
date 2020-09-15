@@ -81,195 +81,198 @@
         </header>
         <br>
         <!-- FIN DE ENCABEZADO, INICIO DE FOrMULARIO -->
-        <h2 id="titulo_ingreso">Que propiedad desea ingresar?</h2>        
-        <div class="container">
-            <form id="form-principal">
-            <!--Seleccion de tipo de propiedad y en funcion a esta se despliega el formulario-->
-                <fieldset class="form-group">
-                <div class="row">
-                    <div class="col-sm-10 col-sm-offset-4">
-                        <legend class="col-form-label col-sm-2 pt-0">Elija el tipo de propiedad</legend>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="opc-casa" name="propiedad" value="1" onclick="formularioCasa()" >
-                            <label class="form-check-label" for="opc_casa">Casa</label>
+        <div class="fh5co-agent">
+            <br>
+            <h1 id="titulo_ingreso" class="font-weight-bold text-center">FORMULARIO INGRESO DE PROPIEDADES</h1>         -->
+            <div class="container" style="background-color: white; padding-top: 1em; border-radius: 20px;">
+                <form id="form-principal">
+                <!--Seleccion de tipo de propiedad y en funcion a esta se despliega el formulario-->
+                    <fieldset class="form-group">
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-4">
+                            <legend class="col-form-label col-sm-2 pt-0">Elija el tipo de propiedad</legend>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="opc-casa" name="propiedad" value="1" onclick="formularioCasa()" >
+                                <label class="form-check-label" for="opc-casa">Casa</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="opc-dpto" name="propiedad" value="2" onclick="formularioDpto()">
+                                <label class="form-check-label" for="opc-dpto">Departamento</label>
+                            </div>
+                            <div class="form-check">                                                
+                                <input class="form-check-input" type="radio" id="opc-hab" name="propiedad" value="3" onclick="formularioHab()">
+                                <label class="form-check-label" for="opc-hab">Habitacion</label>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="opc-dpto" name="propiedad" value="2" onclick="formularioDpto()">
-                            <label class="form-check-label" for="opc_dpto">Departamento</label>
-                        </div>
-                        <div class="form-check">                                                
-                            <input class="form-check-input" type="radio" id="opc-hab" name="propiedad" value="3" onclick="formularioHab()">
-                            <label class="form-check-label" for="opc_hab">Habitacion</label>
-                        </div>
                     </div>
-                </div>
-                </fieldset>        
-            <!--Datos de la propiedad, comun para todos los tipos de propiedades-->
-                <fieldset>
-                    <legend>Datos de propiedad</legend>
-                <div class="form-group row">
-                    <label for="descripcion" class="col-sm-2 col-form-label">Descripcion de la propiedad:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="descripcion" required>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="fecha-alta" class="col-sm-2 col-form-label">Fecha de ingreso:</label>
-                    <div class="col-sm-10">
-                        <input type="date" name="fecha-alta" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="metros-semicubiertos" class="col-sm-label col-sm-2">Metros semi cubiertos:</label>
-                    <div class="col-sm-10">
-                        <input type="number" name="metros-semicubiertos" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="metros-cubiertos" class="col-sm-label col-sm-2">Metros cubiertos:</label>
-                    <div class="col-sm-10">
-                        <input type="number" name="metros-cubiertos" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="capacidad_casa" class="col-sm-label col-sm-2">Capacidad:</label>
-                    <div class="col-sm-10">
-                        <input type="number" name="capacidad" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="cant-ambientes"class="col-sm-label col-sm-2">Cantidad de Ambientes:</label>
-                    <div class="col-sm-10">
-                        <input type="number" name="cant-ambientes" class="form-control" required>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-sm-label">¿Dispone de cochera?</label>
-                    <div class="col-sm-10">
-                        <input type="radio" id="opc_si" name="cochera" value="si" required>
-                        <label for="opc_si"> SI</label><br>
-                        <input type="radio" id="opc_no" name="cochera" value="no" required>
-                        <label for="opc_no"> NO</label><br>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="cantbaños_casa" class="col-sm-2 col-sm-label">Cantidad de Baños:</label>
-                    <div class="col-sm-10">
-                        <input type="number" name="cantbaños_casa" class="form-control" required>
-                    </div>
-                </div>
-                </fieldset><br>
-            <!-- Fieldset con los campos referidos al alquiler de las propiedades -->
-                <fieldset>
-                <legend>Datos Alquiler</legend>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-sm-label">¿Permite Cancelacion?</label>
-                    <div class="col-sm-10">
-                        <input type="radio" id="si-cancelacion" name="cancelacion" value="si" required>
-                        <label for="si-cancelacion"> SI</label><br>
-                        <input type="radio" id="no-cancelacion" name="cancelacion" value="no" required>
-                        <label for="no-cancelacion"> NO</label><br>       
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="tipo-alquiler" class="col-sm-2 col-sm-label">Tipo de alquiler:</label>
-                    <div class="col-sm-10">
-                        <select name="cars" id="tipo-alquiler" class="custom-select" required>
-                            <option value="tipo-1">Tipo 1</option>
-                            <option value="tipo-2">Tipo 2</option>
-                            <option value="tipo-3">Tipo 3</option>
-                            <option value="tipo-4">Tipo 4</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="descripcion-tipo-alquiler" class="col-sm-2 col-sm-label">Descripcion de alquiler:</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="descripcion-tipo-alquiler" class="form-control" required>
-                    </div>
-                </div>
-                </fieldset><br>
-            <!-- Parte de formulario para ingreso de una propiedad de tipo CASA -->
-                <fieldset id="opciones-casa" style="display: none;">
-                    <legend>Datos Casa</legend>
+                    </fieldset>        
+                <!--Datos de la propiedad, comun para todos los tipos de propiedades-->
+                    <fieldset>
+                        <legend>Datos de propiedad</legend>
                     <div class="form-group row">
-                        <label class="col-sm-label col-sm-2">¿La casa dispone de patio?</label>
+                        <label for="descripcion" class="col-sm-2 col-form-label">Descripcion de la propiedad:</label>
                         <div class="col-sm-10">
-                            <input type="radio" id="patio-casa-si" name="patio-casa" value="si" required>
+                            <input type="text" class="form-control" name="descripcion" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fecha-alta" class="col-sm-2 col-form-label">Fecha de ingreso:</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="fecha-alta" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="metros-semicubiertos" class="col-sm-label col-sm-2">Metros semi cubiertos:</label>
+                        <div class="col-sm-10">
+                            <input type="number" name="metros-semicubiertos" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="metros-cubiertos" class="col-sm-label col-sm-2">Metros cubiertos:</label>
+                        <div class="col-sm-10">
+                            <input type="number" name="metros-cubiertos" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="capacidad_casa" class="col-sm-label col-sm-2">Capacidad:</label>
+                        <div class="col-sm-10">
+                            <input type="number" name="capacidad" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="cant-ambientes"class="col-sm-label col-sm-2">Cantidad de Ambientes:</label>
+                        <div class="col-sm-10">
+                            <input type="number" name="cant-ambientes" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-sm-label">¿Dispone de cochera?</label>
+                        <div class="col-sm-10">
+                            <input type="radio" id="opc_si" name="cochera" value="si" required>
                             <label for="opc_si"> SI</label><br>
-                            <input type="radio" id="patio-casa-no" name="patio-casa" value="no" required>
+                            <input type="radio" id="opc_no" name="cochera" value="no" required>
                             <label for="opc_no"> NO</label><br>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-label col-sm-2">¿La casa dispone de pileta?</label>
+                        <label for="cantbaños_casa" class="col-sm-2 col-sm-label">Cantidad de Baños:</label>
                         <div class="col-sm-10">
-                            <input type="radio" id="pileta-casa-si" name="pileta-casa" value="si" required>
-                            <label for="opc_si"> SI</label><br>
-                            <input type="radio" id="pileta-casa-no" name="pileta-casa" value="no" required>
-                            <label for="opc_no"> NO</label><br>
+                            <input type="number" name="cantbaños_casa" class="form-control" required>
+                        </div>
+                    </div>
+                    </fieldset><br>
+                <!-- Fieldset con los campos referidos al alquiler de las propiedades -->
+                    <fieldset>
+                    <legend>Datos Alquiler</legend>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-sm-label">¿Permite Cancelacion?</label>
+                        <div class="col-sm-10">
+                            <input type="radio" id="si-cancelacion" name="cancelacion" value="si" required>
+                            <label for="si-cancelacion"> SI</label><br>
+                            <input type="radio" id="no-cancelacion" name="cancelacion" value="no" required>
+                            <label for="no-cancelacion"> NO</label><br>       
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-label col-sm-2">¿La casa dispone de terraza?</label>
+                        <label for="tipo-alquiler" class="col-sm-2 col-sm-label">Tipo de alquiler:</label>
                         <div class="col-sm-10">
-                            <input type="radio" id="opc_si" name="terraza_casa" value="si" required>
+                            <select name="cars" id="tipo-alquiler" class="custom-select" required>
+                                <option value="tipo-1">Tipo 1</option>
+                                <option value="tipo-2">Tipo 2</option>
+                                <option value="tipo-3">Tipo 3</option>
+                                <option value="tipo-4">Tipo 4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="descripcion-tipo-alquiler" class="col-sm-2 col-sm-label">Descripcion de alquiler:</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="descripcion-tipo-alquiler" class="form-control" required>
+                        </div>
+                    </div>
+                    </fieldset><br>
+                <!-- Parte de formulario para ingreso de una propiedad de tipo CASA -->
+                    <fieldset id="opciones-casa" style="display: none;">
+                        <legend>Datos Casa</legend>
+                        <div class="form-group row">
+                            <label class="col-sm-label col-sm-2">¿La casa dispone de patio?</label>
+                            <div class="col-sm-10">
+                                <input type="radio" id="patio-casa-si" name="patio-casa" value="si" required>
+                                <label for="opc_si"> SI</label><br>
+                                <input type="radio" id="patio-casa-no" name="patio-casa" value="no" required>
+                                <label for="opc_no"> NO</label><br>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-label col-sm-2">¿La casa dispone de pileta?</label>
+                            <div class="col-sm-10">
+                                <input type="radio" id="pileta-casa-si" name="pileta-casa" value="si" required>
+                                <label for="opc_si"> SI</label><br>
+                                <input type="radio" id="pileta-casa-no" name="pileta-casa" value="no" required>
+                                <label for="opc_no"> NO</label><br>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-label col-sm-2">¿La casa dispone de terraza?</label>
+                            <div class="col-sm-10">
+                                <input type="radio" id="opc_si" name="terraza_casa" value="si" required>
+                                <label for="opc_si"> SI</label><br>
+                                <input type="radio" id="opc_no" name="terraza_casa" value="no" required>
+                                <label for="opc_no"> NO</label><br>
+                            </div>
+                        </div>    
+                    </fieldset>
+                <!-- Parte de formulario para ingreso de una propiedad de tipo DEPARTAMENTO -->
+                    <fieldset id="opciones-dpto" style="display: none;">
+                        <legend>Datos Departamento</legend>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-sm-label">¿El Departamento cuenta con frente?</label>
+                        <div class="col-sm-10">
+                            <input type="radio" id="frente-dpto-si" name="frente-dpto" value="si">
                             <label for="opc_si"> SI</label><br>
-                            <input type="radio" id="opc_no" name="terraza_casa" value="no" required>
+                            <input type="radio" id="frente-dpto-no" name="frente-dpto" value="no">
                             <label for="opc_no"> NO</label><br>
                         </div>
                     </div>    
-                </fieldset>
-            <!-- Parte de formulario para ingreso de una propiedad de tipo DEPARTAMENTO -->
-                <fieldset id="opciones-dpto" style="display: none;">
-                    <legend>Datos Departamento</legend>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-sm-label">¿El Departamento cuenta con frente?</label>
-                    <div class="col-sm-10">
-                        <input type="radio" id="frente-dpto-si" name="frente-dpto" value="si">
-                        <label for="opc_si"> SI</label><br>
-                        <input type="radio" id="frente-dpto-no" name="frente-dpto" value="no">
-                        <label for="opc_no"> NO</label><br>
-                    </div>
-                </div>    
-                <div class="form-group row">
-                    <label class="col-sm-2 col-sm-label">¿El Departamento cuenta con Contrafrente?</label>
-                    <div class="col-sm-10">
-                        <input type="radio" id="contrafrente-dpto-si" name="contrafrente-dpto" value="si">
-                        <label for="opc_si"> SI</label><br>
-                        <input type="radio" id="contrafrente-dpto-no" name="contrafrente-dpto" value="no">
-                        <label for="opc_no"> NO</label><br>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-label col-sm-2">¿El departamento cuenta con espacios comunes?</label>
-                    <div class="col-sm-10">
-                        <input type="radio" id="esp-comunes-dpto-si" name="esp-comunes-dpto" value="si">
-                        <label for="opc_si"> SI</label><br>
-                        <input type="radio" id="esp-comunes-dpto-no" name="esp-comunes-dpto" value="no">
-                        <label for="opc_no"> NO</label><br>
-                    </div>
-                </div>
-                </fieldset>
-            <!-- Parte de formulario para ingreso de una propiedad de tipo HABITACION -->    
-                <fieldset id="opciones-hab" style="display: none;">
-                    <legend>Datos Habitacion</legend>
                     <div class="form-group row">
-                        <label class="col-sm-label col-sm-2">La Habitacion cuenta con baño individual?</label>
+                        <label class="col-sm-2 col-sm-label">¿El Departamento cuenta con Contrafrente?</label>
                         <div class="col-sm-10">
-                            <input type="radio" id="baño-habitacion-si" name="baño-habitacion" value="si">
-                            <label for="baño-habitacion-si"> SI</label><br>
-                            <input type="radio" id="baño-habitacion-no" name="baño-habitacion" value="no">
-                            <label for="baño-habitacion-no"> NO</label><br>
+                            <input type="radio" id="contrafrente-dpto-si" name="contrafrente-dpto" value="si">
+                            <label for="opc_si"> SI</label><br>
+                            <input type="radio" id="contrafrente-dpto-no" name="contrafrente-dpto" value="no">
+                            <label for="opc_no"> NO</label><br>
                         </div>
                     </div>
-                </fieldset>
-                <div class="form-group row">
-                    <div class="col-sm-2 col-sm-offset-6">
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    <div class="form-group row">
+                        <label class="col-sm-label col-sm-2">¿El departamento cuenta con espacios comunes?</label>
+                        <div class="col-sm-10">
+                            <input type="radio" id="esp-comunes-dpto-si" name="esp-comunes-dpto" value="si">
+                            <label for="opc_si"> SI</label><br>
+                            <input type="radio" id="esp-comunes-dpto-no" name="esp-comunes-dpto" value="no">
+                            <label for="opc_no"> NO</label><br>
+                        </div>
                     </div>
-                </div>
-            </form>
+                    </fieldset>
+                <!-- Parte de formulario para ingreso de una propiedad de tipo HABITACION -->    
+                    <fieldset id="opciones-hab" style="display: none;">
+                        <legend>Datos Habitacion</legend>
+                        <div class="form-group row">
+                            <label class="col-sm-label col-sm-2">La Habitacion cuenta con baño individual?</label>
+                            <div class="col-sm-10">
+                                <input type="radio" id="baño-habitacion-si" name="baño-habitacion" value="si">
+                                <label for="baño-habitacion-si"> SI</label><br>
+                                <input type="radio" id="baño-habitacion-no" name="baño-habitacion" value="no">
+                                <label for="baño-habitacion-no"> NO</label><br>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-sm-offset-6">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </body>
 </html>
