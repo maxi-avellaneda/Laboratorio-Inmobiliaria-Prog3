@@ -61,7 +61,6 @@
                     <nav id="fh5co-menu-wrap" role="navigation">
                         <ul class="sf-menu" id="fh5co-primary-menu">
                             <li class="active"><a href="login.html">Ingresar</a></li>
-                            <li><a href="#">Registrarse</a></li>
                             <li><a href="#">Gestion Propiedades</a></li>
                             <li>
                                 <a href="#" class="fh5co-sub-ddown">Gestion Estadisticas</a>
@@ -83,7 +82,7 @@
         <!-- FIN DE ENCABEZADO, INICIO DE FOrMULARIO -->
         <div class="fh5co-agent">
             <br>
-            <h1 id="titulo_ingreso" class="font-weight-bold text-center">FORMULARIO INGRESO DE PROPIEDADES</h1>         -->
+            <h1 id="titulo_ingreso" class="font-weight-bold text-center" style="color: white;">FORMULARIO INGRESO DE PROPIEDADES</h1>
             <div class="container" style="background-color: white; padding-top: 1em; border-radius: 20px;">
                 <form id="form-principal">
                 <!--Seleccion de tipo de propiedad y en funcion a esta se despliega el formulario-->
@@ -110,13 +109,13 @@
                     <fieldset>
                         <legend>Datos de propiedad</legend>
                     <div class="form-group row">
-                        <label for="descripcion" class="col-sm-2 col-form-label">Descripcion de la propiedad:</label>
+                        <label for="descripcion" class="col-sm-2 col-sm-label">Descripcion de la propiedad:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="descripcion" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="fecha-alta" class="col-sm-2 col-form-label">Fecha de ingreso:</label>
+                        <label for="fecha-alta" class="col-sm-2 col-sm-label">Fecha de ingreso:</label>
                         <div class="col-sm-10">
                             <input type="date" name="fecha-alta" class="form-control" required>
                         </div>
@@ -195,7 +194,7 @@
                     <fieldset id="opciones-casa" style="display: none;">
                         <legend>Datos Casa</legend>
                         <div class="form-group row">
-                            <label class="col-sm-label col-sm-2">¿La casa dispone de patio?</label>
+                            <label class=" col-sm-2 col-sm-label">¿La casa dispone de patio?</label>
                             <div class="col-sm-10">
                                 <input type="radio" id="patio-casa-si" name="patio-casa" value="si" required>
                                 <label for="opc_si"> SI</label><br>
@@ -204,7 +203,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-label col-sm-2">¿La casa dispone de pileta?</label>
+                            <label class=" col-sm-2 col-sm-label">¿La casa dispone de pileta?</label>
                             <div class="col-sm-10">
                                 <input type="radio" id="pileta-casa-si" name="pileta-casa" value="si" required>
                                 <label for="opc_si"> SI</label><br>
@@ -215,10 +214,10 @@
                         <div class="form-group row">
                             <label class="col-sm-label col-sm-2">¿La casa dispone de terraza?</label>
                             <div class="col-sm-10">
-                                <input type="radio" id="opc_si" name="terraza_casa" value="si" required>
-                                <label for="opc_si"> SI</label><br>
-                                <input type="radio" id="opc_no" name="terraza_casa" value="no" required>
-                                <label for="opc_no"> NO</label><br>
+                                <input type="radio" id="terraza-casa-si" name="terraza-casa" value="si" required>
+                                <label for="terraza-casa-si"> SI</label><br>
+                                <input type="radio" id="terraza-casa-no" name="terraza-casa" value="no" required>
+                                <label for="terraza-casa-no"> NO</label><br>
                             </div>
                         </div>    
                     </fieldset>

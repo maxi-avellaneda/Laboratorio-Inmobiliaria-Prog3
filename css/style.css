@@ -49,6 +49,10 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
+.col-sm-label{
+  color: #44C662;
+} 
+
 #form_general{
   display: flexbox;
   align-items: center;
