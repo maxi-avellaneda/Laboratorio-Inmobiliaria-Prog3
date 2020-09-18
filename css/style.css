@@ -529,7 +529,7 @@ figure {
     font-size: 13px;
     margin-top: 13px; } }
 #fh5co-search-map .s-holder input[type="text"] {
-  padding: 24px 10px !important;
+  padding: 12px 10px !important;
   font-weight: 700;
   font-size: 12px; }
 #fh5co-search-map .s-holder input[type="text"]::-webkit-input-placeholder {
@@ -546,7 +546,7 @@ figure {
   color: #44C662 !important; }
 #fh5co-search-map .s-holder input[type="text"], #fh5co-search-map .s-holder .cs-select {
   width: 60% !important;
-  float: right;
+  float: left;
   background: #fff !important;
   border: none;
   -webkit-border-radius: 0;
@@ -561,6 +561,8 @@ figure {
   float: left; }
 #fh5co-search-map .s-holder .wide .cs-select-half:last-child {
   float: right; }
+
+
 #fh5co-search-map .s-holder .btn {
   width: 60%;
   float: right;
