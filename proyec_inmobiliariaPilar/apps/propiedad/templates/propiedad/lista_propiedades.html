@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+
+{% block contenido %}
+    <h1 style="text-align: center;">LISTADO DE PROPIEDADES</h1>
+
+    <ul>
+        {% if propiedades%}
+            {% for prop in propiedades%}
+            <li>{{prop}}</li>
+
+            {% endfor %}
+        {% else %}
+            <p> NO HAY PROPIEDADES EN LA BASE DE DATOS</p>    
+        {% endif %}    
+
+    </ul>
+
+{% endblock %}
+
+{% block aside %}
+{% endblock %}
+
+{% block busqueda %}
+{% endblock  %}
+
+{% block propiedadespop %}
+{% endblock %}

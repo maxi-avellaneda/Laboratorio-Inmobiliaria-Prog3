@@ -40,12 +40,12 @@
                 <div class="container">
                     <div class="nav-header">
                         <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
-                        <h1 id="fh5co-logo"><a href="index.html"><i class="icon-home"></i>INMOBILIARIA <span>PILAR</span></a></h1>
+                        <h1 id="fh5co-logo"><a href="http://127.0.0.1:8000/"><i class="icon-home"></i>INMOBILIARIA <span>PILAR</span></a></h1>
                         <!-- BARRA DE MENU -->
                         <nav id="fh5co-menu-wrap" role="navigation">
                             <ul class="sf-menu" id="fh5co-primary-menu">
-                                <li class="active"><a href="login.html">Ingresar</a></li>
-                                <li><a href="nuevapropiedad.html">Gestion Propiedades</a></li>
+                                <li class="active"><a href="login.html">Login</a></li>
+                                <li><a href="propiedades/listadoPropiedades">Propiedades</a></li>
                                 <li>
                                     <a href="#" class="fh5co-sub-ddown">Gestion Estadisticas</a>
                                     <ul class="fh5co-sub-menu" >
@@ -63,13 +63,21 @@
                 </div>
             </header>
 
+            <section>
+                {% block contenido %}
+
+                {% endblock %}
+            </section>
+
             <!-- EN EL ASIDE VA EL CONTENIDO REFERIDO A OFERTAS DE LAS PROPIEDADES, EN ESTE CASO EL ASIDE SE SITUA
             ABAJO DE LA BARRA DE NAVEGACION (NAV).  -->
+            {% block aside %}
             <aside id="fh5co-hero" class="js-fullheight">
                 <div class="flexslider js-fullheight">
                     <!-- AL CARRUSEL SE LO TRABAJA COMO UNA LISTA, POR AHORA SOLO TIENE 3 ofertas-->
+                    
                     <ul class="slides">
-                        <li style="background-image: url(base/images/dormitorio.jpg );">
+                        <li style="background-image: url({% static 'base/images/dormitorio.jpg' %});">
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
@@ -93,7 +101,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li style="background-image: url(images/alquiler2.jpg);">
+                        <li style="background-image: url({% static 'base/images/alquiler2.jpg' %});">
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
@@ -116,7 +124,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li style="background-image: url(images/depto.jpg);">
+                        <li style="background-image: url({% static 'base/images/depto.jpg' %});">
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
@@ -142,135 +150,118 @@
                     </ul>
                 </div>
             </aside>
+            {% endblock %}
+
+
 
             <!-- EL DIV PRINCIPAL CONTIENE OTROS DOS, EL QUE SE POSICIONA A LA IZQ ES EL BUSCADOR DE PROPIEDADES
             EL DE LA DERECHA SOLO SE USA PARA PONER UNA IAMAGEN ILUSTRATIVA	-->
+            {% block busqueda %}
             <div id="fh5co-search-map">
                 <div class="search-property">
                     <div class="s-holder">
                         <h2>Buscar Propiedades</h2>
-                        <div class="row">
-                            <div class="col-xxs-12 col-xs-12">
-                                <div class="input-field">
-                                    <label for="from">Palabra Clave:</label>
-                                    <input type="text" class="form-control" id="from-place" placeholder="Palabra Clave"/>
-                                </div>
-                            </div>
-                            <div class="col-xxs-12 col-xs-12">
-                                <section>
-                                    <label for="tipo_prop">Tipo de Propiedad:</label>
-                                    <select class="cs-select cs-skin-border">
-                                        <option value="" disabled selected>Elija Opcion</option>
-                                        <option value="1">Casa</option>
-                                        <option value="2">Departamento</option>
-                                        <option value="3">habitacion</option>
-                                    </select>
-                                </section>
-                            </div>
-                            <div class="col-xxs-12 col-xs-12">
-                                <section>
-                                    <label for="from">Capacidad:</label>
-                                    <input type="text"  placeholder="Capacidad"/>
-                                    <!--<select class="cs-select cs-skin-border input-half">
-                                        <option value="" disabled selected>capacidad</option>
-                                        <option value="1">1 persona</option>
-                                        <option value="2">2 personas</option>
-                                    </select>-->
-                                </section>
-                            </div>
-                            <div class="col-xxs-12 col-xs-12">
-                                <div class="input-field">
-                                    <label for="from">Ubicacion:</label>
-                                    <input type="text" class="form-control" id="from-place" placeholder="Ubicacion"/>
-                                </div>
-                            </div>
-                            <div class="col-xxs-12 col-xs-12">
-                                <section>
-                                    <label for="class">Precio:</label>
-                                    <div class="wide">
-                                        <select class="cs-select cs-select-half cs-skin-border input-half">
-                                            <option value="" disabled selected>Rango 1</option>
-                                            <option value="1">$5.000</option>
-                                            <option value="2">$10.000</option>
-                                        </select>
-                                        <select id="rango2" class="cs-select cs-select-half cs-skin-border input-half">
-                                            <option value="" disabled selected>Rango 2</option>
-                                            <option value="1">$50.000</option>
-                                            <option value="2">$100.000</option>
-                                        </select>
+                        <form action="propiedades/buscar/" method="GET">
+                            <div class="row">
+                                <div class="col-xxs-12 col-xs-12">
+                                    <div class="input-field">
+                                        <label for="from">Palabra Clave:</label>
+                                        <input type="text" class="form-control" id="from-place" name="palclave" placeholder="Palabra Clave"/>
                                     </div>
-                                </section>
-                            </div>
-                            <div class="col-xxs-12 col-xs-12">
-                                <div class="input-field">
-                                    
-                                    <label for="from">Dormitorios:</label>
-                                    <input type="text"  placeholder="1"/>
-                                </div>	
-                            </div>
-                            <div class="col-xxs-12 col-xs-12">
-                                <section>
-                                    <label for="class">Baños:</label>
-                                    <!--<div class="wide">-->
+                                </div>
+                                <div class="col-xxs-12 col-xs-12">
+                                    <section>
+                                        <label for="tipo_prop">Tipo de Propiedad:</label>
                                         <select class="cs-select cs-skin-border">
                                             <option value="" disabled selected>Elija Opcion</option>
-                                            <option value="1">1 Baño</option>
-                                            <option value="2">2 Baños</option>
+                                            <option value="1">Casa</option>
+                                            <option value="2">Departamento</option>
+                                            <option value="3">habitacion</option>
                                         </select>
-                                        <!--<select class="cs-select cs-select-half cs-skin-border input-half">
-                                            <option value="" disabled selected>Any</option>
-                                            <option value="1">Building</option>
-                                            <option value="2">Office</option>
-                                        </select>-->
-                                    <!--</div>-->
-                                </section>
+                                    </section>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12">
+                                    <section>
+                                        <label for="from">Capacidad:</label>
+                                        <input type="text"  placeholder="Capacidad"/>
+                                    </section>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12">
+                                    <div class="input-field">
+                                        <label for="from">Ubicacion:</label>
+                                        <input type="text" class="form-control" id="from-place" placeholder="Ubicacion"/>
+                                    </div>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12">
+                                    <section>
+                                        <label for="class">Precio:</label>
+                                        <div class="wide">
+                                            <select class="cs-select cs-select-half cs-skin-border input-half">
+                                                <option value="" disabled selected>Rango 1</option>
+                                                <option value="1">$5.000</option>
+                                                <option value="2">$10.000</option>
+                                            </select>
+                                            <select id="rango2" class="cs-select cs-select-half cs-skin-border input-half">
+                                                <option value="" disabled selected>Rango 2</option>
+                                                <option value="1">$50.000</option>
+                                                <option value="2">$100.000</option>
+                                            </select>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12">
+                                    <div class="input-field">
+                                        
+                                        <label for="from">Dormitorios:</label>
+                                        <input type="text"  placeholder="1"/>
+                                    </div>	
+                                </div>
+                                <div class="col-xxs-12 col-xs-12">
+                                    <section>
+                                        <label for="class">Baños:</label>
+                                            <select class="cs-select cs-skin-border">
+                                                <option value="" disabled selected>Elija Opcion</option>
+                                                <option value="1">1 Baño</option>
+                                                <option value="2">2 Baños</option>
+                                            </select>
+                                    </section>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12">
+                                    <section>
+                                        <label for="class">Zona:</label>
+                                            <select class="cs-select cs-skin-border">
+                                                <option value="" disabled selected>Elija Opcion</option>
+                                                <option value="1">Norte</option>
+                                                <option value="2">Sur</option>
+                                                <option value="2">Este</option>
+                                                <option value="2">Oeste</option>
+                                            </select>
+                                    </section>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12">
+                                    <section>
+                                        <label for="class">Garage:</label>
+                                            <select class="cs-select cs-skin-border">
+                                                <option value="" disabled selected>Cantidad</option>
+                                                <option value="1">1 Lugar</option>
+                                                <option value="2">2 Lugares</option>
+                                            </select>
+                                    </section>
+                                </div>
+                                <div class="col-xxs-12 col-xs-12 text-center">
+                                    <p><input type="submit" class="btn btn-primary btn-lg" value="Buscar"></p>
+                                </div>
                             </div>
-                            <div class="col-xxs-12 col-xs-12">
-                                <section>
-                                    <label for="class">Zona:</label>
-                                    <!--<div class="wide">-->
-                                        <select class="cs-select cs-skin-border">
-                                            <option value="" disabled selected>Elija Opcion</option>
-                                            <option value="1">Norte</option>
-                                            <option value="2">Sur</option>
-                                            <option value="2">Este</option>
-                                            <option value="2">Oeste</option>
-                                        </select>
-                                        <!--<select class="cs-select cs-select-half cs-skin-border input-half">
-                                            <option value="" disabled selected>Any</option>
-                                            <option value="1">Building</option>
-                                            <option value="2">Office</option>
-                                        </select>-->
-                                    <!--</div>-->
-                                </section>
-                            </div>
-                            <div class="col-xxs-12 col-xs-12">
-                                <section>
-                                    <label for="class">Garage:</label>
-                                    <!--<div class="wide">-->
-                                        <select class="cs-select cs-skin-border">
-                                            <option value="" disabled selected>Cantidad</option>
-                                            <option value="1">1 Lugar</option>
-                                            <option value="2">2 Lugares</option>
-                                        </select>
-                                        <!--<select class="cs-select cs-select-half cs-skin-border input-half">
-                                            <option value="" disabled selected>Any</option>
-                                            <option value="1">Building</option>
-                                            <option value="2">Office</option>
-                                        </select>-->
-                                    <!--</div>-->
-                                </section>
-                            </div>
-                            <div class="col-xxs-12 col-xs-12 text-center">
-                                <p><a class="btn btn-primary btn-lg" href="#">Buscar</a></p>
-                            </div>
-                        </div>
+                        </form>
+                        
                     </div>
                 </div>
-                <div class="map" style="background-image: url(images/busqueda-propiedad.jpg);">
+                <div class="map" style="background-image: url({% static 'base/images/busqueda-propiedad.jpg' %});">
                 </div>
             </div>
+            {% endblock %}
 
+            {% block propiedadespop %}
             <div id="fh5co-popular-properties" class="fh5co-section-gray">
                 <div class="container">
                     <div class="row">
@@ -281,7 +272,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 animate-box">
-                            <a href="properties.html" class="fh5co-property" style="background-image: url(images/Casa_pileta1.jpg);">
+                            <a href="#" class="fh5co-property" style="background-image: url({% static 'base/images/Casa_pileta1.jpg' %});">
                                 <span class="status">Alquila</span>
                                 <div class="prop-details">
                                     <span class="price">$30.000 mensual</span>
@@ -290,7 +281,7 @@
                             </a>
                         </div>
                         <div class="col-md-4 animate-box">
-                            <a href="properties.html" class="fh5co-property" style="background-image: url(images/casa-2.jpg);">
+                            <a href="properties.html" class="fh5co-property" style="background-image: url({% static 'base/images/casa-2.jpg' %});">
                                 <span class="status">Alquila</span>
                                 <div class="prop-details">
                                     <span class="price">$500 x dia</span>
@@ -299,7 +290,7 @@
                             </a>
                         </div>
                         <div class="col-md-4 animate-box">
-                            <a href="#" class="fh5co-property" style="background-image: url(images/casa-pileta2.jpg);">
+                            <a href="#" class="fh5co-property" style="background-image: url({% static 'base/images/casa-pileta2.jpg' %});">
                                 <span class="status">Alquila</span>
                                 <div class="prop-details">
                                     <span class="price">$8.000 semanal</span>
@@ -310,6 +301,7 @@
                     </div>
                 </div>
             </div>
+            {% endblock %}
 
             <div id="fh5co-about" class="fh5co-agent">
                 <div class="container">
@@ -322,7 +314,7 @@
                     <div class="row">
                         <div class="col-sm-3 text-center animate-box" data-animate-effect="fadeIn">
                             <div class="fh5co-staff">
-                                <img class="img-responsive" src="images/user-1.jpg" alt="Free HTML5 Templates by freeHTML5.co">
+                                <img class="img-responsive" src="{% static 'base/images/user-1.jpg' %}" alt="Free HTML5 Templates by freeHTML5.co">
                                 <h3>Maxi Avellaneda</h3>
                                 <p>HTML5-CSS-JAVASCRIPT</p>
                                 <p class="fh5co-social-icons">
@@ -336,7 +328,7 @@
                         </div>
                         <div class="col-sm-3 text-center animate-box" data-animate-effect="fadeIn">
                             <div class="fh5co-staff">
-                                <img class="img-responsive" src="images/user-2.jpg" alt="Free HTML5 Templates by freeHTML5.co">
+                                <img class="img-responsive" src="{% static 'base/images/user-2.jpg' %}" alt="Free HTML5 Templates by freeHTML5.co">
                                 <h3>Miguel Cejas</h3>
                                 <p>HTML5-CSS-JAVASCRIPT</p>
                                 <p class="fh5co-social-icons">
@@ -350,7 +342,7 @@
                         </div>
                         <div class="col-sm-3 text-center animate-box" data-animate-effect="fadeIn">
                             <div class="fh5co-staff">
-                                <img class="img-responsive" src="images/user-3.jpg" alt="Free HTML5 Templates by freeHTML5.co">
+                                <img class="img-responsive" src="{% static 'base/images/user-3.jpg' %}" alt="Free HTML5 Templates by freeHTML5.co">
                                 <h3>Pildoras Informaticas</h3>
                                 <p>HTML5-CSS-JAVASCRIPT</p>
                                 <p class="fh5co-social-icons">
@@ -364,7 +356,7 @@
                         </div>
                         <div class="col-sm-3 text-center animate-box" data-animate-effect="fadeIn">
                             <div class="fh5co-staff">
-                                <img class="img-responsive" src="images/user-4.jpg" alt="Free HTML5 Templates by freeHTML5.co">
+                                <img class="img-responsive" src="{% static 'base/images/user-4.jpg' %}" alt="Free HTML5 Templates by freeHTML5.co">
                                 <h3>HTML5</h3>
                                 <p>HTML5-CSS-JAVASCRIPT</p>
                                 <p class="fh5co-social-icons">
@@ -379,14 +371,14 @@
                     </div>
                 </div>
             </div>
-            <!-- fh5co-blog-section - contactarse con los desarrolladores -->
-            <div id="fh5co-contact" class="fh5co-contact">
+            <!-- fh5co-blog-section - contactarse con los Agentes o administradores-->
+            <!--<div id="fh5co-contact" class="fh5co-contact">
                 <div class="half-contact">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12 col-md-offset-0 text-center heading-section animate-box">
-                                <h3>Contactanos, estamos aquí para ayudarte 24/7</h3>
-                                <p>Dejanos tu mensaje enviando un mail. Completa los siguientes campos.</p>
+                                <h3>Si quieres alquilar alguna Propiedad, CONTACTANOS</h3>
+                                <p>Completá el siguiente formulario con los datos del titular que alquilará la propiedad.</p>
                             </div>
                         </div>
                         <div class="row">
@@ -394,7 +386,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Nombre">
+                                            <input type="text" class="form-control" placeholder="Nombre y Apellido">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -417,9 +409,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="half-bg" style="background-image: url(images/cover_bg_2.jpg);"></div>
-            </div>
-
+                <div class="half-bg" style="background-image: url({% static 'base/images/cover_bg_2.jpg' %});"></div>
+            </div>-->
             <!-- Pie de pagina -->
             <footer>
                 <div id="footer">
@@ -433,7 +424,7 @@
                             <div class="col-md-3 col-md-push-1">
                                 <h3 class="section-title">Links</h3>
                                 <ul>
-                                    <li><a href="index.html">Inicio</a></li>
+                                    <li><a href="">Inicio</a></li>
                                     <li><a href="#">Propiedades</a></li>
                                     <li><a href="#">Desarrolladores</a></li>
                                     <li><a href="#">Blog</a></li>
@@ -451,20 +442,7 @@
                                     <li><a href="#">Contactanos</a></li>
                                 </ul>
                             </div>
-                            <div class="col-md-3">
-                                <h3 class="section-title">Boletin Informativo</h3>
-                                <p>Escribenos para mas Informacion</p>
-                                <form class="form-inline" id="fh5co-header-subscribe">
-                                    <div class="row">
-                                        <div class="col-md-12 col-md-offset-0">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="email" placeholder="ingresa tu mail">
-                                                <button type="submit" class="btn btn-default"><i class="icon-paper-plane"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-md-12">

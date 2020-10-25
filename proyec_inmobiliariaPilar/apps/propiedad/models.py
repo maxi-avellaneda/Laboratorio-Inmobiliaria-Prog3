@@ -21,6 +21,9 @@ class Propiedad(models.Model):
     tipo_alquiler=models.CharField(max_length=7,choices=opc_tipo_alquiler)
     fecha_alta=models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return 'Codigo Propiedad= %s   Tipo Alquiler= %s ' %(self.cod_propiedad,self.tipo_alquiler)
+
 class PropiedadCasa(Propiedad):
     opc=(
         ('si','Si'),
