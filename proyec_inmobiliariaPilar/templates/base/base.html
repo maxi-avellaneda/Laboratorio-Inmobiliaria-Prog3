@@ -44,8 +44,8 @@
                         <!-- BARRA DE MENU -->
                         <nav id="fh5co-menu-wrap" role="navigation">
                             <ul class="sf-menu" id="fh5co-primary-menu">
-                                <li class="active"><a href="login.html">Login</a></li>
-                                <li><a href="propiedades/listadoPropiedades">Propiedades</a></li>
+                                <li class="active"><a href="#">Login</a></li>
+                                <li><a href="/listadoPropiedades">Propiedades</a></li>
                                 <li>
                                     <a href="#" class="fh5co-sub-ddown">Gestion Estadisticas</a>
                                     <ul class="fh5co-sub-menu" >
@@ -62,106 +62,28 @@
                     </div>
                 </div>
             </header>
+            
+            <!-- el block contenido servira para diferentes paginas dinamicas-->
+            {% block contenido %}
 
-            <section>
-                {% block contenido %}
-
-                {% endblock %}
-            </section>
-
-            <!-- EN EL ASIDE VA EL CONTENIDO REFERIDO A OFERTAS DE LAS PROPIEDADES, EN ESTE CASO EL ASIDE SE SITUA
-            ABAJO DE LA BARRA DE NAVEGACION (NAV).  -->
-            {% block aside %}
-            <aside id="fh5co-hero" class="js-fullheight">
-                <div class="flexslider js-fullheight">
-                    <!-- AL CARRUSEL SE LO TRABAJA COMO UNA LISTA, POR AHORA SOLO TIENE 3 ofertas-->
-                    
-                    <ul class="slides">
-                        <li style="background-image: url({% static 'base/images/dormitorio.jpg' %});">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
-                                        <div class="slider-text-inner">
-                                            <div class="desc">
-                                                <span class="status">OFERTA</span>
-                                                <h1>Nuevo Dormitorio en Sumalao</h1>
-                                                    <h2 class="price">$10.000</h2>
-                                                    <p>Nuevo Dormitorio para alquilar, dos habitaciones al precio de una
-                                                        , cada habitacion incluye vestidor propio.</p>
-                                                    <p class="details">
-                                                        <span>20 metros cuadrados</span>
-                                                        <span>2 Dormitorios</span>
-                                                        <span>1 Baño</span>
-                                                        <span>Vestidor</span>
-                                                    </p>
-                                                    <p><a class="btn btn-primary btn-lg" href="#">Mas Info</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li style="background-image: url({% static 'base/images/alquiler2.jpg' %});">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
-                                        <div class="slider-text-inner">
-                                            <div class="desc">
-                                                <span class="status">OFERTA</span>
-                                                <h1>Nueva casa en Las Juntas</h1>
-                                                    <h2 class="price">$100.000</h2>
-                                                    <p>Nueva Casa en oferta para alquilar, gran comodidad, ubicada en Ambato- Las Juntas.</p>
-                                                    <p class="details">
-                                                        <span>100 metros cuadrados</span>
-                                                        <span>4 Dormitorios</span>
-                                                        <span>2 Baños</span>
-                                                        <span>2 Garages</span>
-                                                    </p>
-                                                    <p><a class="btn btn-primary btn-lg" href="#">Mas Info</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li style="background-image: url({% static 'base/images/depto.jpg' %});">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
-                                        <div class="slider-text-inner">
-                                            <div class="desc">
-                                                <span class="status">OFERTA</span>
-                                                <h1>Nuevo Depto en Capital </h1>
-                                                    <h2 class="price">$25.000</h2>
-                                                    <p>Nuevo Depto a un buen precio, amoblado. Se permiten mascotas</p>
-                                                    <p class="details">
-                                                        <span>50 metros cuadrados</span>
-                                                        <span>2 Dormitorios</span>
-                                                        <span>2 Baños</span>
-                                                        <span>Cocina-Comedor</span>
-                                                    </p>
-                                                    <p><a class="btn btn-primary btn-lg" href="#">Mas Info</a></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>		   	
-                    </ul>
-                </div>
-            </aside>
             {% endblock %}
 
+            <aside id="fh5co-hero" class="js-fullheight">
+                <div class="flexslider js-fullheight">
+                    {% block carrusel %}
 
-
+                    {% endblock %}
+                </div>
+            </aside>
+            
+            {% block busqueda %}
             <!-- EL DIV PRINCIPAL CONTIENE OTROS DOS, EL QUE SE POSICIONA A LA IZQ ES EL BUSCADOR DE PROPIEDADES
             EL DE LA DERECHA SOLO SE USA PARA PONER UNA IAMAGEN ILUSTRATIVA	-->
-            {% block busqueda %}
             <div id="fh5co-search-map">
                 <div class="search-property">
                     <div class="s-holder">
                         <h2>Buscar Propiedades</h2>
-                        <form action="propiedades/buscar/" method="GET">
+                        <form action="buscar/" method="GET">
                             <div class="row">
                                 <div class="col-xxs-12 col-xs-12">
                                     <div class="input-field">
@@ -183,13 +105,13 @@
                                 <div class="col-xxs-12 col-xs-12">
                                     <section>
                                         <label for="from">Capacidad:</label>
-                                        <input type="text"  placeholder="Capacidad"/>
+                                        <input type="text" name="capacidad" placeholder="Capacidad"/>
                                     </section>
                                 </div>
                                 <div class="col-xxs-12 col-xs-12">
                                     <div class="input-field">
                                         <label for="from">Ubicacion:</label>
-                                        <input type="text" class="form-control" id="from-place" placeholder="Ubicacion"/>
+                                        <input type="text" class="form-control" name="ubic" id="from-place" placeholder="Ubicacion"/>
                                     </div>
                                 </div>
                                 <div class="col-xxs-12 col-xs-12">
@@ -213,7 +135,7 @@
                                     <div class="input-field">
                                         
                                         <label for="from">Dormitorios:</label>
-                                        <input type="text"  placeholder="1"/>
+                                        <input type="text" name="dormitorios"  placeholder="1"/>
                                     </div>	
                                 </div>
                                 <div class="col-xxs-12 col-xs-12">
@@ -260,48 +182,13 @@
                 </div>
             </div>
             {% endblock %}
+            
 
             {% block propiedadespop %}
-            <div id="fh5co-popular-properties" class="fh5co-section-gray">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
-                            <h3>Propiedades Populares</h3>
-                            <p>En esta seccion podra ver las propiedades mas populares y mas buscadas por nuestros Clientes.</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 animate-box">
-                            <a href="#" class="fh5co-property" style="background-image: url({% static 'base/images/Casa_pileta1.jpg' %});">
-                                <span class="status">Alquila</span>
-                                <div class="prop-details">
-                                    <span class="price">$30.000 mensual</span>
-                                    <h3>Propiedad en zona norte, Capital San Fernando, Cta</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 animate-box">
-                            <a href="properties.html" class="fh5co-property" style="background-image: url({% static 'base/images/casa-2.jpg' %});">
-                                <span class="status">Alquila</span>
-                                <div class="prop-details">
-                                    <span class="price">$500 x dia</span>
-                                    <h3>Propiedad en zona Sur, Valle Chico, Cta</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-md-4 animate-box">
-                            <a href="#" class="fh5co-property" style="background-image: url({% static 'base/images/casa-pileta2.jpg' %});">
-                                <span class="status">Alquila</span>
-                                <div class="prop-details">
-                                    <span class="price">$8.000 semanal</span>
-                                    <h3>Propiedad con pileta,zona Este, Piedra Blanca, Cta</h3>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             {% endblock %}
+
+            
 
             <div id="fh5co-about" class="fh5co-agent">
                 <div class="container">
@@ -416,33 +303,10 @@
                 <div id="footer">
                     <div class="container">
                         <div class="row row-bottom-padded-md">
-                            <div class="col-md-3">
+                            <div class="col-md-12">
                                 <h3 class="section-title">Sobre Inmobiliaria Pilar</h3>
                                 <p>Esta pagina web trata sobre el alquiler de diferentes tipo de propiedades.</p>
-                            </div>
-                            
-                            <div class="col-md-3 col-md-push-1">
-                                <h3 class="section-title">Links</h3>
-                                <ul>
-                                    <li><a href="">Inicio</a></li>
-                                    <li><a href="#">Propiedades</a></li>
-                                    <li><a href="#">Desarrolladores</a></li>
-                                    <li><a href="#">Blog</a></li>
-                                    <li><a href="#">API</a></li>
-                                    <li><a href="#">Ayuda / Contactanos</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="col-md-3">
-                                <h3 class="section-title">Informacion</h3>
-                                <ul>
-                                    <li><a href="#">Terminos &amp; Condiciones</a></li>
-                                    <li><a href="#">Licencia</a></li>
-                                    <li><a href="#">Privacidad &amp; Politicas</a></li>
-                                    <li><a href="#">Contactanos</a></li>
-                                </ul>
-                            </div>
-                            
+                            </div>   
                         </div>
                         <div class="row">
                             <div class="col-md-12">
@@ -453,7 +317,7 @@
                                     <a href="#"><i class="icon-dribbble2"></i></a>
                                     <a href="#"><i class="icon-youtube"></i></a>
                                 </p>
-                                <p>Copyright 2020. Todos los derechos reservados. Programacion III <br></p>
+                                <p>Copyright 2020. Todos los derechos reservados. Programacion III </p>
                             </div>
                         </div>
                     </div>

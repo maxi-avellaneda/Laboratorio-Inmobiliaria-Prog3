@@ -1,7 +1,10 @@
 {% extends 'base/base.html' %}
+{% load static %}
+
 
 {% block contenido %}
-    <h1 style="text-align: center;">LISTADO DE PROPIEDADES</h1>
+    
+    <h1 style="text-align: center; margin: 10px; " ><strong>LISTADO DE PROPIEDADES</strong> </h1>
 
     <ul>
         {% if propiedades%}
@@ -21,7 +24,7 @@
 {% endblock %}
 
 {% block busqueda %}
-{% endblock  %}
+{% endblock %}
 
 {% block propiedadespop %}
 {% endblock %}

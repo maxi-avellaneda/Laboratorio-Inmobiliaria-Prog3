@@ -1,6 +1,105 @@
 {% extends 'base/base.html' %}
 
+{% load static %}
 
-    
+<!-- EN EL ASIDE VA EL CONTENIDO REFERIDO A OFERTAS DE LAS PROPIEDADES, EN ESTE CASO EL ASIDE SE SITUA
+    ABAJO DE LA BARRA DE NAVEGACION (NAV).  -->
+{% block carrusel %}
+    {% if propofertas %}
+        <ul class="slides">
+        {% for oferta in propofertas %}
+            <!-- AL CARRUSEL SE LO TRABAJA COMO UNA LISTA-->
+            
+                <li style="background-image: url({% static 'base/images/dormitorio.jpg' %});">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
+                                <div class="slider-text-inner">
+                                    <div class="desc">
+                                        <span class="status">OFERTA</span>
+                                        <h1>Codigo Oferta: {{oferta.cod_oferta}}</h1>
+                                            <h2 class="price">$10.000</h2>
+                                            <p>Nuevo Dormitorio para alquilar, dos habitaciones al precio de una
+                                                , cada habitacion incluye vestidor propio.</p>
+                                            <p class="details">
+                                                <span>20 metros cuadrados</span>
+                                                <span>2 Dormitorios</span>
+                                                <span>1 Baño</span>
+                                                <span>Vestidor</span>
+                                            </p>
+                                            <p><a class="btn btn-primary btn-lg" href="#">Mas Info</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li> 
+            
+        {% endfor %}
+        </ul>
+    {% else %}
+        <ul class="slides">
+            <li >
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4 col-md-pull-4 js-fullheight slider-text">
+                            <div class="slider-text-inner">
+                                <div class="desc">
+                                    <span class="status">SIN OFERTA</span>
+                                    <h1>NO HAY PROPIEDADES EN OFERTA EN ESTOS MOMENTOS</h1>
+                                        <h2 class="price">$00.000</h2>
+                                        <p>SIN DESCRIPCION.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    {% endif %}      
+{% endblock %}
 
+
+
+{% block propiedadespop %}
+<div id="fh5co-popular-properties" class="fh5co-section-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+                <h3>Propiedades Populares</h3>
+                <p>En esta seccion podra ver las propiedades mas populares y mas buscadas por nuestros Clientes.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 animate-box">
+                <a href="#" class="fh5co-property" style="background-image: url({% static 'base/images/Casa_pileta1.jpg' %});">
+                    <span class="status">Alquila</span>
+                    <div class="prop-details">
+                        <span class="price">$30.000 mensual</span>
+                        <h3>Propiedad en zona norte, Capital San Fernando, Cta</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 animate-box">
+                <a href="properties.html" class="fh5co-property" style="background-image: url({% static 'base/images/casa-2.jpg' %});">
+                    <span class="status">Alquila</span>
+                    <div class="prop-details">
+                        <span class="price">$500 x dia</span>
+                        <h3>Propiedad en zona Sur, Valle Chico, Cta</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 animate-box">
+                <a href="#" class="fh5co-property" style="background-image: url({% static 'base/images/casa-pileta2.jpg' %});">
+                    <span class="status">Alquila</span>
+                    <div class="prop-details">
+                        <span class="price">$8.000 semanal</span>
+                        <h3>Propiedad con pileta,zona Este, Piedra Blanca, Cta</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
 

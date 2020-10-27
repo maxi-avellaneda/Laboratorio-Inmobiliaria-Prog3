@@ -1,21 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block contenido %}
+    <h1 style="text-align: center;"><strong>RESULTADOS BUSQUEDA PROPIEDADES</strong></h1>
     <p>Estas buscando: {{query}}</p>
 
-    {% if propiedades %}
-        <p>Propiedades encontradas: {{propiedades|length}} propiedad/es</p>
-
+    {% if codprop %}
+        <p>Propiedades encontradas: {{codprop|length}} propiedad/es</p>
+        
         <ul>
-            {% for prop in propiedades %}
+            {% for prop in codprop %}
 
                 <li>
-                    {{prop.cod_propiedad}}
+                    <p> Codigo Propiedad: {{prop.cod_propiedad}}   |  Tipo de Alquiler: {{prop.tipo_alquiler}}
+                    | Capacidad: {{prop.capacidad}}
+                    </p>
+                </li>
+
+            {% endfor %}
+        </ul>
+    {% endif %}    
+    {% if capacpro %}
+        <p>Capacidad de la propiedad: {{capacpro.capacidad}}</p>
+        <ul>
+            {% for cap in capacpro %}
+
+                <li>
+                    <p> Codigo Propiedad: {{cap.cod_propiedad}}   |  Capacidad: {{cap.capacidad}}</p>
                 </li>
 
             {% endfor %}
@@ -23,5 +34,14 @@
     {% else %}
         <p>No se encontro la propiedad</p>
     {% endif %}
-</body>
-</html>
+
+{% endblock %}
+
+{% block aside %}
+{% endblock %}
+
+{% block busqueda %}
+{% endblock %}
+
+{% block propiedadespop %}
+{% endblock %}
