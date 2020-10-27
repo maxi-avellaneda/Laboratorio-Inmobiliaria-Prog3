@@ -79,13 +79,13 @@ WSGI_APPLICATION = 'pilar.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default':{
-        'ENGINE':'django.db.backends.postgresql',
-        'NAME':'pilar',
-        'USER':'postgres',
-        'PASSWORD':'maxixima98',
-        'HOST':'localhost',
-        'PORT':'',
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'pilar',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -129,3 +129,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = (os.path.join(BASE_DIR,'static'),)

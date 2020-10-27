@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Persona(models.Model):
-    cod_persona=models.IntegerField(unique=True)
+    #cod_persona=models.IntegerField(unique=True)
     
     provincia=models.CharField(max_length=20)
     localidad=models.CharField(max_length=20)

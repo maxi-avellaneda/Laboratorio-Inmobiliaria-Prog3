@@ -1,0 +1,20 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+    <div class="container">
+        <form action="" method="POST">{% csrf_token %}
+    {% for field in form %}
+            <div class="input-field">
+                <label for="{{field.id_for_label}}" class="">{{field.label}}</label>
+                {{field}}{{field.errors}}
+            </div>
+    {% endfor %}
+            <div class="input-field" style="padding: 3em; text-align: center;" >
+                <input class="btn-primary" type="submit" name="ENVIAR">
+                <input class="btn-primary" type="reset" name="RESET">
+            </div>
+        </form>
+    </div>
+{% endblock %}
