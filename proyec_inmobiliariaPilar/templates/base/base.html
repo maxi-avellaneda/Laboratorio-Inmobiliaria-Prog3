@@ -79,11 +79,14 @@
 							<!-- START #fh5co-menu-wrap . BARRA DE MENU -->
 							<nav id="fh5co-menu-wrap" role="navigation">
 								<ul class="sf-menu" id="fh5co-primary-menu">
-									<li><a href="{% url 'listado_personas' %}">Personas</a></li>
-										<ul class="sf-submenu" id="fh5co-secondary-menu">
-											<li><a href="{% url 'listado_personas' %}">Listado Personas</a></li>
-											<li><a href="#">Agregar</a></li>
+									<li>
+										<a href="{% url 'listado_personas' %}">Personas</a>
+										<ul class="fh5co-sub-menu" >
+											<li><a href="{% url 'nueva_persona_fisica' %}">Agregar Persona Fisica</a></li>
+											<li><a href="{% url 'nueva_persona_juridica' %}">Agregar Persona Juridica</a></li>
+											<li><a href="{% url 'listado_personas' %}">Listar Personas</a></li>
 										</ul>
+									</li>
 									<li><a href="#">Tienda</a></li>
 									<li><a href="#">Blog</a></li>
 								    <li><a href="#">Contactenos</a></li>

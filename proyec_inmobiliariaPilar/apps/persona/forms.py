@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from .models import PersonaFisica, PersonaJuridica
 
 class PersonaFisicaForm(ModelForm):
-
+    
     class Meta:
         model = PersonaFisica
         fields = '__all__'
@@ -12,11 +12,11 @@ class PersonaFisicaForm(ModelForm):
             "localidad": forms.TextInput(attrs={"class":"form-control"}),
             "barrio": forms.TextInput(attrs={"class":"form-control"}),
             "calle": forms.TextInput(attrs={"class":"form-control"}),
-            "numero": forms.TextInput(attrs={"class":"form-control"}),
-            "mail": forms.TextInput(attrs={"class":"form-control"}),
-            "telefono": forms.TextInput(attrs={"class":"form-control"}),
+            "numero": forms.NumberInput(attrs={"class":"form-control"}),
+            "mail": forms.EmailInput(attrs={"class":"form-control"}),
+            "telefono": forms.NumberInput(attrs={"class":"form-control"}),
             "nombre_apellido": forms.TextInput(attrs={"class":"form-control"}),
-            "cuil": forms.TextInput(attrs={"class":"form-control"}),
+            "cuil": forms.NumberInput(attrs={"class":"form-control"}),
             "desc_per": forms.TextInput(attrs={"class":"form-control"}),
         }
 
@@ -30,10 +30,10 @@ class PersonaJuridicaForm(ModelForm):
             "localidad": forms.TextInput(attrs={"class":"form-control"}),
             "barrio": forms.TextInput(attrs={"class":"form-control"}),
             "calle": forms.TextInput(attrs={"class":"form-control"}),
-            "numero": forms.TextInput(attrs={"class":"form-control"}),
-            "mail": forms.TextInput(attrs={"class":"form-control"}),
-            "telefono": forms.TextInput(attrs={"class":"form-control"}),
+            "numero": forms.NumberInput(attrs={"class":"form-control"}),
+            "mail": forms.EmailInput(attrs={"class":"form-control"}),
+            "telefono": forms.NumberInput(attrs={"class":"form-control"}),
             "razon_social": forms.TextInput(attrs={"class":"form-control"}),
-            "cuit": forms.TextInput(attrs={"class":"form-control"}),
+            "cuit": forms.NumberInput(attrs={"class":"form-control"}),
             "desc_per": forms.TextInput(attrs={"class":"form-control"}),
         }

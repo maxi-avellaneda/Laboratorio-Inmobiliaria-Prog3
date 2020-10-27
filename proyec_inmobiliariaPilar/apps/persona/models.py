@@ -11,7 +11,7 @@ class Persona(models.Model):
     calle=models.CharField(max_length=20)
     numero=models.CharField(max_length=5)
     telefono=models.CharField(max_length=13)
-    mail=models.CharField(max_length=40)
+    mail=models.EmailField(max_length=30)
     fecha_alta=models.DateTimeField(auto_now_add=True)
     fecha_modificacion=models.DateTimeField(auto_now=True)
 
