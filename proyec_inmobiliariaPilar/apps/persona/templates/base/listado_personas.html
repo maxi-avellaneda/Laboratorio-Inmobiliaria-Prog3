@@ -1,0 +1,46 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+
+<style>
+    td, th{
+        padding-left: 2em;
+        text-align: left;
+    }
+</style>
+
+<h3>PERSONAS</h3>
+
+<table>
+    <tr>
+        <th>DATOS</th>
+        <th>OPCIONES</th>    
+    </tr>
+    
+    {% for p in personasFisicas %}
+
+    <tr>
+        <td>FISICA -- {{p}}</td>
+        <td><a href="{% url 'modificar_persona' p.id %}">MODIDICAR</a></td>
+        <td><a href="{% url 'eliminar_persona' p.id %}">ELIMINAR</a></td>
+    </tr>
+
+    {% endfor %}
+
+    <br>
+
+    {% for p in personasJuridicas %}
+
+    <tr>
+        
+        <td>JURIDICA -- {{p}}</td>
+        <td><a href="{% url 'modificar_persona' p.id %}">MODIDICAR</a></td>
+        <td><a href="{% url 'eliminar_persona' p.id %}">ELIMINAR</a></td>
+    </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock %}

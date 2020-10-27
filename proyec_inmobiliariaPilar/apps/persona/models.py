@@ -21,9 +21,15 @@ class PersonaFisica(Persona):
     cuil=models.CharField(max_length=11,unique=True)
     desc_per=models.CharField(default='fisica',max_length=6)
 
+    def __str__(self):
+        return '{0} -- {1}'.format(self.nombre_apellido, self.cuil)
+
 
 class PersonaJuridica(Persona):
     #CAMPOS PROPIOS DEL MODELO PERSONAJURIDICA
     razon_social=models.CharField(max_length=50)
     cuit=models.CharField(max_length=11,unique=True)
     desc_per=models.CharField(default='juridica',max_length=8)
+    
+    def __str__(self):
+        return '{0} -- {1}'.format(self.razon_social, self.cuit)

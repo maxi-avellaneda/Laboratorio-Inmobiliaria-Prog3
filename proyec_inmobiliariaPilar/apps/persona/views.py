@@ -1,10 +1,11 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import PersonaFisica
-from .forms import PersonaFisicaForm
+from .models import PersonaFisica, Persona, PersonaJuridica
+from .forms import PersonaFisicaForm, PersonaJuridicaForm
+import time
 
 # Create your views here.
 
-def Nueva_persona(request):
+def Nueva_Persona_Fisica(request):
     data = {
         "form": PersonaFisicaForm()
     }
@@ -14,11 +15,70 @@ def Nueva_persona(request):
         formulario = PersonaFisicaForm(request.POST)
         if formulario.is_valid():
             formulario.save()
-            data += {
-                "mensaje": 'Guardado con exito'
-            }
+            data['mensaje']='guardado con exito'
     
     return render(request, "base/nueva_persona.html", data)
+
+def Nueva_Persona_Juridica(request):
+    data = {
+        "form": PersonaJuridicaForm()
+    }
+
+    if request.method == 'POST':
+        print(request.POST)
+        formulario = PersonaJuridicaForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            data['mensaje']='guardado con exito'
+    
+    return render(request, "base/nueva_persona.html", data)
+
+def Modificar_Persona(request, id):
+    if PersonaFisica.objects.filter(pk = id).exists():
+        persona = PersonaFisica.objects.get(pk = id)
+        data = {
+            "form":PersonaFisicaForm(instance=persona)
+        }
+        if request.method == 'POST':
+            formulario = PersonaFisicaForm(data=request.POST, instance=persona)
+            if formulario.is_valid():
+                formulario.save()
+                data={
+                "mensaje":'guardado correctamente',
+                "form": PersonaFisicaForm(instance=servicio),
+            }
+    elif PersonaJuridica.objects.filter(pk = id).exists():
+        persona = PersonaJuridica.objects.get(pk= id)
+        data = {
+            "form":PersonaJuridicaForm(instance=persona)
+        }
+        if request.method == 'POST':
+            formulario = PersonaJuridicaForm(data=request.POST, instance=persona)
+            if formulario.is_valid():
+                formulario.save()
+                data={
+                "mensaje":'guardado correctamente',
+                "form": PersonaJuridicaForm(instance=servicio),
+                }      
+
+    return render(request, "base/nueva_persona.html", data)
+
+def Eliminar_Persona(request, id):
+    if PersonaFisica.objects.filter(pk = id).exists():
+        persona = PersonaFisica.objects.get(pk = id)
+        persona.delete()
+    elif PersonaJuridica.objects.filter(pk = id).exists():
+        persona = PersonaJuridica.objects.get(pk= id)
+        persona.delete()     
+
+    return redirect(to='listado_personas')
+
+
+
+def Listado_Personas(request):
+    personasFisicas = PersonaFisica.objects.all()
+    personasJuridicas = PersonaJuridica.objects.all()
+    return render(request, "base/listado_personas.html", {"personasFisicas": personasFisicas , "personasJuridicas":personasJuridicas})
 
 def Home(request):
     return render(request, "base/home.html")
