@@ -2,37 +2,62 @@
 {% load static %}
 
 {% block contenido %}
-    <h1 style="text-align: center;"><strong>RESULTADOS BUSQUEDA PROPIEDADES</strong></h1>
-    <p>Estas buscando: {{query}}</p>
+    <h1 style="text-align: center; margin: 10px;"><strong>RESULTADOS BUSQUEDA PROPIEDADES</strong></h1>
+    <h3><strong>Estas filtrando por : <br></strong> </h3>
+    <p>
+        
+        {% if codpropiedad %}
+            <strong>*Codigo Propiedad:</strong>  {{codpropiedad}} <br>
+        {% endif %}  
+        {% if capacidad %}
+            <strong>*Capacidad:</strong> {{capacidad}} <br>
+        {% endif %}  
+        {% if cant_banios %}
+            <strong>*Cantidad baños:</strong> {{cant_banios}} <br>
+        {% endif %}
+        {% if tipo_propiedad != "ninguna" %}
+            <strong>*Tipo de propiedad:</strong> {{tipo_propiedad}} <br>
+        {% endif %}
+        {% if dormitorio %}
+            <strong>*Dormitorios:</strong> {{dormitorio}} <br>
+        {% endif %}  
+        {% if zona %}
+            <strong>*Zona:</strong> {{zona}} <br>
+        {% endif %} 
 
-    {% if codprop %}
-        <p>Propiedades encontradas: {{codprop|length}} propiedad/es</p>
+    </p>
+
+    <br>
+    <h2 ><strong>SE ENCONTRO:</strong>  </h1>
+    {% if propiedades %}
         
         <ul>
-            {% for prop in codprop %}
+            {% for pro in propiedades %}
 
                 <li>
-                    <p> Codigo Propiedad: {{prop.cod_propiedad}}   |  Tipo de Alquiler: {{prop.tipo_alquiler}}
-                    | Capacidad: {{prop.capacidad}}
+                    <p> Codigo Propiedad: {{pro.cod_propiedad}} 
+                        | Capacidad: {{pro.capacidad}} 
+                        | Cantidad de Baños: {{pro.cant_banios}}  
+                        |{% if tipo_propiedad == "ninguna" %}
+                            Tipo de Propiedad: 
+                            {{pro.propiedadcasa.tipo_propiedad}} 
+                            {{pro.propiedaddepto.tipo_propiedad}}
+                            {{pro.propiedadhabitacion.tipo_propiedad}}
+                        {% else %}
+                            Tipo de Propiedad: {{pro.tipo_propiedad}}
+                        {% endif %}
+                        | Dormitorios: {{pro.cant_ambientes}}
+                        | Cantidad Baños: {{pro.cant_banios}}
+                        | Zona: {{pro.zona.desc_zona}}
+                        
+
                     </p>
                 </li>
 
             {% endfor %}
         </ul>
-    {% endif %}    
-    {% if capacpro %}
-        <p>Capacidad de la propiedad: {{capacpro.capacidad}}</p>
-        <ul>
-            {% for cap in capacpro %}
-
-                <li>
-                    <p> Codigo Propiedad: {{cap.cod_propiedad}}   |  Capacidad: {{cap.capacidad}}</p>
-                </li>
-
-            {% endfor %}
-        </ul>
     {% else %}
-        <p>No se encontro la propiedad</p>
+        <p>No se encontro ningun resultado con los valores ingresados</p>
     {% endif %}
 
 {% endblock %}
