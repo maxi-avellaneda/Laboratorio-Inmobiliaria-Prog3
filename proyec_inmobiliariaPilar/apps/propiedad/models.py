@@ -9,7 +9,7 @@ class Propiedad(models.Model):
         ('semanal','Semanal'),
         ('mensual','Mensual'),
     )
-    cod_propiedad=models.IntegerField(unique=True)
+    #cod_propiedad=models.IntegerField(unique=True)
     mts=models.CharField(max_length=20)
     mts_semicubiertos=models.CharField(max_length=20)
     capacidad=models.IntegerField()
@@ -30,7 +30,7 @@ class PropiedadCasa(Propiedad):
         ('no','No'),
     )
     #prop_casa=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
-    tipo_propiedad=models.CharField(default='casa',max_length=5)
+    tipo_propiedad=models.CharField(default='casa',max_length=5, editable=False)
     patio=models.CharField(max_length=2,choices=opc)
     pileta=models.CharField(max_length=2,choices=opc)
     terraza=models.CharField(max_length=2,choices=opc)
@@ -41,7 +41,7 @@ class PropiedadDepto(Propiedad):
         ('no','No'),
     )
     #prop_depto=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
-    tipo_propiedad=models.CharField(default='departamento',max_length=12)
+    tipo_propiedad=models.CharField(default='departamento',max_length=12, editable=False)
     frente=models.CharField(max_length=2,choices=opc)
     contrafrente=models.CharField(max_length=2,choices=opc)
     espacios_comunes=models.CharField(max_length=2,choices=opc)
@@ -52,7 +52,7 @@ class PropiedadHabitacion(Propiedad):
         ('no','No'),
     )
     #prop_hab=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
-    tipo_propiedad=models.CharField(default='habitacion',max_length=10)
+    tipo_propiedad=models.CharField(default='habitacion',max_length=10,editable=False)
     banio_individual=models.CharField(max_length=2,choices=opc)
 
 class Zona(models.Model):
