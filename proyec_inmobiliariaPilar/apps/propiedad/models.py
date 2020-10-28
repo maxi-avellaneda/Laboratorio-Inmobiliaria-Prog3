@@ -22,7 +22,7 @@ class Propiedad(models.Model):
     fecha_alta=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return 'Codigo Propiedad= %s   Tipo Alquiler= %s ' %(self.cod_propiedad,self.tipo_alquiler)
+        return 'Codigo Propiedad= %s   Tipo Alquiler= %s ' %(self.pk,self.tipo_alquiler)
 
 class PropiedadCasa(Propiedad):
     opc=(

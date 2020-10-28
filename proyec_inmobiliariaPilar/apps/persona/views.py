@@ -45,7 +45,7 @@ def Modificar_Persona(request, id):
                 formulario.save()
                 data={
                 "mensaje":'guardado correctamente',
-                "form": PersonaFisicaForm(instance=servicio),
+                "form": PersonaFisicaForm(instance=persona),
             }
     elif PersonaJuridica.objects.filter(pk = id).exists():
         persona = PersonaJuridica.objects.get(pk= id)
