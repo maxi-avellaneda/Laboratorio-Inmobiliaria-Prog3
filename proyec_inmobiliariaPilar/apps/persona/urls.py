@@ -9,7 +9,6 @@ urlpatterns=[
     path('listado-personas/', views.Listado_Personas, name='listado_personas'),
     path('modificar-persona/<id>/', views.Modificar_Persona, name='modificar_persona'),
     path('eliminar-persona/<id>/', views.Eliminar_Persona, name='eliminar_persona'),
-    path('', views.Home , name='home'),
 ]
 
 urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

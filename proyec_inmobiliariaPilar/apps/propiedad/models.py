@@ -20,6 +20,10 @@ class Propiedad(models.Model):
     permite_cancelacion=models.BooleanField()
     tipo_alquiler=models.CharField(max_length=7,choices=opc_tipo_alquiler)
     fecha_alta=models.DateTimeField(auto_now_add=True)
+    precio=models.IntegerField()
+    desc_prop=models.TextField()
+    imagen=models.ImageField(blank=True,null=True,upload_to='propiedad')
+
 
     def __str__(self):
         return 'Codigo Propiedad= %s   Tipo Alquiler= %s ' %(self.pk,self.tipo_alquiler)

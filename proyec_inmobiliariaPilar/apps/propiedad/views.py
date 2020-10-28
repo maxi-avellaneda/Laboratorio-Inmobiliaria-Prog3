@@ -27,7 +27,7 @@ def NuevaPropiedadCasa(request):
         "form" : PropiedadCasaForm()
     }
     if request.method == 'POST':
-        formulario = PropiedadCasaForm(request.POST)
+        formulario = PropiedadCasaForm(request.POST,request.FILES)
         if formulario.is_valid():
             formulario.save()
             data["mensaje"] = 'guardado con exito'
