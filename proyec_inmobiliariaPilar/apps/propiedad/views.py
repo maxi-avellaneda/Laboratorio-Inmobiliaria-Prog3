@@ -39,7 +39,7 @@ def NuevaPropiedadDpto(request):
         "form" : PropiedadDptoForm()
     }
     if request.method == 'POST':
-        formulario = PropiedadDptoForm(request.POST)
+        formulario = PropiedadDptoForm(request.POST, request.FILES)
         if formulario.is_valid():
             formulario.save()
             data["mensaje"] = 'guardado con exito'
@@ -56,4 +56,13 @@ def NuevaPropiedadHabitacion(request):
             formulario.save()
             data["mensaje"] = 'guardado con exito'
 
-    return render(request, 'propiedad/nueva_propiedad.html', data )
+    return render(request, 'propiedad/nueva_propiedad.html', data)
+
+def ModificarPropiedad(request,id):
+    propiedad = Propiedad.objects.get(pk=id)
+    tipocasa = propiedad.propiedadcasa.tipo_propiedad
+    tipodpto = propiedad.propiedaddepto.tipo_propiedad
+    tipohabitacion = propiedad.propiedadhabitacion.tipo_propiedad
+
+
+return render(request, 'propiedad/lista_propiedades.html', {"mensaje":mensaje})

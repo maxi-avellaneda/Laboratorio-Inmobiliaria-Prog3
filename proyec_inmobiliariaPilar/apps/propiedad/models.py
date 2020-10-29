@@ -23,6 +23,7 @@ class Propiedad(models.Model):
     precio=models.IntegerField()
     desc_prop=models.TextField()
     imagen=models.ImageField(upload_to='propiedad')
+    #tipo_propiedad=models.CharField(max_length=15)
 
 
     def __str__(self):
@@ -34,7 +35,7 @@ class PropiedadCasa(Propiedad):
         ('no','No'),
     )
     #prop_casa=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
-    tipo_propiedad=models.CharField(default='casa',max_length=5, editable=False)
+    tipo_propiedad=models.CharField(max_length=15, default='casa', editable=False)
     patio=models.CharField(max_length=2,choices=opc)
     pileta=models.CharField(max_length=2,choices=opc)
     terraza=models.CharField(max_length=2,choices=opc)
@@ -45,7 +46,7 @@ class PropiedadDepto(Propiedad):
         ('no','No'),
     )
     #prop_depto=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
-    tipo_propiedad=models.CharField(default='departamento',max_length=12, editable=False)
+    tipo_propiedad=models.CharField(max_length=15, default='departamento', editable=False)
     frente=models.CharField(max_length=2,choices=opc)
     contrafrente=models.CharField(max_length=2,choices=opc)
     espacios_comunes=models.CharField(max_length=2,choices=opc)
@@ -56,7 +57,7 @@ class PropiedadHabitacion(Propiedad):
         ('no','No'),
     )
     #prop_hab=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
-    tipo_propiedad=models.CharField(default='habitacion',max_length=10,editable=False)
+    tipo_propiedad=models.CharField(max_length=15, default='habitacion', editable=False)
     banio_individual=models.CharField(max_length=2,choices=opc)
 
 class Zona(models.Model):

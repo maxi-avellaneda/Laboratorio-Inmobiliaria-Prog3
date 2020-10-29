@@ -3,16 +3,26 @@
 {% block contenido %}
     <h1 style="text-align: center;">LISTADO DE PROPIEDADES</h1>
 
-    <ul>
+    <table>
+        <tr>
+            <th>DATOS</th>
+            <th>OPCIONES</th>
+        </tr>
         {% if propiedades%}
             {% for prop in propiedades%}
-            <li>{{prop}}</li>
-
+        <tr>    
+            <td>{{prop}}</td>
+            <td><a href="{% url 'modificar_propiedad' prop.id %}">Modificar</a> <a href="">Eliminar</a></td>
+        </tr>    
             {% endfor %}
         {% else %}
             <p> NO HAY PROPIEDADES EN LA BASE DE DATOS</p>    
-        {% endif %}    
+        {% endif %}
+            
+    
+    </table>
 
-    </ul>
+    {{mensaje}}
+    
 
 {% endblock %}

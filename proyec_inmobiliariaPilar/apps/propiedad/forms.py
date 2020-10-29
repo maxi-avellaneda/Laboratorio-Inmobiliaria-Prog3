@@ -5,7 +5,9 @@ from .models import PropiedadCasa, PropiedadDepto, PropiedadHabitacion
 class PropiedadCasaForm(ModelForm):
     class Meta:
         model = PropiedadCasa
-        fields = '__all__'
+        fields = ['mts','mts_semicubiertos', 'capacidad', 'cant_ambientes', 
+        'cochera', 'capacidad_cochera', 'cant_banios', 'permite_cancelacion', 'tipo_alquiler', 'precio', 
+        'desc_prop', 'imagen','patio','pileta','terraza']
         widgets = {
             "mts": forms.NumberInput(attrs={"class":"form-control"}),
             "mts_semicubiertos": forms.NumberInput(attrs={"class":"form-control"}),
@@ -14,7 +16,7 @@ class PropiedadCasaForm(ModelForm):
             #"numero": forms.NumberInput(attrs={"class":"form-control"}),
             "capacidad_cochera": forms.NumberInput(attrs={"class":"form-control"}),
             "cant_banios": forms.NumberInput(attrs={"class":"form-control"}),
-            "tipo_propiedad": forms.TextInput(attrs={"class":"form-control"}),
+            #"tipo_propiedad": forms.TextInput(attrs={"class":"form-control"}),
         }
 
 class PropiedadDptoForm(ModelForm):
