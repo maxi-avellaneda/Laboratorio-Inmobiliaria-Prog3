@@ -1,12 +1,12 @@
 {% extends 'base/base.html' %}
 
 {% block contenido %}
-    <h1 style="text-align: center;">LISTADO DE PROPIEDADES</h1>
+    <h1 style="text-align: center;margin: 10px;">LISTADO DE PROPIEDADES</h1>
 
     <ul>
         {% if propiedades%}
             {% for prop in propiedades%}
-            <li>{{prop}}</li>
+                <li>{{prop}}</li>
 
             {% endfor %}
         {% else %}

@@ -21,4 +21,5 @@ urlpatterns = [
     path('',include(('apps.inicio.urls','inicio'),namespace='inicio')),
     path('', include(('apps.persona.urls'))),
     path('', include(('apps.propiedad.urls'))),
+    path('', include(('apps.busqueda.urls','busqueda'),namespace='busqueda')),
 ]

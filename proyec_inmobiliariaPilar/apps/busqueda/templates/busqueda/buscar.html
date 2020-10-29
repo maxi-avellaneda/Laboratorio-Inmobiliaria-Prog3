@@ -1,0 +1,91 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+
+{% block contenido %}
+    <!-- EL DIV PRINCIPAL CONTIENE OTROS DOS, EL QUE SE POSICIONA A LA IZQ ES EL BUSCADOR DE PROPIEDADES
+    EL DE LA DERECHA SOLO SE USA PARA PONER UNA IAMAGEN ILUSTRATIVA	-->
+    <div id="fh5co-search-map">
+        <div class="search-property">
+            <div class="s-holder">
+                <h2>Buscar Propiedades</h2>
+                <form action="buscar/" method="GET">
+                    <div class="row">
+                        <div class="col-xxs-12 col-xs-12">
+                            <div class="input-field">
+                                <label for="from">ID Propiedad:</label>
+                                <input type="text" class="form-control" id="from-place" name="idpro" placeholder="ID propiedad"/>
+                            </div>
+                        </div>
+                        <div class="col-xxs-12 col-xs-12">
+                            <section>
+                                <label for="tipo_prop">Tipo de Propiedad:</label>
+                                <select class="cs-select cs-skin-border" name="tipo_propiedad" >
+                                    <option value="ninguna" selected>Elija Opcion</option>
+                                    <option value="casa">Casa</option>
+                                    <option value="departamento">Departamento</option>
+                                    <option value="habitacion">Habitacion</option>
+                                </select>
+                            </section>
+                        </div>
+                        <div class="col-xxs-12 col-xs-12">
+                            <section>
+                                <label for="from">Capacidad:</label>
+                                <input type="text" name="capacidad" placeholder="Capacidad"/>
+                            </section>
+                        </div>
+                        <div class="col-xxs-12 col-xs-12">
+                            <section>
+                                <label for="class">Precio 1 (rango):</label>
+                                <input type="text" name="precio1" placeholder="rango 1" /><br><br>
+                                <label for="class">Precio 2 (rango):</label>
+                                <input type="text" name="precio2" placeholder="rango 2" />
+                                
+                            </section>
+                        </div>
+                        <div class="col-xxs-12 col-xs-12">
+                            <div class="input-field">
+                                
+                                <label for="from">Dormitorios:</label>
+                                <input type="text" name="dormitorios"  placeholder="1"/>
+                            </div>	
+                        </div>
+                        <div class="col-xxs-12 col-xs-12">
+                            <section>
+                                <label for="class">Baños:</label>
+                                    <select class="cs-select cs-skin-border" name="cant_banios">
+                                        <option value="" selected>Elija Opcion</option>
+                                        <option value="1">1 Baño</option>
+                                        <option value="2">2 Baños</option>
+                                        <option value="3">3 Baños</option>
+                                        <option value="4">4 Baños</option>
+                                    </select>
+                            </section>
+                        </div>
+                        <div class="col-xxs-12 col-xs-12">
+                            <section>
+                                <label for="class">Zona:</label>
+                                    <select class="cs-select cs-skin-border" name="zona">
+                                        <option value="" selected>Elija Opcion</option>
+                                        <option value="norte">Norte</option>
+                                        <option value="sur">Sur</option>
+                                        <option value="este">Este</option>
+                                        <option value="oeste">Oeste</option>
+                                    </select>
+                            </section>
+                        </div>
+                        <div class="col-xxs-12 col-xs-12 text-center">
+                            <p><input type="reset" class="btn btn-primary btn-lg" value="Borrar" ></p><br>
+                            <p><input type="submit" class="btn btn-primary btn-lg" value="Buscar" ></p>
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+        <div class="map" style="background-image: url({% static 'base/images/busqueda-propiedad.jpg' %});">
+        </div>
+    </div>
+
+{% endblock %}
