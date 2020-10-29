@@ -22,7 +22,7 @@ class Propiedad(models.Model):
     fecha_alta=models.DateTimeField(auto_now_add=True)
     precio=models.IntegerField()
     desc_prop=models.TextField()
-    imagen=models.ImageField(blank=True,null=True,upload_to='propiedad')
+    imagen=models.ImageField(upload_to='propiedad')
 
 
     def __str__(self):

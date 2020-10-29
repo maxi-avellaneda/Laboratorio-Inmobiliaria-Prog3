@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'pilar',
         'USER': 'postgres',
-        'PASSWORD': 'maxixima98',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -128,6 +128,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
+STATICFILES_DIRS = os.path.join(BASE_DIR,'static'),
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = (os.path.join(BASE_DIR,'static'),)
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')

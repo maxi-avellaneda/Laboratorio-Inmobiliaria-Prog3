@@ -17,7 +17,7 @@
 </style>
 
 <div class="container">
-    <form action="" method="POST">{% csrf_token %}
+    <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
     {% for field in form %}
         <div class="input-field">
             <label for="{{field.id_for_label}}" class="">{{field.label}}</label>
