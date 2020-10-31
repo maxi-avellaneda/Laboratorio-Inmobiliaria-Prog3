@@ -5,24 +5,40 @@ from .models import PropiedadCasa, PropiedadDepto, PropiedadHabitacion
 class PropiedadCasaForm(ModelForm):
     class Meta:
         model = PropiedadCasa
-        fields = ['mts','mts_semicubiertos', 'capacidad', 'cant_ambientes', 
-        'cochera', 'capacidad_cochera', 'cant_banios', 'permite_cancelacion', 'tipo_alquiler', 'precio', 
-        'desc_prop', 'imagen','patio','pileta','terraza']
+        exclude = ['tipo_propiedad','estado']
         widgets = {
-            "mts": forms.NumberInput(attrs={"class":"form-control"}),
-            "mts_semicubiertos": forms.NumberInput(attrs={"class":"form-control"}),
-            "capacidad": forms.NumberInput(attrs={"class":"form-control"}),
-            "cant_ambientes": forms.NumberInput(attrs={"class":"form-control"}),
-            #"numero": forms.NumberInput(attrs={"class":"form-control"}),
-            "capacidad_cochera": forms.NumberInput(attrs={"class":"form-control"}),
-            "cant_banios": forms.NumberInput(attrs={"class":"form-control"}),
+            "mts": forms.NumberInput(attrs={"class":"form-control","placeholder":"Metros de la propiedad"}),
+            "mts_semicubiertos": forms.NumberInput(attrs={"class":"form-control","placeholder":"Metros Semi-Cubiertos de la propiedad"}),
+            "capacidad": forms.NumberInput(attrs={"class":"form-control","placeholder":"Numero maximo de personas que pueden vivir en la propiedad"}),
+            "cant_ambientes": forms.NumberInput(attrs={"class":"form-control","placeholder":"Cantidad de ambientes de la propiedad"}),
+            "cochera": forms.CheckboxInput(attrs={"class":"form-check-input", "onclick":"mostrar()"}),
+            "capacidad_cochera": forms.NumberInput(attrs={"class":"form-control","placeholder":"Cantidad de coches que entran en la cochera"}),
+            "cant_banios": forms.NumberInput(attrs={"class":"form-control","placeholder":"Cantidad de baños"}),
             #"tipo_propiedad": forms.TextInput(attrs={"class":"form-control"}),
+            "desc_prop": forms.Textarea(attrs={"class":"form-control", "rows":"4","placeholder":"Descripcion completa de la propiedad"}),
+            "precio" : forms.NumberInput(attrs={"class":"form-control","placeholder":"Precio con el que se publicara la propiedad"})
+        }
+        labels = {
+            "mts" : "Metros:",
+            "mts_semicubiertos": "Metros Semi-Cubiertos:", 
+            "capacidad": "Capacidad:",
+            "cant_ambientes": "Cantidad de ambientes:",
+            "cochera": "¿Dispone de cochera?",
+            "capacidad_cochera": "Capacidad de cochera:",
+            "cant_banios": "Cantidad de baños:",
+            "permite_cancelacion" : "¿Permite cancelacion?",
+            "tipo_alquiler" : "Forma de alquiler:",
+            "precio" : "Precio de la propiedad",
+            "desc_prop" : "Descripcion de la propiedad:",
+            "imagen" : "Imagen de la propiedad:",
+            "estado" : "En que estado se encuentra la propiedad:",
+            "zona" : "¿En que zona esta ubicada la propiedad?",
         }
 
 class PropiedadDptoForm(ModelForm):
     class Meta:
         model = PropiedadDepto
-        fields = '__all__'
+        exclude = ['tipo_propiedad','estado']
         widgets = {
             "mts": forms.NumberInput(attrs={"class":"form-control"}),
             "mts_semicubiertos": forms.NumberInput(attrs={"class":"form-control"}),
@@ -33,11 +49,27 @@ class PropiedadDptoForm(ModelForm):
             "cant_banios": forms.NumberInput(attrs={"class":"form-control"}),
             "tipo_propiedad": forms.TextInput(attrs={"class":"form-control"}),
         }
+        labels = {
+            "mts" : "Metros de la propiedad:",
+            "mts_semicubiertos": "Metros Semi-Cubiertos:", 
+            "capacidad": "Capacidad de personas:",
+            "cant_ambientes": "Cantidad de ambientes:",
+            "cochera": "¿Dispone de cochera?",
+            "capacidad_cochera": "Capacidad de cochera:",
+            "cant_banios": "Cantidad de baños:",
+            "permite_cancelacion" : "¿Permite cancelacion?",
+            "tipo_alquiler" : "Forma de alquiler:",
+            "precio" : "Precio de la propiedad",
+            "desc_prop" : "Ingrese una descripcion de la propiedad:",
+            "imagen" : "Imagen de la propiedad:",
+            "estado" : "En que estado se encuentra la propiedad:",
+            "zona" : "¿En que zona esta ubicada la propiedad?",
+        }
 
 class PropiedadHabitacionForm(ModelForm):
     class Meta:
         model = PropiedadHabitacion
-        fields = '__all__'
+        exclude = ['tipo_propiedad','estado']
         widgets = {
             "mts": forms.NumberInput(attrs={"class":"form-control"}),
             "mts_semicubiertos": forms.NumberInput(attrs={"class":"form-control"}),
@@ -47,5 +79,21 @@ class PropiedadHabitacionForm(ModelForm):
             "capacidad_cochera": forms.NumberInput(attrs={"class":"form-control"}),
             "cant_banios": forms.NumberInput(attrs={"class":"form-control"}),
             "tipo_propiedad": forms.TextInput(attrs={"class":"form-control"}),
+        }
+        labels = {
+            "mts" : "Metros de la propiedad:",
+            "mts_semicubiertos": "Metros Semi-Cubiertos:", 
+            "capacidad": "Capacidad de personas:",
+            "cant_ambientes": "Cantidad de ambientes:",
+            "cochera": "¿Dispone de cochera?",
+            "capacidad_cochera": "Capacidad de cochera:",
+            "cant_banios": "Cantidad de baños:",
+            "permite_cancelacion" : "¿Permite cancelacion?",
+            "tipo_alquiler" : "Forma de alquiler:",
+            "precio" : "Precio de la propiedad",
+            "desc_prop" : "Ingrese una descripcion de la propiedad:",
+            "imagen" : "Imagen de la propiedad:",
+            "estado" : "En que estado se encuentra la propiedad:",
+            "zona" : "¿En que zona esta ubicada la propiedad?",
         }
 

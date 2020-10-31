@@ -9,9 +9,19 @@ class Propiedad(models.Model):
         ('semanal','Semanal'),
         ('mensual','Mensual'),
     )
-    #cod_propiedad=models.IntegerField(unique=True)
+    zonas=(
+        ('norte','Norte'),
+        ('sur','Sur'),
+        ('este','Este'),
+        ('oeste','Oeste'),
+    )
+    estados=(
+        ('ocupado','Ocupado'),
+        ('disponible','Disponible'),
+        ('en mantenimiento','En Mantenimiento'),
+    )
     mts=models.CharField(max_length=20)
-    mts_semicubiertos=models.CharField(max_length=20)
+    mts_semicubiertos=models.CharField(max_length=10)
     capacidad=models.IntegerField()
     cant_ambientes=models.IntegerField()
     cochera=models.BooleanField()
@@ -23,19 +33,20 @@ class Propiedad(models.Model):
     precio=models.IntegerField()
     desc_prop=models.TextField()
     imagen=models.ImageField(upload_to='propiedad')
-    #tipo_propiedad=models.CharField(max_length=15)
+    tipo_propiedad=models.CharField(max_length=15, blank=False, null=False)
+    estado=models.CharField(max_length=16, choices=estados, default='disponible')
+    zona=models.CharField(max_length=20,choices=zonas)
 
 
     def __str__(self):
         return 'Codigo Propiedad= %s   Tipo Alquiler= %s ' %(self.pk,self.tipo_alquiler)
 
 class PropiedadCasa(Propiedad):
+    #tipo_propiedad = 'casa'
     opc=(
         ('si','Si'),
         ('no','No'),
     )
-    #prop_casa=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
-    tipo_propiedad=models.CharField(max_length=15, default='casa', editable=False)
     patio=models.CharField(max_length=2,choices=opc)
     pileta=models.CharField(max_length=2,choices=opc)
     terraza=models.CharField(max_length=2,choices=opc)
@@ -46,7 +57,7 @@ class PropiedadDepto(Propiedad):
         ('no','No'),
     )
     #prop_depto=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
-    tipo_propiedad=models.CharField(max_length=15, default='departamento', editable=False)
+    #tipo_propiedad=models.CharField(max_length=15, default='departamento', editable=False)
     frente=models.CharField(max_length=2,choices=opc)
     contrafrente=models.CharField(max_length=2,choices=opc)
     espacios_comunes=models.CharField(max_length=2,choices=opc)
@@ -57,38 +68,8 @@ class PropiedadHabitacion(Propiedad):
         ('no','No'),
     )
     #prop_hab=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
-    tipo_propiedad=models.CharField(max_length=15, default='habitacion', editable=False)
+    #tipo_propiedad=models.CharField(max_length=15, default='habitacion', editable=False)
     banio_individual=models.CharField(max_length=2,choices=opc)
-
-class Zona(models.Model):
-    propiedad=models.ForeignKey(Propiedad,on_delete=models.CASCADE)
-    opc_cod=(
-        ('1','1'),
-        ('2','2'),
-        ('3','3'),
-        ('4','4'),
-    )
-    opc_desc=(
-        ('norte','Norte'),
-        ('sur','Sur'),
-        ('este','Este'),
-        ('oeste','Oeste'),
-    )
-    cod_zona=models.CharField(max_length=1,choices=opc_cod)
-    desc_zona=models.CharField(max_length=20,choices=opc_desc)
-
-
-class EstadoPropiedad(models.Model):
-    opc_estado=(
-        ('ocupado','Ocupado'),
-        ('disponible','Disponible'),
-        ('en mantenimiento','En Mantenimiento'),
-    )
-    propiedad=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
-    desc_estado=models.CharField(max_length=15)
-    #faltan mas campos, que son relacionados a datos-estadisticas en cuanto a rangos de tiempos
-    
-
 
 class Oferta(models.Model):
     

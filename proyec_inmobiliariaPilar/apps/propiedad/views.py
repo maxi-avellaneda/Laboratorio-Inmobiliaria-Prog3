@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Propiedad
+from .models import Propiedad, PropiedadCasa, PropiedadDepto, PropiedadHabitacion
 from .forms import PropiedadCasaForm,PropiedadDptoForm,PropiedadHabitacionForm
 
 # Create your views here.
@@ -27,9 +27,12 @@ def NuevaPropiedadCasa(request):
         "form" : PropiedadCasaForm()
     }
     if request.method == 'POST':
-        formulario = PropiedadCasaForm(request.POST,request.FILES)
-        if formulario.is_valid():
-            formulario.save()
+        print(request.POST)
+        f = PropiedadCasaForm(request.POST,request.FILES)
+        if f.is_valid():
+            form = f.save(commit=False)
+            form.tipo_propiedad='casa'
+            form.save()
             data["mensaje"] = 'guardado con exito'
 
     return render(request, 'propiedad/nueva_propiedad.html', data )
@@ -39,9 +42,11 @@ def NuevaPropiedadDpto(request):
         "form" : PropiedadDptoForm()
     }
     if request.method == 'POST':
-        formulario = PropiedadDptoForm(request.POST, request.FILES)
-        if formulario.is_valid():
-            formulario.save()
+        f = PropiedadDptoForm(request.POST,request.FILES)
+        if f.is_valid():
+            form = f.save(commit=False)
+            form.tipo_propiedad='departamento'
+            form.save()
             data["mensaje"] = 'guardado con exito'
 
     return render(request, 'propiedad/nueva_propiedad.html', data )
@@ -51,18 +56,74 @@ def NuevaPropiedadHabitacion(request):
         "form" : PropiedadHabitacionForm()
     }
     if request.method == 'POST':
-        formulario = PropiedadHabitacionForm(request.POST)
-        if formulario.is_valid():
-            formulario.save()
+        f = PropiedadHabitacionForm(request.POST,request.FILES)
+        if f.is_valid():
+            form = f.save(commit=False)
+            form.tipo_propiedad='habitacion'
+            form.save()
             data["mensaje"] = 'guardado con exito'
 
     return render(request, 'propiedad/nueva_propiedad.html', data)
 
 def ModificarPropiedad(request,id):
     propiedad = Propiedad.objects.get(pk=id)
-    tipocasa = propiedad.propiedadcasa.tipo_propiedad
-    tipodpto = propiedad.propiedaddepto.tipo_propiedad
-    tipohabitacion = propiedad.propiedadhabitacion.tipo_propiedad
+    tipo = propiedad.tipo_propiedad
+    data = {
+        "mensaje" : 'no se puede'
+    }
+    if tipo == 'casa':
+        casa = PropiedadCasa.objects.get(pk=id)
+        data = {
+            "form": PropiedadCasaForm(instance=propiedad)
+        }
+        if request.method == 'POST':
+            formulario = PropiedadCasaForm(data=request.POST, instance=casa)
+            if formulario.is_valid():
+                formulario.save()
+                data={
+                    "mensaje":'guardado correctamente',
+                    "form": PropiedadCasaForm(instance=casa),
+                }
 
+    elif tipo == 'departamento':
+        dpto = PropiedadDepto.objects.get(pk=id)
+        data = {
+            "form": PropiedadDptoForm(instance=dpto)
+        }
+        if request.method == 'POST':
+            formulario = PropiedadDptoForm(data=request.POST, instance=dpto)
+            if formulario.is_valid():
+                formulario.save()
+                data={
+                    "mensaje":'guardado correctamente',
+                    "form": PropiedadDptoForm(instance=dpto),
+                }  
+    elif tipo =='habitacion':
+        habitacion = PropiedadHabitacion.objects.get(pk=id)
+        data = {
+            "form": PropiedadHabitacionForm(instance=habitacion)
+        }
+        if request.method == 'POST':
+            formulario = PropiedadHabitacionForm(data=request.POST, instance=habitacion)
+            if formulario.is_valid():
+                formulario.save()
+                data={
+                    "mensaje":'guardado correctamente',
+                    "form": PropiedadHabitacionForm(instance=habitacion),
+                }
 
-return render(request, 'propiedad/lista_propiedades.html', {"mensaje":mensaje})
+    return render(request, 'propiedad/nueva_propiedad.html', data)
+
+def EliminarPropiedad(request, id):
+
+    if PropiedadCasa.objects.filter(pk=id).exists():
+        propiedad = PropiedadCasa.objects.get(pk=id)
+        propiedad.delete()
+    elif PropiedadDepto.objects.filter(pk=id).exists():
+        propiedad = PropiedadDepto.objects.get(pk=id)
+        propiedad.delete()
+    elif PropiedadHabitacion.objects.filter(pk=id).exists():
+        propiedad = PropiedadHabitacion.objects.get(pk=id)
+        propiedad.delete()    
+
+    return redirect(to='listado_propiedades')        

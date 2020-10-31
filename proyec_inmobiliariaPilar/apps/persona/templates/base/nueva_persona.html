@@ -3,18 +3,46 @@
 {% load static %}
 
 {% block contenido %}
-    <div class="container">
+
+<style>
+    div.container{
+
+        margin-bottom: 1em;
+        margin-top: 1em;
+
+    }
+
+    div.form-group.row{
+
+        margin-top: 1em;
+        margin-left: 1em;
+        margin-right: 1em;
+        vertical-align: middle;
+
+    }
+
+    div.input-field select{
+        
+        display: block;
+        margin: 0;
+        width: 100%;
+    }
+</style>
+
+    <div class="container" style="background-image: url({% static 'base/fondo-formulariopersona.jpg' %});">
         <form action="" method="POST">{% csrf_token %}
     {% for field in form %}
-            <div class="input-field">
-                <label for="{{field.id_for_label}}" class="">{{field.label}}</label>
+        <div class="form-group row" id="capacidad_cochera">
+            <label for="{{field.id_for_label}}" class="col-sm-2 col-form-label" style="color: #fff;">{{field.label}}</label>
+            <div class="col-sm-10">
                 {{field}}{{field.errors}}
             </div>
+        </div>
     {% endfor %}
-            <div class="input-field" style="padding: 3em; text-align: center;" >
-                <input class="btn-primary" type="submit" name="ENVIAR">
-                <input class="btn-primary" type="reset" name="RESET">
-            </div>
+        <div class="input-field" style="padding: 3em; text-align: center;" >
+            <input class="btn-primary" type="submit" name="ENVIAR">
+            <input class="btn-primary" type="reset" name="RESET">
+        </div>
             <h3>{{mensaje}}</h3>
         </form>
     </div>

@@ -12,7 +12,8 @@
             {% for prop in propiedades%}
         <tr>    
             <td>{{prop}}</td>
-            <td><a href="{% url 'modificar_propiedad' prop.id %}">Modificar</a> <a href="">Eliminar</a></td>
+            <td><a href="{% url 'modificar_propiedad' prop.id %}">Modificar</a> 
+                <a href="{% url 'eliminar_propiedad' prop.id %}">Eliminar</a></td>
         </tr>    
             {% endfor %}
         {% else %}

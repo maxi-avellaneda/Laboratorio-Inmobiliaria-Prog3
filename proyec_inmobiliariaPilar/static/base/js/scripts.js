@@ -1,5 +1,3 @@
-
-
 function formularioCasa()   {
     let formulario_principal = document.getElementById("form-principal");
     let boton_casa = document.getElementById("opc-casa").value;

@@ -8,4 +8,5 @@ urlpatterns = [
     path('dpto/',views.NuevaPropiedadDpto, name='nueva_propiedad_dpto'),
     path('habitacion/',views.NuevaPropiedadHabitacion, name='nueva_propiedad_habitacion'),
     path('modificar/<id>/',views.ModificarPropiedad, name='modificar_propiedad'),
+    path('eliminar/<id>/',views.EliminarPropiedad, name='eliminar_propiedad'),
 ]
