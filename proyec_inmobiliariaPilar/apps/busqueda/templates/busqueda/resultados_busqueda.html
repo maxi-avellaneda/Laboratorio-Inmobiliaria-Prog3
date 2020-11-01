@@ -21,23 +21,20 @@
         {% if dormitorios %}
             <strong>*Dormitorios:</strong> {{dormitorios}} <br>
         {% endif %}  
-         
-        {% if precio1 %}
-            <strong>*Rango 1 --> Precio: </strong> {{precio1}} -----
-        {% endif %}
-        {% if precio2 %}
-            <strong>*Rango 2 --> Precio: </strong> {{precio2}}
-        {% endif %}
         {% if zona %}
             <strong>*Zona:</strong> {{zona}} <br>
         {% endif %}
-        
+        {% if precio1 %}
+            <strong>*Precio : </strong> ${{precio1}} 
+        {% endif %}
 
     </p>
 
     <br>
+
     <h2 ><strong>SE ENCONTRARON: ({{propiedades|length}}) RESULTADOS</strong>  </h1>
-    <!--<p>zonaprueba trajo: {{zonaprueba}}</p>-->
+    
+    
     {% if propiedades %}
         
         <ul>
