@@ -1,26 +1,53 @@
 {% extends 'base/base.html' %}
 
 {% block contenido %}
+    <style>
+        div#addPropiedades{
+            border: 1px solid black;
+            padding: 2em;
+            text-align: center;
+            margin-bottom: 2em;
+        }
+        div#addPropiedades a{
+            padding: 1em;
+            color: #ffffff;
+            margin: 1em;
+            background-color: darkblue;
+        }
+        table a{
+            margin-right: 1em;
+            background-color: black;
+        }
+    </style>
+
     <h1 style="text-align: center;">LISTADO DE PROPIEDADES</h1>
 
-    <table>
-        <tr>
-            <th>DATOS</th>
-            <th>OPCIONES</th>
+    <div id="addPropiedades">
+        <a href="{% url 'nueva_casa' %}">NUEVA CASA</a>
+        <a href="{% url 'nuevo_dpto' %}">NUEVO DEPARTAMENTO</a>
+        <a href="{% url 'nueva_habitacion' %}">NUEVA HABITACION</a>
+    </div>
+
+    <table class="table-bordered" style="width: 100%;">
+        <thead class="thead-dark" style="background-color: black;">
+        <tr style="color: blanchedalmond; text-align: center;">
+            <th scope="col">ID</th>
+            <th scope="col">DATOS</th>
+            <th scope="col">OPCIONES</th>
         </tr>
-        {% if propiedades%}
-            {% for prop in propiedades%}
-        <tr>    
+        </thead>
+        {% for prop in propiedades %}
+        <tbody>
+        <tr>
+            <th scope="row">{{prop.id}}</th>
             <td>{{prop}}</td>
-            <td><a href="{% url 'modificar_propiedad' prop.id %}">Modificar</a> 
-                <a href="{% url 'eliminar_propiedad' prop.id %}">Eliminar</a></td>
-        </tr>    
-            {% endfor %}
-        {% else %}
-            <p> NO HAY PROPIEDADES EN LA BASE DE DATOS</p>    
-        {% endif %}
-            
-    
+            <td>
+                <a href="{% url 'modificar_propiedad' prop.id %}">Modificar</a> 
+                <a href="{% url 'eliminar_propiedad' prop.id %}">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+        {% endfor %}
     </table>
 
     {{mensaje}}

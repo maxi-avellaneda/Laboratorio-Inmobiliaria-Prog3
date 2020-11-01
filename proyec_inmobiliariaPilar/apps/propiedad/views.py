@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Propiedad, PropiedadCasa, PropiedadDepto, PropiedadHabitacion
-from .forms import PropiedadCasaForm,PropiedadDptoForm,PropiedadHabitacionForm
+from .models import Propiedad, PropiedadCasa, PropiedadDepto, PropiedadHabitacion, Oferta
+from .forms import PropiedadCasaForm,PropiedadDptoForm,PropiedadHabitacionForm, OfertaForm
 
 # Create your views here.
 
@@ -77,7 +77,7 @@ def ModificarPropiedad(request,id):
             "form": PropiedadCasaForm(instance=propiedad)
         }
         if request.method == 'POST':
-            formulario = PropiedadCasaForm(data=request.POST, instance=casa)
+            formulario = PropiedadCasaForm(data=request.POST,files=request.FILES, instance=casa)
             if formulario.is_valid():
                 formulario.save()
                 data={
@@ -91,7 +91,7 @@ def ModificarPropiedad(request,id):
             "form": PropiedadDptoForm(instance=dpto)
         }
         if request.method == 'POST':
-            formulario = PropiedadDptoForm(data=request.POST, instance=dpto)
+            formulario = PropiedadDptoForm(data=request.POST,files=request.FILES, instance=dpto)
             if formulario.is_valid():
                 formulario.save()
                 data={
@@ -104,7 +104,7 @@ def ModificarPropiedad(request,id):
             "form": PropiedadHabitacionForm(instance=habitacion)
         }
         if request.method == 'POST':
-            formulario = PropiedadHabitacionForm(data=request.POST, instance=habitacion)
+            formulario = PropiedadHabitacionForm(data=request.POST,files=request.FILES,instance=habitacion)
             if formulario.is_valid():
                 formulario.save()
                 data={
@@ -126,4 +126,47 @@ def EliminarPropiedad(request, id):
         propiedad = PropiedadHabitacion.objects.get(pk=id)
         propiedad.delete()    
 
-    return redirect(to='listado_propiedades')        
+    return redirect(to='listado_propiedades')    
+
+def NuevaOferta(request):
+    data = {
+        "form" : OfertaForm()
+    }
+    if request.method == 'POST':
+        f = OfertaForm(request.POST)
+        if f.is_valid():
+            f.save()
+            data["mensaje"] = 'guardado con exito'
+
+    return render(request, 'propiedad/nueva_propiedad.html', data)
+
+def ModificarOferta(request,id):
+    oferta = Oferta.objects.get(pk = id)
+    data = {
+        "form" : OfertaForm(instance=oferta)
+    }
+    if request.method == 'POST':
+        f = OfertaForm(data=request.POST, instance=oferta)
+        if f.is_valid():
+            f.save()
+            data = {
+                "mensaje":'guardado correctamente',
+                "form": OfertaForm(instance=oferta)
+            }
+
+    return render(request, 'propiedad/nueva_propiedad.html', data)
+
+def EliminarOferta(request,id):
+    if Oferta.objects.filter(pk = id).exists():
+        oferta = Oferta.objects.get(pk = id)
+        oferta.delete()
+    return redirect(to='listado_ofertas')
+
+
+def MostrarOfertas(request):
+    ofertas = Oferta.objects.all()
+    return render(request,'oferta/ofertas.html', {"ofertas": ofertas})
+
+def ListarOfertas(request):
+    ofertas = Oferta.objects.all()
+    return render(request,'oferta/listado_ofertas.html', {"ofertas": ofertas})

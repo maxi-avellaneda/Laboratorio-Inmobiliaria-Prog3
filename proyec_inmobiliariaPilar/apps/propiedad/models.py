@@ -25,7 +25,7 @@ class Propiedad(models.Model):
     capacidad=models.IntegerField()
     cant_ambientes=models.IntegerField()
     cochera=models.BooleanField()
-    capacidad_cochera=models.IntegerField(blank=True)
+    capacidad_cochera=models.IntegerField(blank=True, null=True)
     cant_banios=models.IntegerField()
     permite_cancelacion=models.BooleanField()
     tipo_alquiler=models.CharField(max_length=7,choices=opc_tipo_alquiler)
@@ -76,20 +76,7 @@ class Oferta(models.Model):
     propiedad=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
     cod_oferta=models.CharField(unique=True,max_length=5)
     permite_cancelacion=models.BooleanField()
-    periodo_vigencia=models.CharField(max_length=5)
+    #periodo_vigencia=models.CharField(max_length=5)
+    fecha_inicio = models.DateField(auto_now_add=True)
+    fecha_fin = models.DateField()
     fecha_solicitud=models.DateTimeField(auto_now_add=True)
-
-class PropietarioPropiedad(models.Model):
-    propiedad=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
-    propietario=models.OneToOneField(Persona,on_delete=models.CASCADE)
-    escritura=models.CharField(max_length=300)
-    autorizacion_poder=models.CharField(max_length=150)
-    fecha_alta=models.DateTimeField(auto_now_add=True)
-
-class InquilinoPropiedad(models.Model):
-    propiedad=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
-    inquilino=models.OneToOneField(Persona,on_delete=models.CASCADE)
-    vigencia_alquiler=models.CharField(max_length=10)
-    cant_personas=models.IntegerField()
-    importe_total=models.DecimalField(max_digits=10,decimal_places=2)
-    importe_senia=models.DecimalField(max_digits=10,decimal_places=2)

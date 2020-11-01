@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+        <!-- end:header-top -->
+		<div id="fh5co-properties" class="fh5co-section-gray">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h3>SERVICIOS DEL SISTEMA</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit est facilis maiores, perspiciatis accusamus asperiores sint consequuntur debitis.</p>
+					</div>
+                </div>
+                {% for oferta in ofertas %}
+				<div class="row">
+					<div class="col-md-4 animate-box">
+						<div class="property">
+							<a href="#" class="fh5co-property" style="background-image: url({{oferta.propiedad.imagen.url}});">
+                                <span class="status">Oferta</span>
+								<ul class="list-details">
+									<li>Metros:{{oferta.propiedad.mts}}mts<li>
+									<li>Ambientes:{{oferta.propiedad.cant_ambientes}}</li>
+									<li>Baños:{{oferta.propiedad.cant_banios}}</li>
+									{% if oferta.propiedad.cochera %}
+									<li>Garage:{{oferta.propiedad.capacidad_cochera}}</li>
+									{% endif %}
+								</ul>
+							</a>
+							<div class="property-details">
+								<h3>{{servicio.titulo}}</h3>
+								<span class="price">{{oferta.propiedad.precio}}</span>
+								<p>{{oferta.propiedad.desc_prop}}</p>
+								<span class="address"><i class="icon-map"></i>ZONA: {{oferta.propiedad.zona}}</span>
+							</div>
+						</div>
+                    </div>
+                {% endfor %}
+				</div>
+			</div>
+		</div>
+{% endblock %}

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.propiedad',
     'apps.login',
     'apps.contacto',
+    'apps.contrato',
 ]
 
 MIDDLEWARE = [

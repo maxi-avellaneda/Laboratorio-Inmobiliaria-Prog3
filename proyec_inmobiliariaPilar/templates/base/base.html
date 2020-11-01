@@ -45,7 +45,16 @@
                         <nav id="fh5co-menu-wrap" role="navigation">
                             <ul class="sf-menu" id="fh5co-primary-menu">
                                 <li class="active"><a href="#">Login</a></li>
-                                <li><a href="/listadoPropiedades">Propiedades</a></li>
+                                <li>
+                                    <a href="{% url 'listado_propiedades' %}" class="fh5co-sub-ddown">Propiedades</a>
+                                    <ul class="fh5co-sub-menu" >
+                                        <li><a href="{% url 'nueva_casa' %}">Ingresar nueva CASA</a></li>
+                                        <li><a href="{% url 'nuevo_dpto' %}">Ingresar nuevo DEPARTAMENTO</a></li>
+                                        <li><a href="{% url 'nueva_habitacion' %}">Ingresar nueva HABITACION</a></li>
+                                        <li><a href="{% url 'listado_propiedades' %}">Listar propiedades</a></li>
+                                        
+                                    </ul>
+                                </li>
                                 <li>
                                     <a href="#" class="fh5co-sub-ddown">Gestion Estadisticas</a>
                                     <ul class="fh5co-sub-menu" >
@@ -63,6 +72,41 @@
                     </div>
                 </div>
             </header>
+            <div id="AdminMenu">
+                <ul style="text-align: center">
+                    <li style="display: inline;"><a href="{% url 'listado_propiedades' %}">Gestion Propiedades</a></li>
+                    <li style="display: inline;"><a href="{% url 'listado_ofertas' %}">Gestion Ofertas</a></li>
+                    <li style="display: inline;"><a href="#">LIC</a></li>
+                </ul>
+            </div>
+
+            <style>
+                div#AdminMenu ul li{
+                    display: inline;
+                    margin-left: 1em;
+                    margin-right: 1em;
+                }
+                div#AdminMenu{
+                    width: 100%;
+                    background-color: black;
+                    padding-top: 1em;
+                    padding-bottom: 0.1em;
+                    margin-bottom: 1em;
+                }
+                div#AdminMenu ul li a{
+                    color: blanchedalmond;
+                }
+                div.dropdown-menu a{
+                    color: blanchedalmond;
+                }
+                div.dropdown-menu{
+                    width: 5em;
+                }
+                a.dropdown-item{
+                    margin-bottom: 3em;
+                    background-color: black;
+                }
+            </style>
             
             <!-- el block contenido servira para diferentes paginas dinamicas-->
             {% block contenido %}
