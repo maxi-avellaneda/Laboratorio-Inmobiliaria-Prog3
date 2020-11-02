@@ -55,15 +55,41 @@
                         {% endif %}
                         | Dormitorios: {{pro.cant_ambientes}}
                         | Cantidad Baños: {{pro.cant_banios}}
-                        | Zona: {{pro.zona_set.desc_zona}}
                         
                     </p>
                 </li>
 
             {% endfor %}
         </ul>
+
+        <div id="fh5co-popular-properties" class="fh5co-section-gray">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+                        <h3>Propiedades Encontradas</h3>
+                        <p>En esta seccion podra ver las propiedades que cumplen con lo buscado.</p>
+                    </div>
+                </div>  
+                <div class="row">
+                    {% for pr in propiedades %}
+                        <div class="col-md-4 animate-box">
+                            <a href="properties.html" class="fh5co-property" style="background-image: url({{pr.imagen.url}});">
+                                <span class="status">Alquila</span>
+                                <div class="prop-details">
+                                    <span class="price">${{pr.precio}}</span>
+                                    <h3>{{pr.desc_prop}}</h3>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                        
+            </div>
+        </div>
+
+
     {% else %}
-        <p>No se encontro ningun resultado con los valores ingresados</p>
+        <p>No se encontro ninguna propiedadad</p>
     {% endif %}
 
 {% endblock %}

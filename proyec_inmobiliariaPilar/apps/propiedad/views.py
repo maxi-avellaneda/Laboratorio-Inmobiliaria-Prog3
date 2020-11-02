@@ -5,6 +5,11 @@ from .forms import PropiedadCasaForm,PropiedadDptoForm,PropiedadHabitacionForm
 
 # Create your views here.
 
+def ListadoPropiedades(request):
+    propiedades= Propiedad.objects.all()
+    return render(request,'propiedad/lista_propiedades.html',{'propiedades':propiedades})
+
+
 def NuevaPropiedadCasa(request):
     data = {
         "form" : PropiedadCasaForm()
