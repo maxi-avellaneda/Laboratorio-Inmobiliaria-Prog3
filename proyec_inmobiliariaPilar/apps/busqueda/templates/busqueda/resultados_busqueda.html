@@ -1,0 +1,95 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block contenido %}
+    <h1 style="text-align: center; margin: 10px;"><strong>RESULTADOS BUSQUEDA PROPIEDADES</strong></h1>
+    <h3><strong>Estas filtrando por : <br></strong> </h3>
+    <p>
+        
+        {% if idpro %}
+            <strong>*ID Propiedad:</strong>  {{idpro}} <br>
+        {% endif %}  
+        {% if capacidad %}
+            <strong>*Capacidad:</strong> {{capacidad}} <br>
+        {% endif %}  
+        {% if cant_banios %}
+            <strong>*Cantidad baños:</strong> {{cant_banios}} <br>
+        {% endif %}
+        {% if tipo_propiedad != "ninguna" %}
+            <strong>*Tipo de propiedad:</strong> {{tipo_propiedad}} <br>
+        {% endif %}
+        {% if dormitorios %}
+            <strong>*Dormitorios:</strong> {{dormitorios}} <br>
+        {% endif %}  
+        {% if zona %}
+            <strong>*Zona:</strong> {{zona}} <br>
+        {% endif %}
+        {% if precio1 %}
+            <strong>*Precio : </strong> ${{precio1}} 
+        {% endif %}
+
+    </p>
+
+    <br>
+
+    <h2 ><strong>SE ENCONTRARON: ({{propiedades|length}}) RESULTADOS</strong>  </h1>
+    
+    
+    {% if propiedades %}
+        
+        <ul>
+            {% for pro in propiedades %}
+
+                <li>
+                    <p> 
+                        ID Propiedad: {{pro.id}} 
+                        | Capacidad: {{pro.capacidad}} 
+                        | Cantidad de Baños: {{pro.cant_banios}}  
+                        |{% if tipo_propiedad == "ninguna" %}
+                            Tipo de Propiedad: 
+                                {{pro.propiedadcasa.tipo_propiedad}} 
+                                {{pro.propiedaddepto.tipo_propiedad}}
+                                {{pro.propiedadhabitacion.tipo_propiedad}}
+                        {% else %}
+                            Tipo de Propiedad: {{pro.tipo_propiedad}}
+                        {% endif %}
+                        | Dormitorios: {{pro.cant_ambientes}}
+                        | Cantidad Baños: {{pro.cant_banios}}
+                        
+                    </p>
+                </li>
+
+            {% endfor %}
+        </ul>
+
+        <div id="fh5co-popular-properties" class="fh5co-section-gray">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+                        <h3>Propiedades Encontradas</h3>
+                        <p>En esta seccion podra ver las propiedades que cumplen con lo buscado.</p>
+                    </div>
+                </div>  
+                <div class="row">
+                    {% for pr in propiedades %}
+                        <div class="col-md-4 animate-box">
+                            <a href="{% url 'detalles_propiedad' %}" class="fh5co-property" style="background-image: url({{pr.imagen.url}});">
+                                <span class="status">Alquila</span>
+                                <div class="prop-details">
+                                    <span class="price">${{pr.precio}}</span>
+                                    <h3>{{pr.desc_prop}}</h3>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                        
+            </div>
+        </div>
+
+
+    {% else %}
+        <p>No se encontro ninguna propiedadad</p>
+    {% endif %}
+
+{% endblock %}

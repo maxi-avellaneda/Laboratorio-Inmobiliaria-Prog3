@@ -23,6 +23,7 @@ urlpatterns = [
     path('',include(('apps.inicio.urls','inicio'),namespace='inicio')),
     path('clientes/', include(('apps.persona.urls'))),
     path('propiedad/', include(('apps.propiedad.urls'))),
+    path('busqueda/', include(('apps.busqueda.urls'))),
 ]
 
 urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

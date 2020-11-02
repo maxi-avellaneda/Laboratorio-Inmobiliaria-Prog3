@@ -5,4 +5,5 @@ from apps.propiedad.models import Propiedad,Oferta
 
 def Home(request):
     propofertas=Oferta.objects.all()
-    return render(request, 'inicio/home.html',{'propofertas':propofertas})
+    propiedades=Propiedad.objects.all()
+    return render(request, 'inicio/home.html',{'propofertas':propofertas,'propiedades':propiedades})
