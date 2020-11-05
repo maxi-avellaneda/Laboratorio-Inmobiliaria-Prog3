@@ -9,11 +9,11 @@ def ListadoPropiedades(request):
     propiedades= Propiedad.objects.all()
     return render(request,'propiedad/lista_propiedades.html',{'propiedades':propiedades})
 
-def detallePropiedad(request):
-
+def detallePropiedad(request,id):
+    pro = Propiedad.objects.get(pk=id)
 
     
-    return render(request,'propiedad/detalles_propiedad.html')
+    return render(request,'propiedad/detalles_propiedad.html',{'pro':pro})
 
 
 def NuevaPropiedadCasa(request):

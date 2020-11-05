@@ -28,12 +28,16 @@
                                                     <h2 class="price">${{oferta.propiedad.precio}}</h2>
                                                     <p>{{oferta.propiedad.desc_prop}}</p>
                                                     <p class="details">
-                                                        <span>{{oferta.propiedad.mts}} metros cuadrados</span>
-                                                        <span>{{oferta.propiedad.cant_ambientes}} Dormitorios</span>
-                                                        <span>{{oferta.propiedad.cant_banios}} Baño</span>
-                                                        <span>Alquiler: {{oferta.propiedad.tipo_alquiler}}</span>
+                                                        <span>{{oferta.propiedad.mts}} m<sup>2</sup> </span>
+                                                        <span>{{oferta.propiedad.cant_ambientes}} Dormitorio/s</span>
+                                                        <span>{{oferta.propiedad.cant_banios}} Baño/s</span>
+                                                        <span>Alquiler: {{oferta.propiedad.tipo_alquiler|capfirst}}</span>
                                                     </p>
-                                                    <p><a class="btn btn-primary btn-lg" href="#">Ver</a></p>
+                                                    <p> 
+                                                        <button type="button" class="btn btn-primary btn-lg" >
+                                                            <a href="{% url 'detalles_propiedad' oferta.propiedad.id %}" style="color: white;"><strong>VER</strong> </a>
+                                                        </button>
+                                                    </p>
                                             </div>
                                         </div>
                                     </div>
@@ -80,7 +84,7 @@
                 <div class="row">
                     {% for pr in propiedades %}
                         <div class="col-md-4 animate-box">
-                            <a href="{% url 'detalles_propiedad' %}" class="fh5co-property" style="background-image: url({{pr.imagen.url}});">
+                            <a href="{% url 'detalles_propiedad' pr.id %}" class="fh5co-property" style="background-image: url({{pr.imagen.url}});">
                                 <span class="status">Alquila</span>
                                 <div class="prop-details">
                                     <span class="price">${{pr.precio}}</span>

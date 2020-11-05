@@ -44,9 +44,11 @@
                         <!-- BARRA DE MENU -->
                         <nav id="fh5co-menu-wrap" role="navigation">
                             <ul class="sf-menu" id="fh5co-primary-menu">
+                                <li><a href="{% url 'index' %}">Inicio</a></li>
+                                <li><a href="http://127.0.0.1:8000/admin">Login</a></li>
                                 <li><a href="{% url 'mostrar_ofertas' %}">Ofertas</a></li>
                                 <li>
-                                    <a href="#" class="fh5co-sub-ddown">Gestion Estadisticas</a>
+                                    <a href="#" class="fh5co-sub-ddown">Estadisticas</a>
                                     <ul class="fh5co-sub-menu" >
                                         <li><a href="#">Zona de menos alquiler</a></li>
                                         <li><a href="#">Porcentaje de ocupacion</a></li>
@@ -55,8 +57,7 @@
                                         <li><a href="#">Propiedades y tiempo sin alquilar</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#">Contactenos</a></li>
-                                <li><a href="{% url 'busqueda' %}">Buscar</a></li>
+                                <li><a href="{% url 'busqueda' %}"><i class="fas fa-search"></i> Buscar <i class="fas fa-home"></i></a></li>
                             </ul>
                         </nav>
                     </div>

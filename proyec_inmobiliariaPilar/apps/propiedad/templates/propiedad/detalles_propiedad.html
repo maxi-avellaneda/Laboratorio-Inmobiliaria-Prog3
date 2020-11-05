@@ -3,6 +3,122 @@
 
 {% block contenido %}
 
-    <p>DETALLES DE LA PROPIEDAD</p>
+    <!--MOSTRAMOS TODAS LAS PROPIEDADES DEBAJO DEL CARRUSEL DE OFERTAS-->
+    {% if pro %}
+    <section>
+        <div id="fh5co-popular-properties" class="fh5co-section-gray">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+                        <h3 style="color: black; "><strong>DETALLES DE LA PROPIEDAD</strong> </h3>
+                    </div>
+                </div>  
+                
+                <div class="row">
+                    <img src="{{pro.imagen.url}}" style="width: 100%; height: 100%;" ><br><br>
+                    <h1 style="color: black;"><strong>
+                        {{pro.tipo_propiedad|upper}} · {{pro.mts|upper}}m<sup>2</sup> · {{pro.cant_ambientes|upper}} dormitorios · {{pro.cant_banios|upper}} baño/s 
+                    </strong></h1> 
+                    <div class="Adminn">
+                        <ul style="text-align: left">
+                            <li style="display: inline;"><i class='fas fa-expand-arrows-alt'></i> {{pro.mts|upper}}m<sup>2</sup> cubiertos</li>
+                            <li style="display: inline;"><i class='fas fa-users'></i> {{pro.capacidad|upper}} personas</li>
+                            <li style="display: inline;"><i class='fas fa-bed'></i> {{pro.cant_ambientes|upper}} dormitorios</li>
+                            <li style="display: inline;"><i class="fas fa-bath"></i> {{pro.cant_banios|upper}} baño/s</li>
+                            {% if pro.cochera == True %}
+                            <li style="display: inline;"><i class='fas fa-car'></i> {{pro.capacidad_cochera}}</li>
+                            {% endif%}
+                            <li style="display: inline;"><i class="fas fa-check-circle" style="color: greenyellow;"></i> {{pro.estado|upper}}</li>
+                            {% if pro.oferta.cod_oferta %}
+                            <li style="display: inline;"><i class='far fa-money-bill-alt'></i> EN OFERTA</li>
+                            {% endif %}
+                            
+                        </ul>
+                    </div>
+                    <div style="border-style: solid;border-width: 1px;">
+                        <h2 style="color: black;margin: 20px;"><strong><u>Todos los detalles de la propiedad:</u> </strong></h2>
+                        <p style="color: black;margin: 20px;">
+                            {{pro.desc_prop}}
+                            <ul id="detalles" style="list-style-type: none;">
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Codigo Propiedad: </u></strong>  {{pro.id}} </li>
+                                {% if pro.oferta.cod_oferta %}
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Codigo Oferta: </u></strong>  {{pro.oferta.cod_oferta}}</li>
+                                {% endif %}
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Tipo Propiedad: </u></strong>  {{pro.tipo_propiedad|capfirst}}</li>
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Tipo Alquiler: </u></strong>  {{pro.tipo_alquiler|capfirst}}</li>
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Estado: </u></strong>  {{pro.estado|capfirst}}</li>
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> M<sup>2</sup> Cubiertos: </u></strong>  {{pro.mts}}</li>
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> M<sup>2</sup> Semicubiertos: </u></strong>  {{pro.mts_semicubiertos}}</li>
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Capacidad: </u></strong>  {{pro.capacidad}}</li>
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Cantidad de Dormitorios: </u></strong>  {{pro.cant_ambientes}}</li>
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Cantidad de Baños: </u></strong>   {{pro.cant_banios}}</li>
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Fecha Alta: </u></strong>  {{pro.fecha_alta}}</li>
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Precio: </u></strong>  ${{pro.precio}}</li>
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Zona: </u></strong>  {{pro.zona|capfirst}}</li>
+                                {% if pro.permite_cancelacion == True %}
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Permite Cancelacion: </u></strong>  Si </li>
+                                {% else %}
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Permite Cancelacion: </u></strong>  No </li>
+                                {% endif %}
+                                {% if pro.cochera == True %}
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Cochera: </u></strong>  Si</li>
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Capacidad Cochera: </u></strong>  {{pro.capacidad_cochera}}</li>
+                                {% else %}
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Cochera: </u></strong>  {{pro.cochera}}</li>
+                                {% endif %}
+
+                            </ul>
+                        </p>
+                    </div><br><br>
+                    <div style="text-align: center;">
+                        
+                        <button type="button" class="btn btn-danger" ><a href="#" style="color: black;"><strong><i style="font-size: 20px;" class='far fa-handshake'></i> Contactar para Alquilar</strong> </a></button>
+                        
+                    </div>
+                    <style>
+                        #detalles li {
+                            color: black;
+                        }
+                        div.Adminn ul li{
+                            display: inline;
+                            margin-left: 1em;
+                            margin-right: 1em;
+                            color: black;
+                        }
+                        div.Adminn{
+                            width: 100%;
+                            background-color: whitesmoke;
+                            padding-top: 1em;
+                            padding-bottom: 0.1em;
+                            margin-bottom: 1em;
+                            border-style: solid;
+                            border-width: 1px;
+                        }
+                        div.Adminn ul li a{
+                            color: blanchedalmond;
+                        }
+                        div.dropdown-menu a{
+                            color: blanchedalmond;
+                        }
+                        div.dropdown-menu{
+                            width: 5em;
+                        }
+                        a.dropdown-item{
+                            margin-bottom: 3em;
+                            background-color: black;
+                        }
+                    </style>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% else %}
+    <div>
+        <h1 style="font-size: 30; text-align: center;color: red;">
+            <strong>ERROR DESCONOCIDO - No se encontro la propiedad con el id: {{pro.id}}</strong> 
+        </h1>
+    </div>
+    {% endif %}
+
 
 {% endblock %}

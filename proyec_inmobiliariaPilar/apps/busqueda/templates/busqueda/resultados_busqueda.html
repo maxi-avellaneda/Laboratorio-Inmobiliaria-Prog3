@@ -73,7 +73,7 @@
                 <div class="row">
                     {% for pr in propiedades %}
                         <div class="col-md-4 animate-box">
-                            <a href="{% url 'detalles_propiedad' %}" class="fh5co-property" style="background-image: url({{pr.imagen.url}});">
+                            <a href="{% url 'detalles_propiedad' pr.id %}" class="fh5co-property" style="background-image: url({{pr.imagen.url}});">
                                 <span class="status">Alquila</span>
                                 <div class="prop-details">
                                     <span class="price">${{pr.precio}}</span>
