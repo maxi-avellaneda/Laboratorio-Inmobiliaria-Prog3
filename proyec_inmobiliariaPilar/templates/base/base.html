@@ -44,17 +44,7 @@
                         <!-- BARRA DE MENU -->
                         <nav id="fh5co-menu-wrap" role="navigation">
                             <ul class="sf-menu" id="fh5co-primary-menu">
-                                <li class="active"><a href="#">Login</a></li>
-                                <li>
-                                    <a href="{% url 'listado_propiedades' %}" class="fh5co-sub-ddown">Propiedades</a>
-                                    <ul class="fh5co-sub-menu" >
-                                        <li><a href="{% url 'nueva_casa' %}">Ingresar nueva CASA</a></li>
-                                        <li><a href="{% url 'nuevo_dpto' %}">Ingresar nuevo DEPARTAMENTO</a></li>
-                                        <li><a href="{% url 'nueva_habitacion' %}">Ingresar nueva HABITACION</a></li>
-                                        <li><a href="{% url 'listado_propiedades' %}">Listar propiedades</a></li>
-                                        
-                                    </ul>
-                                </li>
+                                <li><a href="{% url 'mostrar_ofertas' %}">Ofertas</a></li>
                                 <li>
                                     <a href="#" class="fh5co-sub-ddown">Gestion Estadisticas</a>
                                     <ul class="fh5co-sub-menu" >
@@ -76,7 +66,8 @@
                 <ul style="text-align: center">
                     <li style="display: inline;"><a href="{% url 'listado_propiedades' %}">Gestion Propiedades</a></li>
                     <li style="display: inline;"><a href="{% url 'listado_ofertas' %}">Gestion Ofertas</a></li>
-                    <li style="display: inline;"><a href="#">LIC</a></li>
+                    <li style="display: inline;"><a href="{% url 'listado_contratos' %}">Gestion Contratos</a></li>
+                    <li style="display: inline;"><a href="{% url 'listado_personas' %}">Gestion Clientes</a></li>
                 </ul>
             </div>
 

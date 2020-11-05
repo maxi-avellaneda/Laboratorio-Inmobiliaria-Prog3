@@ -23,43 +23,44 @@
     }
 </style>
 
-<h1 style="text-align: center;">LISTADO DE CLIENTES</h1>
+<h1 style="text-align: center;">LISTADO DE CONTRATOS</h1>
 
 <div id="addPropiedades">
-    <a href="{% url 'nueva_persona_juridica' %}">NUEVO CLIENTE JURIDICO</a>
-    <a href="{% url 'nueva_persona_fisica' %}">NUEVO CLIENTE FISICO</a>
+    <a href="{% url 'nuevo_contrato_propietario' %}">NUEVO CONTRATO PROPIETARIO</a>
+    <a href="{% url 'nuevo_contrato_inquilino' %}">NUEVO CONTRATO INQUILINO</a>
 </div>
 
 <table class="table-bordered" style="width: 100%;">
     <thead class="thead-dark" style="background-color: black;">
     <tr style="color: blanchedalmond; text-align: center;">
         <th scope="col">ID</th>
-        <th scope="col">DATOS</th>
-        <th scope="col">OPCIONES</th>
+        <th scope="col">Datos</th>
+        <th scope="col">Opciones</th>
     </tr>
     </thead>
     <tbody>
-    {% for p in personasFisicas %}
+    {% for contrato in propietarios %}
     <tr>
-        <th scope="row">{{p.id}}</th>
-        <td>{{p}}</td>
+        <th scope="row">{{contrato.id}}</th>
+        <td>{{contrato}}</td>
         <td>
-            <a href="{% url 'modificar_persona' p.id %}">Modificar</a> 
-            <a href="{% url 'eliminar_persona' p.id %}">Eliminar</a>
+            <a href="{% url 'modificar_contrato' contrato.id %}">Modificar</a> 
+            <a href="{% url 'eliminar_contrato' contrato.id %}">Eliminar</a>
         </td>
     </tr>
     {% endfor %}
-    {% for p in personasJuridicas %}
+    {% for contrato in inquilinos %}
     <tr>
-        <th scope="row">{{p.id}}</th>
-        <td>{{p}}</td>
+        <th scope="row">{{contrato.id}}</th>
+        <td>{{contrato}}</td>
         <td>
-            <a href="{% url 'modificar_persona' p.id %}">Modificar</a> 
-            <a href="{% url 'eliminar_persona' p.id %}">Eliminar</a>
+            <a href="{% url 'modificar_contrato' contrato.id %}">Modificar</a> 
+            <a href="{% url 'eliminar_contrato' contrato.id %}">Eliminar</a>
         </td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
+
 
 {% endblock %}
