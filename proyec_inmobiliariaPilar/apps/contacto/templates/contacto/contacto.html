@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+
+{% block contenido %}
+
+<div>
+    <!-- EL DIV PRINCIPAL CONTIENE OTROS DOS, EL QUE SE POSICIONA A LA IZQ ES EL BUSCADOR DE PROPIEDADES
+    EL DE LA DERECHA SOLO SE USA PARA PONER UNA IAMAGEN ILUSTRATIVA	-->
+    <div id="fh5co-search-map">
+        <div class="search-property">
+            <div class="s-holder">
+                <h2><strong>CONTACTATE CON EL PROPIETARIO </strong> </h2>
+                <p style="color: black;"><strong>Envia un mail al propietario para ponerse en contacto</strong></p>
+
+                <form action="{% url 'mail' %}" method="POST">    <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-xxs-12 col-xs-12">
+                            <div class="input-field">
+                                <label for="asunto">Asunto: </label>
+                                <input type="text" class="form-control"  name="asunto" placeholder="asunto"/>
+                            </div>
+                        </div>
+                        <div class="col-xxs-12 col-xs-12">
+                            <div class="input-field">
+                                <label for="email">Email: </label>
+                                <input type="text" class="form-control" name="email" placeholder="email"/>
+                            </div>
+                        </div>
+                        <div class="col-xxs-12 col-xs-12">
+                            <div class="input-field">
+                                <label for="from">Mensaje: </label>
+                                <textarea name="mensaje"  cols="27" rows="10" placeholder="escriba su mensaje al propietario"></textarea>
+                            </div>
+                        </div>
+                        <div >
+                            <p ><input type="reset" class="btn btn-primary btn-lg" value="Borrar" ></p>
+                            <p  > <input type="submit" class="btn btn-primary btn-lg" value="Enviar" ></p>
+                        </div>
+                        
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+        <div class="map" style="background-image: url({% static 'base/images/contact.jpg' %});">
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}
