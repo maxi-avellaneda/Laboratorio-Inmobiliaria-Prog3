@@ -25,7 +25,11 @@ def NuevaPropiedadCasa(request):
         f = PropiedadCasaForm(request.POST,request.FILES)
         if f.is_valid():
             form = f.save(commit=False)
-            form.tipo_propiedad='casa'
+            form.tipo_propiedad='CASA'
+            form.desc_prop = form.desc_prop.upper()
+            form.tipo_propiedad = form.tipo_propiedad.upper()
+            form.estado = form.estado.upper() 
+            form.zona = form.zona.upper()
             form.save()
             data["mensaje"] = 'guardado con exito'
 
@@ -39,7 +43,11 @@ def NuevaPropiedadDpto(request):
         f = PropiedadDptoForm(request.POST,request.FILES)
         if f.is_valid():
             form = f.save(commit=False)
-            form.tipo_propiedad='departamento'
+            form.tipo_propiedad ='DEPARTAMENTO'
+            form.desc_prop = form.desc_prop.upper()
+            form.tipo_propiedad = form.tipo_propiedad.upper()
+            form.estado = form.estado.upper() 
+            form.zona = form.zona.upper()
             form.save()
             data["mensaje"] = 'guardado con exito'
 
@@ -53,7 +61,11 @@ def NuevaPropiedadHabitacion(request):
         f = PropiedadHabitacionForm(request.POST,request.FILES)
         if f.is_valid():
             form = f.save(commit=False)
-            form.tipo_propiedad='habitacion'
+            form.tipo_propiedad='HABITACION'
+            form.desc_prop = form.desc_prop.upper()
+            form.tipo_propiedad = form.tipo_propiedad.upper()
+            form.estado = form.estado.upper() 
+            form.zona = form.zona.upper()
             form.save()
             data["mensaje"] = 'guardado con exito'
 

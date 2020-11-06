@@ -26,6 +26,7 @@ urlpatterns = [
     path('busqueda/', include(('apps.busqueda.urls'))),
     path('contrato/', include(('apps.contrato.urls'))),
     path('contacto/', include(('apps.contacto.urls'))),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

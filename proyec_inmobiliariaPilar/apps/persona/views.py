@@ -14,7 +14,14 @@ def Nueva_Persona_Fisica(request):
         print(request.POST)
         formulario = PersonaFisicaForm(request.POST)
         if formulario.is_valid():
-            formulario.save()
+            f = formulario.save(commit=False)
+            f.provincia = f.provincia.upper()
+            f.localidad = f.localidad.upper()
+            f.barrio = f.barrio.upper()
+            f.calle = f.calle.upper()
+            f.nombre_apellido = f.nombre_apellido.upper()
+            f.desc_per = 'FISICA'
+            f.save()
             data['mensaje']='guardado con exito'
     
     return render(request, "base/nueva_persona.html", data)
@@ -28,7 +35,14 @@ def Nueva_Persona_Juridica(request):
         print(request.POST)
         formulario = PersonaJuridicaForm(request.POST)
         if formulario.is_valid():
-            formulario.save()
+            f = formulario.save(commit=False)
+            f.provincia = f.provincia.upper()
+            f.localidad = f.localidad.upper()
+            f.barrio = f.barrio.upper()
+            f.calle = f.calle.upper()
+            f.razon_social = f.razon_social.upper()
+            f.desc_per = 'JURIDICA'
+            f.save()
             data['mensaje']='guardado con exito'
     
     return render(request, "base/nueva_persona.html", data)
@@ -42,7 +56,13 @@ def Modificar_Persona(request, id):
         if request.method == 'POST':
             formulario = PersonaFisicaForm(data=request.POST, instance=persona)
             if formulario.is_valid():
-                formulario.save()
+                f = formulario.save(commit=False)
+                f.provincia = f.provincia.upper()
+                f.localidad = f.localidad.upper()
+                f.barrio = f.barrio.upper()
+                f.calle = f.calle.upper()
+                f.nombre_apellido = f.nombre_apellido.upper()
+                f.save()
                 data={
                 "mensaje":'guardado correctamente',
                 "form": PersonaFisicaForm(instance=persona),
@@ -55,7 +75,13 @@ def Modificar_Persona(request, id):
         if request.method == 'POST':
             formulario = PersonaJuridicaForm(data=request.POST, instance=persona)
             if formulario.is_valid():
-                formulario.save()
+                f = formulario.save(commit=False)
+                f.provincia = f.provincia.upper()
+                f.localidad = f.localidad.upper()
+                f.barrio = f.barrio.upper()
+                f.calle = f.calle.upper()
+                f.razon_social = f.razon_social.upper()
+                f.save()
                 data={
                 "mensaje":'guardado correctamente',
                 "form": PersonaJuridicaForm(instance=servicio),
