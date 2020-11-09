@@ -5,20 +5,20 @@ from apps.persona.models import Persona
 
 class Propiedad(models.Model):
     opc_tipo_alquiler=(
-        ('diario','Diario'),
-        ('semanal','Semanal'),
-        ('mensual','Mensual'),
+        ('DIARIO','Diario'),
+        ('SEMANAL','Semanal'),
+        ('MENSUAL','Mensual'),
     )
     zonas=(
-        ('norte','Norte'),
-        ('sur','Sur'),
-        ('este','Este'),
-        ('oeste','Oeste'),
+        ('NORTE','Norte'),
+        ('SUR','Sur'),
+        ('ESTE','Este'),
+        ('OESTE','Oeste'),
     )
     estados=(
-        ('ocupado','Ocupado'),
-        ('disponible','Disponible'),
-        ('en mantenimiento','En Mantenimiento'),
+        ('OCUPADO','Ocupado'),
+        ('DISPONIBLE','Disponible'),
+        ('EN MANTENIMIENTO','En Mantenimiento'),
     )
     mts=models.CharField(max_length=20)
     mts_semicubiertos=models.CharField(max_length=10)
@@ -34,7 +34,7 @@ class Propiedad(models.Model):
     desc_prop=models.TextField()
     imagen=models.ImageField(upload_to='propiedad')
     tipo_propiedad=models.CharField(max_length=15, blank=False, null=False)
-    estado=models.CharField(max_length=16, choices=estados, default='disponible')
+    estado_actual=models.CharField(max_length=16, choices=estados, default='disponible')
     zona=models.CharField(max_length=20,choices=zonas)
 
 
@@ -44,8 +44,8 @@ class Propiedad(models.Model):
 class PropiedadCasa(Propiedad):
     #tipo_propiedad = 'casa'
     opc=(
-        ('si','Si'),
-        ('no','No'),
+        ('SI','Si'),
+        ('NO','No'),
     )
     patio=models.CharField(max_length=2,choices=opc)
     pileta=models.CharField(max_length=2,choices=opc)
@@ -53,8 +53,8 @@ class PropiedadCasa(Propiedad):
 
 class PropiedadDepto(Propiedad):
     opc=(
-        ('si','Si'),
-        ('no','No'),
+        ('SI','Si'),
+        ('NO','No'),
     )
     #prop_depto=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
     #tipo_propiedad=models.CharField(max_length=15, default='departamento', editable=False)
@@ -64,8 +64,8 @@ class PropiedadDepto(Propiedad):
 
 class PropiedadHabitacion(Propiedad):
     opc=(
-        ('si','Si'),
-        ('no','No'),
+        ('SI','Si'),
+        ('NO','No'),
     )
     #prop_hab=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
     #tipo_propiedad=models.CharField(max_length=15, default='habitacion', editable=False)
@@ -80,3 +80,11 @@ class Oferta(models.Model):
     fecha_inicio = models.DateField(auto_now_add=True)
     fecha_fin = models.DateField()
     fecha_solicitud=models.DateTimeField(auto_now_add=True)
+
+class Estado(models.Model):
+
+    propiedad=models.ForeignKey(Propiedad, on_delete=models.CASCADE)
+    fec_inicio=models.DateField(auto_now_add=True)
+    fec_fin = models.DateField(null=True, blank=True)
+    estado = models.CharField(max_length=20)
+    band = models.BooleanField()

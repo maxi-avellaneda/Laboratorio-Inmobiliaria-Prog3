@@ -28,14 +28,15 @@
         width: 100%;
     }
 </style>
-
     <div class="container" style="background-image: url({% static 'base/fondo-formulariopersona.jpg' %});">
+        <p style="color: black;text-align: center;font: bold;width: 100%;background-color:red;">{{error_mail}}</p>
         <form action="" method="POST">{% csrf_token %}
     {% for field in form %}
         <div class="form-group row" id="capacidad_cochera">
             <label for="{{field.id_for_label}}" class="col-sm-2 col-form-label" style="color: #fff;">{{field.label}}</label>
             <div class="col-sm-10">
-                {{field}}{{field.errors}}
+                {{field}}
+                <div style="background-color: red;">{{field.errors}}</div>
             </div>
         </div>
     {% endfor %}

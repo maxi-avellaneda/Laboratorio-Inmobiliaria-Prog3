@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
+from datetime import datetime
 from django.http import HttpResponse
-from .models import Propiedad, PropiedadCasa, PropiedadDepto, PropiedadHabitacion, Oferta
-from .forms import PropiedadCasaForm,PropiedadDptoForm,PropiedadHabitacionForm, OfertaForm
+from .models import Propiedad, PropiedadCasa, PropiedadDepto, PropiedadHabitacion, Oferta, Estado
+from .forms import PropiedadCasaForm,PropiedadDptoForm,PropiedadHabitacionForm, OfertaForm, EstadoForm
 
 # Create your views here.
 
@@ -21,19 +22,24 @@ def NuevaPropiedadCasa(request):
         "form" : PropiedadCasaForm()
     }
     if request.method == 'POST':
-        print(request.POST)
         f = PropiedadCasaForm(request.POST,request.FILES)
         if f.is_valid():
             form = f.save(commit=False)
             form.tipo_propiedad='CASA'
             form.desc_prop = form.desc_prop.upper()
             form.tipo_propiedad = form.tipo_propiedad.upper()
-            form.estado = form.estado.upper() 
             form.zona = form.zona.upper()
+            form.estado_actual = form.estado_actual.upper()
             form.save()
-            data["mensaje"] = 'guardado con exito'
-
-    return render(request, 'propiedad/nueva_propiedad.html', data )
+            casa = Propiedad.objects.last()
+            Estado.objects.create(
+            propiedad = casa, 
+            fec_inicio= casa.fecha_alta, 
+            fec_fin='2000-10-10',
+            estado=casa.estado_actual,
+            band=True)
+            
+    return render(request, 'propiedad/nueva_propiedad.html', data)
 
 def NuevaPropiedadDpto(request):
     data = {
@@ -45,11 +51,18 @@ def NuevaPropiedadDpto(request):
             form = f.save(commit=False)
             form.tipo_propiedad ='DEPARTAMENTO'
             form.desc_prop = form.desc_prop.upper()
-            form.tipo_propiedad = form.tipo_propiedad.upper()
-            form.estado = form.estado.upper() 
+            form.tipo_propiedad = form.tipo_propiedad.upper() 
             form.zona = form.zona.upper()
+            form.estado_actual = form.estado_actual.upper()
             form.save()
-            data["mensaje"] = 'guardado con exito'
+            dpto = Propiedad.objects.last()
+            Estado.objects.create(
+            propiedad = dpto, 
+            fec_inicio= dpto.fecha_alta, 
+            fec_fin='2000-10-10',
+            estado=dpto.estado_actual,
+            band=True)
+            data["mensaje"]= 'guardado con exito'
 
     return render(request, 'propiedad/nueva_propiedad.html', data )
 
@@ -63,11 +76,18 @@ def NuevaPropiedadHabitacion(request):
             form = f.save(commit=False)
             form.tipo_propiedad='HABITACION'
             form.desc_prop = form.desc_prop.upper()
-            form.tipo_propiedad = form.tipo_propiedad.upper()
-            form.estado = form.estado.upper() 
+            form.tipo_propiedad = form.tipo_propiedad.upper() 
             form.zona = form.zona.upper()
+            form.estado_actual = form.estado_actual.upper()
             form.save()
-            data["mensaje"] = 'guardado con exito'
+            dpto = Propiedad.objects.last()
+            Estado.objects.create(
+            propiedad = dpto, 
+            fec_inicio= dpto.fecha_alta, 
+            fec_fin='2000-10-10',
+            estado=dpto.estado_actual,
+            band=True)
+            data["mensaje"]= 'guardado con exito'
 
     return render(request, 'propiedad/nueva_propiedad.html', data)
 
@@ -77,8 +97,9 @@ def ModificarPropiedad(request,id):
     data = {
         "mensaje" : 'no se puede'
     }
-    if tipo == 'casa':
+    if tipo == 'CASA':
         casa = PropiedadCasa.objects.get(pk=id)
+        cambio = casa.estado_actual
         data = {
             "form": PropiedadCasaForm(instance=propiedad)
         }
@@ -90,9 +111,17 @@ def ModificarPropiedad(request,id):
                     "mensaje":'guardado correctamente',
                     "form": PropiedadCasaForm(instance=casa),
                 }
+                casa = Propiedad.objects.get(pk=id)
+                if casa.estado_actual != cambio:
+                    estado_anterior = Estado.objects.filter(propiedad=casa).last()
+                    estado_anterior.fec_fin = datetime.now()
+                    estado_anterior.band = False
+                    estado_anterior.save()
+                    Estado.objects.create(propiedad=casa,fec_inicio=datetime.now(), fec_fin='2020-01-01', estado=casa.estado_actual,band=True)
 
-    elif tipo == 'departamento':
+    elif tipo == 'DEPARTAMENTO':
         dpto = PropiedadDepto.objects.get(pk=id)
+        cambio = dpto.estado_actual
         data = {
             "form": PropiedadDptoForm(instance=dpto)
         }
@@ -104,8 +133,18 @@ def ModificarPropiedad(request,id):
                     "mensaje":'guardado correctamente',
                     "form": PropiedadDptoForm(instance=dpto),
                 }  
-    elif tipo =='habitacion':
+                dpto = Propiedad.objects.get(pk=id)
+                if dpto.estado_actual != cambio:
+                    estado_anterior = Estado.objects.filter(propiedad=dpto).last()
+                    estado_anterior.fec_fin = datetime.now()
+                    estado_anterior.band = False
+                    estado_anterior.save()
+                    Estado.objects.create(propiedad=dpto,fec_inicio=datetime.now(), fec_fin='2020-01-01', estado=dpto.estado_actual,band=True)
+
+
+    elif tipo =='HABITACION':
         habitacion = PropiedadHabitacion.objects.get(pk=id)
+        cambio = habitacion.estado_actual
         data = {
             "form": PropiedadHabitacionForm(instance=habitacion)
         }
@@ -117,6 +156,13 @@ def ModificarPropiedad(request,id):
                     "mensaje":'guardado correctamente',
                     "form": PropiedadHabitacionForm(instance=habitacion),
                 }
+                habitacion = Propiedad.objects.get(pk=id)
+                if habitacion.estado_actual != cambio:
+                    estado_anterior = Estado.objects.filter(propiedad=habitacion).last()
+                    estado_anterior.fec_fin = datetime.now()
+                    estado_anterior.band = False
+                    estado_anterior.save()
+                    Estado.objects.create(propiedad=habitacion,fec_inicio=datetime.now(), fec_fin='2020-01-01', estado=habitacion.estado_actual,band=True)
 
     return render(request, 'propiedad/nueva_propiedad.html', data)
 

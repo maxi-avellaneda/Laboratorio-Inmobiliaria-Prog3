@@ -1,11 +1,11 @@
 from django import forms
 from django.forms import ModelForm
-from .models import PropiedadCasa, PropiedadDepto, PropiedadHabitacion, Oferta
+from .models import PropiedadCasa, PropiedadDepto, PropiedadHabitacion, Oferta, Estado
 
 class PropiedadCasaForm(ModelForm):
     class Meta:
         model = PropiedadCasa
-        exclude = ['tipo_propiedad','estado']
+        exclude = ['tipo_propiedad',]
         widgets = {
             "mts": forms.NumberInput(attrs={"class":"form-control","placeholder":"Metros de la propiedad"}),
             "mts_semicubiertos": forms.NumberInput(attrs={"class":"form-control","placeholder":"Metros Semi-Cubiertos de la propiedad"}),
@@ -38,7 +38,7 @@ class PropiedadCasaForm(ModelForm):
 class PropiedadDptoForm(ModelForm):
     class Meta:
         model = PropiedadDepto
-        exclude = ['tipo_propiedad','estado']
+        exclude = ['tipo_propiedad',]
         widgets = {
             "mts": forms.NumberInput(attrs={"class":"form-control","placeholder":"Metros de la propiedad"}),
             "mts_semicubiertos": forms.NumberInput(attrs={"class":"form-control","placeholder":"Metros Semi-Cubiertos de la propiedad"}),
@@ -71,7 +71,7 @@ class PropiedadDptoForm(ModelForm):
 class PropiedadHabitacionForm(ModelForm):
     class Meta:
         model = PropiedadHabitacion
-        exclude = ['tipo_propiedad','estado']
+        exclude = ['tipo_propiedad',]
         widgets = {
             "mts": forms.NumberInput(attrs={"class":"form-control","placeholder":"Metros de la propiedad"}),
             "mts_semicubiertos": forms.NumberInput(attrs={"class":"form-control","placeholder":"Metros Semi-Cubiertos de la propiedad"}),
@@ -110,3 +110,8 @@ class OfertaForm(ModelForm):
             "cod_oferta": forms.TextInput(attrs={"class":"form-control"}),
             "fecha_fin": forms.NumberInput(attrs={"type":"date", "class":"form-control"})
         }
+
+class EstadoForm(ModelForm):
+    class Meta:
+        model = Estado
+        exclude = ['fec_inicio',]

@@ -2,6 +2,9 @@ from django.shortcuts import render, HttpResponse, redirect
 from .models import PersonaFisica, Persona, PersonaJuridica
 from .forms import PersonaFisicaForm, PersonaJuridicaForm
 import time
+from django.forms import forms
+from django.core.exceptions import ValidationError
+
 
 # Create your views here.
 
@@ -23,6 +26,7 @@ def Nueva_Persona_Fisica(request):
             f.desc_per = 'FISICA'
             f.save()
             data['mensaje']='guardado con exito'
+        data["form"] = formulario
     
     return render(request, "base/nueva_persona.html", data)
 
