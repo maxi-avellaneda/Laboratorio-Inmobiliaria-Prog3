@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'apps.contacto',
     'apps.contrato',
     'apps.busqueda',
+    'apps.estadisticas',
 ]
 
 MIDDLEWARE = [
@@ -87,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'pilar',
         'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'PASSWORD': 'maxixima98',
         'HOST': 'localhost',
         'PORT': '',
     }

@@ -80,7 +80,7 @@ def NuevaPropiedadHabitacion(request):
             form.zona = form.zona.upper()
             form.estado_actual = form.estado_actual.upper()
             form.save()
-            dpto = Propiedad.objects.last()
+            habitacion = Propiedad.objects.last()
             GenerarEstado(habitacion)
             data["mensaje"]= 'guardado con exito'
 

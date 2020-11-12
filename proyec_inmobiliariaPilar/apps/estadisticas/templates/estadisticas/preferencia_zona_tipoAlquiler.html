@@ -1,0 +1,107 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+
+{% block contenido %}
+<h1 style="font-size: x-large;text-align: center;margin: 20px;">
+    <strong>ESTADISTICAS</strong>
+</h1>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="container3">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div style="margin: 20px;">
+
+    <h3><strong>Alquiladas Zona Norte y Tipo Propiedad</strong></h3>
+    <p>propiedades alquiladas en zona Norte y son alquiler diario: {{alquiladas_zonaNorteYtipoDiario}}</p>
+    <p>propiedades alquiladas en zona Norte y son alquiler semanal: {{alquiladas_zonaNorteYtipoSemanal}}</p>
+    <p>propiedades alquiladas en zona Norte y son alquiler mensual: {{alquiladas_zonaNorteYtipoMensual}}</p>
+
+    <h3><strong>Alquiladas Zona Sur y Tipo Propiedad</strong></h3>
+    <p>propiedades alquiladas en zona Sur y son alquiler diario: {{alquiladas_zonaSurYtipoDiario}}</p>
+    <p>propiedades alquiladas en zona Sur y son alquiler semanal: {{alquiladas_zonaSurYtipoSemanal}}</p>
+    <p>propiedades alquiladas en zona Sur y son alquiler mensual: {{alquiladas_zonaSurYtipoMensual}}</p>
+
+    <h3><strong>Alquiladas Zona Este y Tipo Propiedad</strong></h3>
+    <p>propiedades alquiladas en zona Este y son alquiler diario: {{alquiladas_zonaEsteYtipoDiario}}</p>
+    <p>propiedades alquiladas en zona Este y son alquiler semanal: {{alquiladas_zonaEsteYtipoSemanal}}</p>
+    <p>propiedades alquiladas en zona Este y son alquiler mensual: {{alquiladas_zonaEsteYtipoMensual}}</p>
+
+    <h3><strong>Alquiladas Zona Oeste y Tipo Propiedad</strong></h3>
+    <p>propiedades alquiladas en zona Oeste y son alquiler diario: {{alquiladas_zonaOesteYtipoDiario}}</p>
+    <p>propiedades alquiladas en zona Oeste y son alquiler semanal: {{alquiladas_zonaOesteYtipoSemanal}}</p>
+    <p>propiedades alquiladas en zona Oeste y son alquiler mensual: {{alquiladas_zonaOesteYtipoMensual}}</p>
+   
+    
+</div>
+
+<script>
+    Highcharts.chart('container3', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Preferencia de alquiler por zona y tipo de alquiler'
+    },
+    subtitle: {
+        text: 'Reportes'
+    },
+    xAxis: {
+        categories: [
+            'Zona Norte',
+            'Zona Sur',
+            'Zona Este',
+            'Zona Oeste'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Tipo Alquiler'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Alquiler Diario',
+        data: {{datosDiario}}
+
+    }, {
+        name: 'Alquiler Semanal',
+        data: {{datosSemanal}}
+
+    }, {
+        name: 'Alquiler Mensual',
+        data: {{datosMensual}}
+
+    }]
+});
+</script>
+
+
+
+{% endblock %}

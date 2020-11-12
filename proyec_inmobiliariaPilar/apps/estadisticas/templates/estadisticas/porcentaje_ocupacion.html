@@ -1,0 +1,80 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+
+{% block contenido %}
+<h1 style="font-size: x-large;text-align: center;margin: 20px;">
+    <strong>ESTADISTICAS</strong>
+</h1>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="container2">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div style="margin: 20px;">
+    <p>Porcentaje de Propiedades Ocupadas: {{porcentaje_ocupadas}}%</p>
+    <p>Porcentaje de Propiedades Disponibles: {{porcentaje_disponibles}}%</p>
+    <p>Porcentaje de Propiedades En Mantenimiento: {{porcentaje_mantenimiento}}%</p>
+</div>
+
+<script>
+  Highcharts.chart('container2', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Porcentaje de Propiedades Ocupadas'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+        }
+    },
+    series: [{
+        name: 'Porcentaje',
+        colorByPoint: true,
+        data: [{
+            name: 'OCUPADAS',
+            y: parseFloat({{porcentaje_ocupadas}}) ,
+            sliced: true,
+            selected: true
+        }, {
+            name: 'DISPONIBLES',
+            y: parseFloat({{porcentaje_disponibles}}) 
+        }, {
+            name: 'EN MANTENIMIENTO',
+            y: parseFloat({{porcentaje_mantenimiento}}) 
+        }]
+    }]
+});
+</script>
+
+
+
+{% endblock %}

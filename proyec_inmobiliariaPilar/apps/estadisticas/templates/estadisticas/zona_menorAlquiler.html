@@ -1,0 +1,83 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+
+{% block contenido %}
+<h1 style="font-size: x-large;text-align: center;margin: 20px;">
+    <strong>ESTADISTICAS</strong>
+</h1>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="container">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div style="margin: 20px;">
+    <p>propiedades alquiladas en zona norte: {{alquiladas_zonaNorte}}</p>
+    <p>propiedades alquiladas en zona sur: {{alquiladas_zonaSur}}</p>
+    <p>propiedades alquiladas en zona este: {{alquiladas_zonaEste}}</p>
+    <p>propiedades alquiladas en zona oeste: {{alquiladas_zonaOeste}}</p>
+</div>
+
+<script>
+    Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Zonas de Menor Alquiler '
+    },
+    subtitle: {
+        text: 'Zonas: Norte, Sur, Este, Oeste '
+    },
+    xAxis: {
+        categories: [
+            'Norte',
+            'Sur',
+            'Este',
+            'Oeste'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Propiedades Alquiladas '
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Cantidad de propiedades alquiladas',
+        showInLegend: false,
+        colorByPoint:true,
+        data: {{datos}}
+
+    }]
+});
+</script>
+
+
+
+{% endblock %}

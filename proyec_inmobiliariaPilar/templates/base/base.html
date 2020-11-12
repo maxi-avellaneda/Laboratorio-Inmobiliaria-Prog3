@@ -31,7 +31,10 @@
 	<link rel="stylesheet" href="{% static 'base/css/cs-skin-border.css' %}">
 	<link rel="stylesheet" href="{% static 'base/css/style.css' %}">
 	<!-- Modernizr JS -->
-	<script src="{% static 'base/js/modernizr-2.6.2.min.js' %}"></script>
+    <script src="{% static 'base/js/modernizr-2.6.2.min.js' %}"></script>
+    <!--HICHCHARTS para graficos estadisticos-->
+    <script src = "https://code.highcharts.com/highcharts.src.js" > </script> 
+
 </head>
 <body>
     <div id="fh5co-wrapper">
@@ -50,11 +53,11 @@
                                 <li>
                                     <a href="#" class="fh5co-sub-ddown">Estadisticas</a>
                                     <ul class="fh5co-sub-menu" >
-                                        <li><a href="#">Zona de menos alquiler</a></li>
-                                        <li><a href="#">Porcentaje de ocupacion</a></li>
-                                        <li ><a href="#" >Preferencia por zona y tipo de prop.</a></li>
-                                        <li><a href="#">Preferencia por zona y tipo de alquiler</a></li>
-                                        <li><a href="#">Propiedades y tiempo sin alquilar</a></li>
+                                        <li><a href="{% url 'zona_menorAlquiler' %}">Zona de menos alquiler</a></li>
+                                        <li><a href="{% url 'porcentaje_ocupacion' %}">Porcentaje de ocupacion</a></li>
+                                        <li ><a href="{% url 'preferencia_zona_tipoPropiedad' %}" >Preferencia por zona y tipo de prop.</a></li>
+                                        <li><a href="{% url 'preferencia_zona_tipoAlquiler' %}">Preferencia por zona y tipo de alquiler</a></li>
+                                        <li><a href="{% url 'tiempoSinAlquilar' %}">Propiedades y tiempo sin alquilar</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="{% url 'busqueda' %}"><i class="fas fa-search"></i> Buscar <i class="fas fa-home"></i></a></li>
