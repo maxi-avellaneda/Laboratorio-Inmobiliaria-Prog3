@@ -17,7 +17,8 @@ class Persona(models.Model):
 
 class PersonaFisica(Persona):
     #CAMPOS PROPIOS DEL MODELO PERSONAFISICA 
-    nombre_apellido=models.CharField(max_length=50)
+    nombre=models.CharField(max_length=50)
+    apellido = models.CharField(max_length=40, default='default')
     cuil=models.CharField(max_length=11,unique=True)
     desc_per=models.CharField(default='fisica',max_length=6)
 

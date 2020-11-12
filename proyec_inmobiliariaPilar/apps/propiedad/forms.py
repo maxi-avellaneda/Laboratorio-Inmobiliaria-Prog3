@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import PropiedadCasa, PropiedadDepto, PropiedadHabitacion, Oferta, Estado
+from .models import PropiedadCasa, PropiedadDepto, PropiedadHabitacion, Oferta, Estado, FiltrarPropiedad
 
 class PropiedadCasaForm(ModelForm):
     class Meta:
@@ -115,3 +115,15 @@ class EstadoForm(ModelForm):
     class Meta:
         model = Estado
         exclude = ['fec_inicio',]
+
+class FiltrarPropiedadForm(ModelForm):
+    class Meta:
+        model = FiltrarPropiedad
+        fields = '__all__'
+        widgets ={
+            "condicion": forms.Select(attrs={"class":"form-control"}),
+            "tipo_propiedad": forms.Select(attrs={"class":"form-control"}),
+            "zona": forms.Select(attrs={"class":"form-control"}),
+        }
+    
+    

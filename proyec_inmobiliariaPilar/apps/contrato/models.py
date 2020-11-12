@@ -5,7 +5,7 @@ from apps.propiedad.models import Propiedad, Persona
 
 class PropietarioPropiedad(models.Model):
     propiedad=models.OneToOneField(Propiedad,on_delete=models.CASCADE)
-    propietario=models.OneToOneField(Persona,on_delete=models.CASCADE)
+    propietario=models.ForeignKey(Persona,on_delete=models.CASCADE)
     escritura=models.CharField(max_length=300)
     autorizacion_poder=models.CharField(max_length=150)
     fecha_alta=models.DateTimeField(auto_now_add=True)

@@ -2,18 +2,28 @@ from django.shortcuts import render, redirect
 from datetime import datetime
 from django.http import HttpResponse
 from .models import Propiedad, PropiedadCasa, PropiedadDepto, PropiedadHabitacion, Oferta, Estado
-from .forms import PropiedadCasaForm,PropiedadDptoForm,PropiedadHabitacionForm, OfertaForm, EstadoForm
+from .forms import PropiedadCasaForm,PropiedadDptoForm,PropiedadHabitacionForm, OfertaForm, EstadoForm, FiltrarPropiedadForm
 
 # Create your views here.
 
 def ListadoPropiedades(request):
-    propiedades= Propiedad.objects.all()
-    return render(request,'propiedad/lista_propiedades.html',{'propiedades':propiedades})
+    propiedades = Propiedad.objects.all()
+    form = FiltrarPropiedadForm()
+    if request.method == 'POST':
+        condicion= request.POST.get('condicion')
+        tipo_propiedad = request.POST.get('tipo_propiedad')
+        zona = request.POST.get('zona')
+        if condicion != "":
+            propiedades = propiedades.filter(estado_actual=condicion)    
+        if tipo_propiedad != "":
+            propiedades = propiedades.filter(tipo_propiedad=tipo_propiedad)
+        if zona != "":    
+            propiedades = propiedades.filter(zona= zona)
+
+    return render(request,'propiedad/lista_propiedades.html',{'propiedades':propiedades, 'form':form})
 
 def detallePropiedad(request,id):
     pro = Propiedad.objects.get(pk=id)
-
-    
     return render(request,'propiedad/detalles_propiedad.html',{'pro':pro})
 
 
@@ -32,12 +42,7 @@ def NuevaPropiedadCasa(request):
             form.estado_actual = form.estado_actual.upper()
             form.save()
             casa = Propiedad.objects.last()
-            Estado.objects.create(
-            propiedad = casa, 
-            fec_inicio= casa.fecha_alta, 
-            fec_fin='2000-10-10',
-            estado=casa.estado_actual,
-            band=True)
+            GenerarEstado(casa)
             
     return render(request, 'propiedad/nueva_propiedad.html', data)
 
@@ -56,12 +61,7 @@ def NuevaPropiedadDpto(request):
             form.estado_actual = form.estado_actual.upper()
             form.save()
             dpto = Propiedad.objects.last()
-            Estado.objects.create(
-            propiedad = dpto, 
-            fec_inicio= dpto.fecha_alta, 
-            fec_fin='2000-10-10',
-            estado=dpto.estado_actual,
-            band=True)
+            GenerarEstado(dpto)
             data["mensaje"]= 'guardado con exito'
 
     return render(request, 'propiedad/nueva_propiedad.html', data )
@@ -81,12 +81,7 @@ def NuevaPropiedadHabitacion(request):
             form.estado_actual = form.estado_actual.upper()
             form.save()
             dpto = Propiedad.objects.last()
-            Estado.objects.create(
-            propiedad = dpto, 
-            fec_inicio= dpto.fecha_alta, 
-            fec_fin='2000-10-10',
-            estado=dpto.estado_actual,
-            band=True)
+            GenerarEstado(habitacion)
             data["mensaje"]= 'guardado con exito'
 
     return render(request, 'propiedad/nueva_propiedad.html', data)
@@ -113,11 +108,7 @@ def ModificarPropiedad(request,id):
                 }
                 casa = Propiedad.objects.get(pk=id)
                 if casa.estado_actual != cambio:
-                    estado_anterior = Estado.objects.filter(propiedad=casa).last()
-                    estado_anterior.fec_fin = datetime.now()
-                    estado_anterior.band = False
-                    estado_anterior.save()
-                    Estado.objects.create(propiedad=casa,fec_inicio=datetime.now(), fec_fin='2020-01-01', estado=casa.estado_actual,band=True)
+                    GenerarEstado(casa)
 
     elif tipo == 'DEPARTAMENTO':
         dpto = PropiedadDepto.objects.get(pk=id)
@@ -135,12 +126,7 @@ def ModificarPropiedad(request,id):
                 }  
                 dpto = Propiedad.objects.get(pk=id)
                 if dpto.estado_actual != cambio:
-                    estado_anterior = Estado.objects.filter(propiedad=dpto).last()
-                    estado_anterior.fec_fin = datetime.now()
-                    estado_anterior.band = False
-                    estado_anterior.save()
-                    Estado.objects.create(propiedad=dpto,fec_inicio=datetime.now(), fec_fin='2020-01-01', estado=dpto.estado_actual,band=True)
-
+                    GenerarEstado(dpto)
 
     elif tipo =='HABITACION':
         habitacion = PropiedadHabitacion.objects.get(pk=id)
@@ -158,11 +144,7 @@ def ModificarPropiedad(request,id):
                 }
                 habitacion = Propiedad.objects.get(pk=id)
                 if habitacion.estado_actual != cambio:
-                    estado_anterior = Estado.objects.filter(propiedad=habitacion).last()
-                    estado_anterior.fec_fin = datetime.now()
-                    estado_anterior.band = False
-                    estado_anterior.save()
-                    Estado.objects.create(propiedad=habitacion,fec_inicio=datetime.now(), fec_fin='2020-01-01', estado=habitacion.estado_actual,band=True)
+                    GenerarEstado(habitacion)
 
     return render(request, 'propiedad/nueva_propiedad.html', data)
 
@@ -222,3 +204,13 @@ def MostrarOfertas(request):
 def ListarOfertas(request):
     ofertas = Oferta.objects.all()
     return render(request,'oferta/listado_ofertas.html', {"ofertas": ofertas})
+
+def GenerarEstado(propiedad):
+    if Estado.objects.filter(propiedad=propiedad).exists():
+        estado_anterior = Estado.objects.filter(propiedad=propiedad).last()
+        estado_anterior.fec_fin = datetime.now()
+        estado_anterior.band = False
+        estado_anterior.save()
+        Estado.objects.create(propiedad=propiedad,fec_inicio=datetime.now(), fec_fin=None, estado=propiedad.estado_actual,band=True)
+    else:
+        Estado.objects.create(propiedad =propiedad, fec_inicio= propiedad.fecha_alta, fec_fin=None,estado=propiedad.estado_actual,band=True)

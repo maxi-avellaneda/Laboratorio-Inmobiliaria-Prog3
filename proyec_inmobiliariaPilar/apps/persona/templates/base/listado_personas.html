@@ -25,10 +25,12 @@
 
 <h1 style="text-align: center;">LISTADO DE CLIENTES</h1>
 
+{% if perms.persona.add_persona %}
 <div id="addPropiedades">
     <a href="{% url 'nueva_persona_juridica' %}">NUEVO CLIENTE JURIDICO</a>
     <a href="{% url 'nueva_persona_fisica' %}">NUEVO CLIENTE FISICO</a>
 </div>
+{% endif %}
 
 <table class="table-bordered" style="width: 100%;">
     <thead class="thead-dark" style="background-color: black;">
@@ -42,20 +44,32 @@
     {% for p in personasFisicas %}
     <tr>
         <th scope="row">{{p.id}}</th>
-        <td>{{p}}</td>
+        <td>{{p.nombre}}</td>
         <td>
+
+            {% if perms.persona.change_persona %}
             <a href="{% url 'modificar_persona' p.id %}">Modificar</a> 
+            {% endif %}
+
+            {% if perms.persona.delete_persona %}
             <a href="{% url 'eliminar_persona' p.id %}">Eliminar</a>
+            {% endif %}
+
         </td>
     </tr>
     {% endfor %}
     {% for p in personasJuridicas %}
     <tr>
         <th scope="row">{{p.id}}</th>
-        <td>{{p}}</td>
+        <td>{{p.nombre}}</td>
         <td>
+            {% if perms.persona.change_persona %}
             <a href="{% url 'modificar_persona' p.id %}">Modificar</a> 
+            {% endif %}
+
+            {% if perms.persona.delete_persona %}
             <a href="{% url 'eliminar_persona' p.id %}">Eliminar</a>
+            {% endif %}
         </td>
     </tr>
     {% endfor %}

@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import PropietarioPropiedadForm, InquilinoPropiedadForm
 from .models import PropietarioPropiedad,InquilinoPropiedad
+from apps.propiedad.models import Propiedad, Estado
+from apps.propiedad.views import GenerarEstado
 
 # Create your views here.
 
@@ -24,7 +26,11 @@ def NuevoContrato(request):
         if request.method == 'POST':
             formulario = InquilinoPropiedadForm(request.POST)
             if formulario.is_valid:
-                formulario.save()
+                f = formulario.save(commit=False)
+                propiedad = Propiedad.objects.get(pk=f.propiedad.id)
+                propiedad.estado_actual = 'OCUPADO'
+                propiedad.save()
+                f.save()
                 data['mensaje'] = 'guardado con exito'
 
     return render(request, "contrato/nuevo_contrato.html", data)
@@ -42,16 +48,26 @@ def ModificarContrato(request, id):
                 data={
                 "mensaje":'guardado correctamente',
                 "form": PropietarioPropiedadForm(instance=contrato),
-            }
+                }
     elif InquilinoPropiedad.objects.filter(pk = id).exists():
         contrato = InquilinoPropiedad.objects.get(pk= id)
+        prop_ant = Propiedad.objects.get(pk = contrato.propiedad.id)
         data = {
             "form":InquilinoPropiedadForm(instance=contrato)
         }
         if request.method == 'POST':
             formulario = InquilinoPropiedadForm(data=request.POST, instance=contrato)
             if formulario.is_valid():
-                formulario.save()
+                f = formulario.save(commit=False)
+                prop_nueva = f.propiedad
+                if prop_ant != prop_nueva:
+                    prop_ant.estado_actual = 'DISPONIBLE'
+                    prop_ant.save()
+                    GenerarEstado(prop_ant)
+                    prop_nueva.estado_actual = 'OCUPADO'
+                    prop_nueva.save()
+                    GenerarEstado(prop_nueva)
+                f.save()
                 data={
                 "mensaje":'guardado correctamente',
                 "form": InquilinoPropiedadForm(instance=contrato),

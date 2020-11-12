@@ -58,7 +58,7 @@
                                     </ul>
                                 </li>
                                 <li><a href="{% url 'busqueda' %}"><i class="fas fa-search"></i> Buscar <i class="fas fa-home"></i></a></li>
-                         	{% if user.is_authenticated %}
+                                {% if user.is_authenticated %}
                                 <li><a href="{% url 'logout' %}">Salir</a></li>
                                 <li><a href="">Activo: {{user.username}}</a></li>
                                 {% else %}
@@ -73,12 +73,23 @@
             {% if user.is_authenticated %}
             <div id="AdminMenu">
                 <ul style="text-align: center">
-                    <li style="display: inline;"><a href="{% url 'listado_propiedades' %}">Gestion Propiedades</a></li>
+                    {% if perms.propiedad.view_propiedad %}
+                        <li style="display: inline;"><a href="{% url 'listado_propiedades' %}">Gestion Propiedades</a></li>
+                    {% endif %}
+
+                    {% if perms.propiedad.view_oferta %}
                     <li style="display: inline;"><a href="{% url 'listado_ofertas' %}">Gestion Ofertas</a></li>
+                    {% endif %}
+
+                    {% if perms.contrato.view_contrato %}
                     <li style="display: inline;"><a href="{% url 'listado_contratos' %}">Gestion Contratos</a></li>
+                    {% endif %}
+                    
+                    {% if perms.persona.view_persona %}
                     <li style="display: inline;"><a href="{% url 'listado_personas' %}">Gestion Clientes</a></li>
+                    {% endif %}
                 </ul>
-            </div>
+            </div> 
             {% endif %}
 
             <style>
