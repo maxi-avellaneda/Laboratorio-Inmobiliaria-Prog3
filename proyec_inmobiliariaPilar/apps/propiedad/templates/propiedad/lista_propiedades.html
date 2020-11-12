@@ -22,33 +22,76 @@
 
     <h1 style="text-align: center;">LISTADO DE PROPIEDADES</h1>
 
+    {% if perms.propiedad.add_propiedad %}
     <div id="addPropiedades">
         <a href="{% url 'nueva_casa' %}">NUEVA CASA</a>
         <a href="{% url 'nuevo_dpto' %}">NUEVO DEPARTAMENTO</a>
         <a href="{% url 'nueva_habitacion' %}">NUEVA HABITACION</a>
     </div>
+    {% endif %}
 
-    <table class="table-bordered" style="width: 100%;">
-        <thead class="thead-dark" style="background-color: black;">
-        <tr style="color: blanchedalmond; text-align: center;">
-            <th scope="col">ID</th>
-            <th scope="col">DATOS</th>
-            <th scope="col">OPCIONES</th>
-        </tr>
-        </thead>
-        {% for prop in propiedades %}
-        <tbody>
-        <tr>
-            <th scope="row">{{prop.id}}</th>
-            <td>{{prop}}</td>
-            <td>
-                <a href="{% url 'modificar_propiedad' prop.id %}">Modificar</a> 
-                <a href="{% url 'eliminar_propiedad' prop.id %}">Eliminar</a>
-            </td>
-        </tr>
-        </tbody>
-        {% endfor %}
-    </table>
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-sm-2">
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+
+                    {{form}}
+
+                    <input type="submit" value="Buscar">
+
+                </form>
+
+            </div>
+
+            
+            <!-- COMIENZA LA TABLA -->
+            
+            <div class="col-sm-10">
+
+
+                <table class="table-bordered" style="width: 100%;">
+                    <thead class="thead-dark" style="background-color: black;">
+                    <tr style="color: blanchedalmond; text-align: center;">
+                        <th scope="col">ID</th>
+                        <th scope="col">TIPO</th>
+                        <th scope="col">ESTADO</th>
+                        <th scope="col">ZONA</th>
+                        <th scope="col">FECHA INGRESO</th>
+                        <th scope="col">OPCIONES</th>
+                    </tr>
+                    </thead>
+                    {% for prop in propiedades %}
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{prop.id}}</th>
+                        <td>{{prop.tipo_propiedad}}</td>
+                        <td>{{prop.estado_actual}}</td>
+                        <td>{{prop.zona}}</td>
+                        <td>{{prop.fecha_alta}}</td>
+                        <td>
+                            {% if perms.propiedad.change_propiedad %}
+                            <a href="{% url 'modificar_propiedad' prop.id %}">Modificar</a> 
+                            {% endif %}
+
+                            {% if perms.propiedad.delete_propiedad %}
+                            <a href="{% url 'eliminar_propiedad' prop.id %}">Eliminar</a>
+                            {% endif %}
+                            
+                        </td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
 
     {{mensaje}}
     

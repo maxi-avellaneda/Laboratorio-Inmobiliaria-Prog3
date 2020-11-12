@@ -88,3 +88,24 @@ class Estado(models.Model):
     fec_fin = models.DateField(null=True, blank=True)
     estado = models.CharField(max_length=20)
     band = models.BooleanField()
+
+class FiltrarPropiedad(models.Model):
+    zonas=(
+        ('NORTE','Norte'),
+        ('SUR','Sur'),
+        ('ESTE','Este'),
+        ('OESTE','Oeste'),
+    )
+    estados=(
+        ('OCUPADO','Ocupado'),
+        ('DISPONIBLE','Disponible'),
+        ('EN MANTENIMIENTO','En Mantenimiento'),
+    )
+    opc=(
+        ('CASA','Casa'),
+        ('DEPARTAMENTO','Departamento'),
+        ('HABITACION','Habitacion'),
+    )
+    condicion = models.CharField(max_length=20,choices=estados, null=True, blank=True)
+    tipo_propiedad = models.CharField(max_length=15,choices=opc, null=True, blank=True)
+    zona = models.CharField(max_length=10 ,choices=zonas, null=True, blank=True)
