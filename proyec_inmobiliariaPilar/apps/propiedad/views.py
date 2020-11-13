@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from datetime import datetime
 from django.http import HttpResponse
 from .models import Propiedad, PropiedadCasa, PropiedadDepto, PropiedadHabitacion, Oferta, Estado
-from .forms import PropiedadCasaForm,PropiedadDptoForm,PropiedadHabitacionForm, OfertaForm, EstadoForm, FiltrarPropiedadForm
+from .forms import PropiedadCasaForm,PropiedadDptoForm,PropiedadHabitacionForm, OfertaForm, EstadoForm, FiltrarPropiedadForm, FiltrarOfertaForm
 
 # Create your views here.
 
@@ -209,8 +209,24 @@ def MostrarOfertas(request):
     return render(request,'oferta/ofertas.html', {"ofertas": ofertas})
 
 def ListarOfertas(request):
-    ofertas = Oferta.objects.all()
-    return render(request,'oferta/listado_ofertas.html', {"ofertas": ofertas})
+    data = {
+        "form": FiltrarOfertaForm(),
+        "ofertas":Oferta.objects.all()
+    }
+    if request.method == 'POST':
+        cod_oferta= request.POST.get('cod_oferta')
+        permite_cancelacion = request.POST.get('permite_cancelacion')
+        ofertas = Oferta.objects.all()
+        if cod_oferta != '':
+            ofertas = ofertas.filter(cod_oferta=cod_oferta)
+        if permite_cancelacion != '':
+            if permite_cancelacion == 'SI':
+                ofertas = ofertas.filter(permite_cancelacion=True)
+            else:
+                ofertas = ofertas.filter(permite_cancelacion = False)
+        data["ofertas"] = ofertas
+        data["form"] = FiltrarOfertaForm(data=request.POST)
+    return render(request,'oferta/listado_ofertas.html', data)
 
 def GenerarEstado(propiedad):
     if Estado.objects.filter(propiedad=propiedad).exists():

@@ -132,5 +132,16 @@ class FiltrarPropiedadForm(ModelForm):
             "tipo_propiedad": forms.Select(attrs={"class":"form-control"}),
             "zona": forms.Select(attrs={"class":"form-control"}),
         }
-    
+
+class FiltrarOfertaForm(forms.Form):
+    opc=(
+        ('',''),
+        ('SI','Si'),
+        ('NO','No'),
+    )
+
+    cod_oferta = forms.CharField(max_length=40, widget=forms.TextInput(attrs={"class":"form-control"}))
+    permite_cancelacion = forms.ChoiceField(choices=opc, required=False, widget=forms.Select(attrs={"class":"form-control"}))
+
+
     

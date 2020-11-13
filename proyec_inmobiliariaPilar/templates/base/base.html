@@ -53,8 +53,6 @@
                                 {% if user.is_authenticated %}
                                 <li><a href="{% url 'logout' %}">Salir</a></li>
                                 <li><a href="">Activo: {{user.username}}</a></li>
-                                {% else %}
-                                <li><a href="{% url 'login' %}">Ingresar</a></li>
                                 {% endif%}
 
                             </ul>
@@ -73,13 +71,16 @@
                     <li style="display: inline;"><a href="{% url 'listado_ofertas' %}">Gestion Ofertas</a></li>
                     {% endif %}
 
-                    {% if perms.contrato.view_contrato %}
+                    {% if perms.contrato.view_inquilinopropiedad %}
+                        {% if perms.contrato.view_propietariopropiedad %}
                     <li style="display: inline;"><a href="{% url 'listado_contratos' %}">Gestion Contratos</a></li>
+                        {% endif %}
                     {% endif %}
                     
                     {% if perms.persona.view_persona %}
                     <li style="display: inline;"><a href="{% url 'listado_personas' %}">Gestion Clientes</a></li>
                     {% endif %}
+
                     {% if perms.estadisticas.view_estadisticas %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

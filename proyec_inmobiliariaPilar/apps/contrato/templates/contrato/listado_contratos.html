@@ -26,8 +26,13 @@
 <h1 style="text-align: center;">LISTADO DE CONTRATOS</h1>
 
 <div id="addPropiedades">
+    {% if perms.contrato.add_propietariopropiedad %}
     <a href="{% url 'nuevo_contrato_propietario' %}">NUEVO CONTRATO PROPIETARIO</a>
+    {% endif %}
+
+    {% if perms.contrato.add_inquilinopropiedad %}
     <a href="{% url 'nuevo_contrato_inquilino' %}">NUEVO CONTRATO INQUILINO</a>
+    {% endif %}
 </div>
 
 <table class="table-bordered" style="width: 100%;">
@@ -50,8 +55,14 @@
         <td>{{contrato.fecha_alta}}</td>
         <td>{{contrato.fecha_fin}}</td>
         <td>
+            {% if perms.contrato.change_propietariopropiedad %}
             <a href="{% url 'modificar_contrato' contrato.id %}">Modificar</a> 
+            {% endif %}
+
+            {% if perms.contrato.delete_propietariopropiedad %}
             <a href="{% url 'eliminar_contrato' contrato.id %}">Eliminar</a>
+            {% endif %}
+
         </td>
     </tr>
     {% endfor %}
@@ -63,8 +74,13 @@
         <td>{{contrato.fecha_alta}}</td>
         <td>{{contrato.vigencia_alquiler}}</td>
         <td>
+            {% if perms.contrato.change_inquilinopropiedad %}
             <a href="{% url 'modificar_contrato' contrato.id %}">Modificar</a> 
+            {% endif %}
+
+            {% if perms.contrato.delete_inquilinopropiedad %}
             <a href="{% url 'eliminar_contrato' contrato.id %}">Eliminar</a>
+            {% endif %}
         </td>
     </tr>
     {% endfor %}

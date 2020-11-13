@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import PersonaFisica, Persona, PersonaJuridica
-from .forms import PersonaFisicaForm, PersonaJuridicaForm
+from .forms import PersonaFisicaForm, PersonaJuridicaForm, FiltrarPersonaForm
 import time
 from django.forms import forms
 from django.core.exceptions import ValidationError
@@ -111,9 +111,28 @@ def Eliminar_Persona(request, id):
 
 
 def Listado_Personas(request):
-    personasFisicas = PersonaFisica.objects.all()
-    personasJuridicas = PersonaJuridica.objects.all()
-    return render(request, "base/listado_personas.html", {"personasFisicas": personasFisicas , "personasJuridicas":personasJuridicas})
+    data = {
+            "form": FiltrarPersonaForm(),
+            "personasFisicas": PersonaFisica.objects.all(),
+            "personasJuridicas":PersonaJuridica.objects.all(),
+    }
+    if request.method == 'POST':
+        tipo = request.POST.get('tipo')
+        if tipo != "":
+            if tipo == 'FISICA':
+                personasFisicas = PersonaFisica.objects.all()
+                data = {
+                    "form": FiltrarPersonaForm(data=request.POST),
+                    "personasFisicas": personasFisicas
+                }
+            else:
+                personasJuridicas= PersonaJuridica.objects.all()
+                data = {
+                    "form": FiltrarPersonaForm(data=request.POST),
+                    "personasJuridicas": personasJuridicas,
+                }
+    
+    return render(request, "base/listado_personas.html", data)
 
 def Home(request):
     return render(request, "base/home.html")

@@ -39,3 +39,13 @@ class PersonaJuridicaForm(ModelForm):
             "cuit": forms.NumberInput(attrs={"class":"form-control"}),
             "desc_per": forms.TextInput(attrs={"class":"form-control"}),
         }
+    
+
+class FiltrarPersonaForm(forms.Form):
+    opc = (
+        ('',''),
+        ('FISICA', 'Fisica'),
+        ('JURIDICA', 'Juridica'),
+    )
+
+    tipo = forms.ChoiceField(choices=opc, required=False)

@@ -32,6 +32,16 @@
 </div>
 {% endif %}
 
+<form action="" method="POST">
+    {% csrf_token %}
+
+    {{form}}
+
+    <input type="submit" value="BUSCAR">
+
+</form>
+
+
 <table class="table-bordered" style="width: 100%;">
     <thead class="thead-dark" style="background-color: black;">
     <tr style="color: blanchedalmond; text-align: center;">
