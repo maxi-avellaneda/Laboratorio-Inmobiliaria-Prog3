@@ -22,7 +22,8 @@ def Nueva_Persona_Fisica(request):
             f.localidad = f.localidad.upper()
             f.barrio = f.barrio.upper()
             f.calle = f.calle.upper()
-            f.nombre_apellido = f.nombre_apellido.upper()
+            f.nombre = f.nombre.upper()
+            f.apellido = f.apellido.upper()
             f.desc_per = 'FISICA'
             f.save()
             data['mensaje']='guardado con exito'
@@ -48,6 +49,7 @@ def Nueva_Persona_Juridica(request):
             f.desc_per = 'JURIDICA'
             f.save()
             data['mensaje']='guardado con exito'
+        data["form"] = formulario 
     
     return render(request, "base/nueva_persona.html", data)
 
@@ -70,7 +72,9 @@ def Modificar_Persona(request, id):
                 data={
                 "mensaje":'guardado correctamente',
                 "form": PersonaFisicaForm(instance=persona),
-            }
+                }
+            data["form"] = formulario 
+
     elif PersonaJuridica.objects.filter(pk = id).exists():
         persona = PersonaJuridica.objects.get(pk= id)
         data = {
@@ -89,7 +93,8 @@ def Modificar_Persona(request, id):
                 data={
                 "mensaje":'guardado correctamente',
                 "form": PersonaJuridicaForm(instance=servicio),
-                }      
+                }
+            data["form"] = formulario      
 
     return render(request, "base/nueva_persona.html", data)
 

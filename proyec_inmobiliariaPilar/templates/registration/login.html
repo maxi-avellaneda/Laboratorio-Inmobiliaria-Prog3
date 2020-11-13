@@ -1,25 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingreso al sistema</title>
-</head>
-<body>
-    
-    <div class="container">
-        <h2>GESTION DE INMOBILIARIA</h2>
-        <form action="#" method="post">
+{% extends "base/base.html" %}
 
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block contenido %}
+
+<style>
+    div.container{
+        text-align: center;
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+    div.container div.row#inicio{
+        margin: 0 auto;
+        width: 50%; 
+        background-color: aquamarine;
+        padding: 1em;
+    }
+</style>
+
+
+<div class="container">
+    <h3>INGRESO AL SISTEMA</h3>
+    <div class="row" id="inicio">
+
+        <form action="" method="POST">
             {% csrf_token %}
 
-            {{form}}
+            {{form|crispy}}
 
-            <input type="submit" value="INGRESAR">
-
+            <input type="submit" value="Entrar" class="btn btn-primary">
         </form>
     </div>
 
+</div>
 
-</body>
-</html>
+{% endblock %}

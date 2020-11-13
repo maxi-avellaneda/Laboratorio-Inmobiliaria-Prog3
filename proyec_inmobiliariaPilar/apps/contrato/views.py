@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import PropietarioPropiedadForm, InquilinoPropiedadForm
-from .models import PropietarioPropiedad,InquilinoPropiedad
 from apps.propiedad.models import Propiedad, Estado
+from .models import PropietarioPropiedad,InquilinoPropiedad
 from apps.propiedad.views import GenerarEstado
 
 # Create your views here.
@@ -13,9 +13,10 @@ def NuevoContrato(request):
         }
         if request.method == 'POST':
             formulario = PropietarioPropiedadForm(request.POST)
-            if formulario.is_valid:
+            if formulario.is_valid():
                 formulario.save()
                 data['mensaje'] = 'guardado con exito'
+            data["form"] = formulario
         
         return render(request, "contrato/nuevo_contrato.html", data)
 
@@ -25,13 +26,15 @@ def NuevoContrato(request):
         }
         if request.method == 'POST':
             formulario = InquilinoPropiedadForm(request.POST)
-            if formulario.is_valid:
+            if formulario.is_valid():
                 f = formulario.save(commit=False)
                 propiedad = Propiedad.objects.get(pk=f.propiedad.id)
                 propiedad.estado_actual = 'OCUPADO'
                 propiedad.save()
+                GenerarEstado(propiedad)
                 f.save()
                 data['mensaje'] = 'guardado con exito'
+            data["form"] = formulario
 
     return render(request, "contrato/nuevo_contrato.html", data)
 
@@ -49,6 +52,8 @@ def ModificarContrato(request, id):
                 "mensaje":'guardado correctamente',
                 "form": PropietarioPropiedadForm(instance=contrato),
                 }
+            data["form"] = formulario        
+
     elif InquilinoPropiedad.objects.filter(pk = id).exists():
         contrato = InquilinoPropiedad.objects.get(pk= id)
         prop_ant = Propiedad.objects.get(pk = contrato.propiedad.id)
@@ -71,7 +76,8 @@ def ModificarContrato(request, id):
                 data={
                 "mensaje":'guardado correctamente',
                 "form": InquilinoPropiedadForm(instance=contrato),
-                } 
+                }
+            data["form"] = formulario
     return render(request, "contrato/nuevo_contrato.html", data)     
 
 def EliminarContrato(request, id):
@@ -80,6 +86,10 @@ def EliminarContrato(request, id):
         contrato.delete()
     elif InquilinoPropiedad.objects.filter(pk = id).exists():
         contrato = InquilinoPropiedad.objects.get(pk= id)
+        propiedad = Propiedad.objects.get(pk=contrato.propiedad.id)
+        propiedad.estado_actual = 'DISPONIBLE'
+        propiedad.save()
+        GenerarEstado(propiedad)
         contrato.delete()     
 
     return redirect(to='listado_contratos')

@@ -1,4 +1,5 @@
 from django import forms
+import datetime
 from django.forms import ModelForm
 from .models import PropiedadCasa, PropiedadDepto, PropiedadHabitacion, Oferta, Estado, FiltrarPropiedad
 
@@ -104,17 +105,23 @@ class PropiedadHabitacionForm(ModelForm):
 class OfertaForm(ModelForm):
     class Meta:
         model= Oferta
-        exclude=['fecha_solicitud', 'fecha_inicio']
+        exclude=['fecha_solicitud', 'fecha_inicio']  
         widgets = {
-            "propiedad": forms.Select(attrs={"class":"form-control"}),
-            "cod_oferta": forms.TextInput(attrs={"class":"form-control"}),
-            "fecha_fin": forms.NumberInput(attrs={"type":"date", "class":"form-control"})
+            "propiedad":forms.Select(attrs={"class":"form-control"}),
+            "cod_oferta":forms.TextInput(attrs={"class":"form-control", "placeholder":"Codigo con el que se identificara la oferta"}),
+            "fecha_fin":forms.NumberInput(attrs={"type":"date","class":"form-control"})
         }
+
+    def clean_fecha_fin(self):
+        fecha_fin = self.cleaned_data['fecha_fin']
+        if fecha_fin < datetime.date.today():
+            raise forms.ValidationError("No puede ingresar una fecha menor a la actual")
+        return fecha_fin
 
 class EstadoForm(ModelForm):
     class Meta:
         model = Estado
-        exclude = ['fec_inicio',]
+        exclude = ['fec_inicio']
 
 class FiltrarPropiedadForm(ModelForm):
     class Meta:

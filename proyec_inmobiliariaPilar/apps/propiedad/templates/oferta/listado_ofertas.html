@@ -33,15 +33,21 @@
     <thead class="thead-dark" style="background-color: black;">
     <tr style="color: blanchedalmond; text-align: center;">
         <th scope="col">ID</th>
-        <th scope="col">Datos</th>
-        <th scope="col">Opciones</th>
+        <th scope="col">PROPIEDAD</th>
+        <th scope="col">COD OFERTA</th>
+        <th scope="col">FECHA INICIO</th>
+        <th scope="col">FECHA FIN</th>
+        <th scope="col">OPCIONES</th>
     </tr>
     </thead>
     {% for oferta in ofertas %}
     <tbody>
     <tr>
         <th scope="row">{{oferta.propiedad.id}}</th>
-        <td>{{oferta.propiedad.tipo_propiedad}}</td>
+        <td>{{oferta.propiedad.id}}</td>
+        <td>{{oferta.cod_oferta}}</td>
+        <td>{{oferta.fecha_inicio}}</td>
+        <td>{{oferta.fecha_fin}}</td>
         <td>
             <a href="{% url 'modificar_oferta' oferta.id %}">Modificar</a> 
             <a href="{% url 'eliminar_oferta' oferta.id %}">Eliminar</a>

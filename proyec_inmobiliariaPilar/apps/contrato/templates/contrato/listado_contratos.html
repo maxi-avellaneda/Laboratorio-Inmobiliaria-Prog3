@@ -34,15 +34,21 @@
     <thead class="thead-dark" style="background-color: black;">
     <tr style="color: blanchedalmond; text-align: center;">
         <th scope="col">ID</th>
-        <th scope="col">Datos</th>
-        <th scope="col">Opciones</th>
+        <th scope="col">CLIENTE</th>
+        <th scope="col">TIPO CONTRATO</th>
+        <th scope="col">FECHA ALTA</th>
+        <th scope="col">FECHA FIN</th>
+        <th scope="col">OPCIONES</th>
     </tr>
     </thead>
     <tbody>
     {% for contrato in propietarios %}
     <tr>
         <th scope="row">{{contrato.id}}</th>
-        <td>{{contrato}}</td>
+        <td>{{contrato.propietario.personafisica.nombre}},{{contrato.propietario.personafisica.apellido}}{{contrato.propietario.personajuridica.razon_social}}</td>
+        <td>CONTRATO PROPIEDAD</td>
+        <td>{{contrato.fecha_alta}}</td>
+        <td>{{contrato.fecha_fin}}</td>
         <td>
             <a href="{% url 'modificar_contrato' contrato.id %}">Modificar</a> 
             <a href="{% url 'eliminar_contrato' contrato.id %}">Eliminar</a>
@@ -52,7 +58,10 @@
     {% for contrato in inquilinos %}
     <tr>
         <th scope="row">{{contrato.id}}</th>
-        <td>{{contrato}}</td>
+        <td>{{contrato.inquilino.personafisica.nombre}},{{contrato.inquilino.personafisica.apellido}}{{contrato.inquilino.personajuridica.razon_social}}</td>
+        <td>CONTRATO ALQUILER</td>
+        <td>{{contrato.fecha_alta}}</td>
+        <td>{{contrato.vigencia_alquiler}}</td>
         <td>
             <a href="{% url 'modificar_contrato' contrato.id %}">Modificar</a> 
             <a href="{% url 'eliminar_contrato' contrato.id %}">Eliminar</a>

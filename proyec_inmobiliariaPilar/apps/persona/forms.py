@@ -6,8 +6,10 @@ class PersonaFisicaForm(ModelForm):
     
     class Meta:
         model = PersonaFisica
-        fields = '__all__'
+        exclude = ['desc_per']
         widgets = {
+            "nombre": forms.TextInput(attrs={"class":"form-control"}),
+            "apellido": forms.TextInput(attrs={"class":"form-control"}),
             "provincia": forms.TextInput(attrs={"class":"form-control"}),
             "localidad": forms.TextInput(attrs={"class":"form-control"}),
             "barrio": forms.TextInput(attrs={"class":"form-control"}),
@@ -24,7 +26,7 @@ class PersonaJuridicaForm(ModelForm):
 
     class Meta:
         model = PersonaJuridica
-        fields = '__all__'
+        exclude = ['desc_per']
         widgets = {
             "provincia": forms.TextInput(attrs={"class":"form-control"}),
             "localidad": forms.TextInput(attrs={"class":"form-control"}),

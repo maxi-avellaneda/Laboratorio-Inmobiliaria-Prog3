@@ -47,7 +47,10 @@ INSTALLED_APPS = [
     'apps.contrato',
     'apps.busqueda',
     'apps.estadisticas',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -88,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'pilar',
         'USER': 'postgres',
-        'PASSWORD': 'maxixima98',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '',
     }

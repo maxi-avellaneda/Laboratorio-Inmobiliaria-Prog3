@@ -16,8 +16,8 @@ class Propiedad(models.Model):
         ('OESTE','Oeste'),
     )
     estados=(
-        ('OCUPADO','Ocupado'),
         ('DISPONIBLE','Disponible'),
+        ('OCUPADO','Ocupado'),
         ('EN MANTENIMIENTO','En Mantenimiento'),
     )
     mts=models.CharField(max_length=20)
@@ -97,8 +97,8 @@ class FiltrarPropiedad(models.Model):
         ('OESTE','Oeste'),
     )
     estados=(
-        ('OCUPADO','Ocupado'),
         ('DISPONIBLE','Disponible'),
+        ('OCUPADO','Ocupado'),
         ('EN MANTENIMIENTO','En Mantenimiento'),
     )
     opc=(

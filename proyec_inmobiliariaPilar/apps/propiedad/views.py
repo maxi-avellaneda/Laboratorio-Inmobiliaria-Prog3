@@ -43,6 +43,7 @@ def NuevaPropiedadCasa(request):
             form.save()
             casa = Propiedad.objects.last()
             GenerarEstado(casa)
+        data["form"] = f
             
     return render(request, 'propiedad/nueva_propiedad.html', data)
 
@@ -63,6 +64,7 @@ def NuevaPropiedadDpto(request):
             dpto = Propiedad.objects.last()
             GenerarEstado(dpto)
             data["mensaje"]= 'guardado con exito'
+        data["form"] = f
 
     return render(request, 'propiedad/nueva_propiedad.html', data )
 
@@ -83,6 +85,7 @@ def NuevaPropiedadHabitacion(request):
             habitacion = Propiedad.objects.last()
             GenerarEstado(habitacion)
             data["mensaje"]= 'guardado con exito'
+        data["form"] = f
 
     return render(request, 'propiedad/nueva_propiedad.html', data)
 
@@ -109,6 +112,7 @@ def ModificarPropiedad(request,id):
                 casa = Propiedad.objects.get(pk=id)
                 if casa.estado_actual != cambio:
                     GenerarEstado(casa)
+            data["form"] = formulario
 
     elif tipo == 'DEPARTAMENTO':
         dpto = PropiedadDepto.objects.get(pk=id)
@@ -127,6 +131,7 @@ def ModificarPropiedad(request,id):
                 dpto = Propiedad.objects.get(pk=id)
                 if dpto.estado_actual != cambio:
                     GenerarEstado(dpto)
+            data["form"] = formulario
 
     elif tipo =='HABITACION':
         habitacion = PropiedadHabitacion.objects.get(pk=id)
@@ -145,6 +150,7 @@ def ModificarPropiedad(request,id):
                 habitacion = Propiedad.objects.get(pk=id)
                 if habitacion.estado_actual != cambio:
                     GenerarEstado(habitacion)
+            data["form"] = formulario
 
     return render(request, 'propiedad/nueva_propiedad.html', data)
 
@@ -171,6 +177,7 @@ def NuevaOferta(request):
         if f.is_valid():
             f.save()
             data["mensaje"] = 'guardado con exito'
+        data["form"] = f
 
     return render(request, 'propiedad/nueva_propiedad.html', data)
 
