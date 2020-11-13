@@ -91,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'pilar',
         'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'PASSWORD': 'maxixima98',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -144,8 +144,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 EMAIL_HOST = "smtp.googlemail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "maxi.avellaneda2@gmail.com"
-EMAIL_HOST_PASSWORD = "maxixima98"
+EMAIL_HOST_USER = "inmobiliariapilar99@gmail.com"
+EMAIL_HOST_PASSWORD = "djangoadmin"
 
 EMAIL_USE_TLS = True
 

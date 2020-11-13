@@ -28,7 +28,20 @@
                             {% if pro.cochera == True %}
                             <li style="display: inline;"><i class='fas fa-car'></i> {{pro.capacidad_cochera}}</li>
                             {% endif%}
-                            <li style="display: inline;"><i class="fas fa-check-circle" style="color: greenyellow;"></i> {{pro.estado|upper}}</li>
+
+                            <li style="display: inline;"> 
+                                {% if pro.estado_actual == 'DISPONIBLE' %}
+                                <i class="fas fa-check-circle" style="color: greenyellow;"></i> {{pro.estado_actual|upper}}
+                                {% else %}
+                                <i class="fas fa-times-circle" style="color: red;"></i> {{pro.estado_actual|upper}}
+                                {% endif %}
+                                </li>
+                                {% if pro.oferta.cod_oferta %}
+                                <li style="display: inline;"><i class='far fa-money-bill-alt'></i> EN OFERTA</li>
+                                {% endif %}
+                            
+
+
                             {% if pro.oferta.cod_oferta %}
                             <li style="display: inline;"><i class='far fa-money-bill-alt'></i> EN OFERTA</li>
                             {% endif %}
@@ -46,7 +59,7 @@
                                 {% endif %}
                                 <li ><i class='far fa-thumbs-up'></i> <strong><u> Tipo Propiedad: </u></strong>  {{pro.tipo_propiedad|capfirst}}</li>
                                 <li ><i class='far fa-thumbs-up'></i> <strong><u> Tipo Alquiler: </u></strong>  {{pro.tipo_alquiler|capfirst}}</li>
-                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Estado: </u></strong>  {{pro.estado|capfirst}}</li>
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Estado: </u></strong>  {{pro.estado_actual|capfirst}}</li>
                                 <li ><i class='far fa-thumbs-up'></i> <strong><u> M<sup>2</sup> Cubiertos: </u></strong>  {{pro.mts}}</li>
                                 <li ><i class='far fa-thumbs-up'></i> <strong><u> M<sup>2</sup> Semicubiertos: </u></strong>  {{pro.mts_semicubiertos}}</li>
                                 <li ><i class='far fa-thumbs-up'></i> <strong><u> Capacidad: </u></strong>  {{pro.capacidad}}</li>
@@ -64,7 +77,7 @@
                                 <li ><i class='far fa-thumbs-up'></i> <strong><u> Cochera: </u></strong>  Si</li>
                                 <li ><i class='far fa-thumbs-up'></i> <strong><u> Capacidad Cochera: </u></strong>  {{pro.capacidad_cochera}}</li>
                                 {% else %}
-                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Cochera: </u></strong>  {{pro.cochera}}</li>
+                                <li ><i class='far fa-thumbs-up'></i> <strong><u> Cochera: </u></strong>  No</li>
                                 {% endif %}
 
                             </ul>
@@ -72,7 +85,11 @@
                     </div><br><br>
                     <div style="text-align: center;">
                         
+                        {% if pro.estado_actual == 'DISPONIBLE' %}
                         <button type="button" class="btn btn-danger" ><a href="{% url 'contacto' %}" style="color: black;"><strong><i style="font-size: 20px;" class='far fa-handshake'></i> Contactar para Alquilar</strong> </a></button>
+                        {% else %}
+                        <button type="button" class="btn btn-danger" disabled><strong><i style="font-size: 20px;" class='far fa-handshake'></i> Contactar para Alquilar</strong></button>
+                        {% endif %}
                         
                     </div>
                     <style>

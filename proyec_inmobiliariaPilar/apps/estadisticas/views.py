@@ -121,24 +121,7 @@ def preferencia_zona_tipoAlquiler(request):
 
 def tiempoSinAlquilar(request):
 
-    alquiladas_ciertoTiempo = InquilinoPropiedad.objects.all()
+    sinAlquilar = Estado.objects.exclude(estado__icontains='OCUPADO')
 
-    sinAlquilar = Estado.objects.all()
-
-
-    """
-    tiempoSinAlquilar=[]
-    for pro in sinAlquilar:
-        aux= abs(pro.fec_fin - pro.fec_inicio)
-        tiempoSinAlquilar.append(aux.days)
-     
-    for a in range(0,len(aux)):
-        m=aux[a].month()
-        mes.append(m)
-
-    for e in range(0,len(aux)):
-        d=aux[e].day()
-        dia.append(d)   
-    """
     return render(request,'estadisticas/tiempoSinAlquilar.html',
-    {'alquiladas_ciertoTiempo':alquiladas_ciertoTiempo,'sinAlquilar':sinAlquilar,'tiempoSinAlquilar':tiempoSinAlquilar})
+    {'sinAlquilar':sinAlquilar})

@@ -48,18 +48,7 @@
                         <nav id="fh5co-menu-wrap" role="navigation">
                             <ul class="sf-menu" id="fh5co-primary-menu">
                                 <li><a href="{% url 'index' %}">Inicio</a></li>
-                                <li><a href="http://127.0.0.1:8000/admin">Login</a></li>
                                 <li><a href="{% url 'mostrar_ofertas' %}">Ofertas</a></li>
-                                <li>
-                                    <a href="#" class="fh5co-sub-ddown">Estadisticas</a>
-                                    <ul class="fh5co-sub-menu" >
-                                        <li><a href="{% url 'zona_menorAlquiler' %}">Zona de menos alquiler</a></li>
-                                        <li><a href="{% url 'porcentaje_ocupacion' %}">Porcentaje de ocupacion</a></li>
-                                        <li ><a href="{% url 'preferencia_zona_tipoPropiedad' %}" >Preferencia por zona y tipo de prop.</a></li>
-                                        <li><a href="{% url 'preferencia_zona_tipoAlquiler' %}">Preferencia por zona y tipo de alquiler</a></li>
-                                        <li><a href="{% url 'tiempoSinAlquilar' %}">Propiedades y tiempo sin alquilar</a></li>
-                                    </ul>
-                                </li>
                                 <li><a href="{% url 'busqueda' %}"><i class="fas fa-search"></i> Buscar <i class="fas fa-home"></i></a></li>
                                 {% if user.is_authenticated %}
                                 <li><a href="{% url 'logout' %}">Salir</a></li>
@@ -90,6 +79,24 @@
                     
                     {% if perms.persona.view_persona %}
                     <li style="display: inline;"><a href="{% url 'listado_personas' %}">Gestion Clientes</a></li>
+                    {% endif %}
+                    {% if perms.estadisticas.view_estadisticas %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Estadisticas
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: black;">
+                            <a class="dropdown-item" href="{% url 'zona_menorAlquiler' %}" style="color: black;"> <p style="color: blanchedalmond;">Zona de Menos Alquiler</p></a>
+                            <div class="dropdown-divider" ></div>
+                            <a class="dropdown-item" href="{% url 'porcentaje_ocupacion' %}" style="color: black;"> <p style="color: blanchedalmond;"> Porcentaje de Ocupacion</p> </a>
+                            <div class="dropdown-divider" ></div>
+                            <a class="dropdown-item" href="{% url 'preferencia_zona_tipoPropiedad' %}" style="color: black;"> <p style="color: blanchedalmond">Zona y Tipo de Propiedad</p>  </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'preferencia_zona_tipoAlquiler' %}" style="color: black;"> <p style="color: blanchedalmond;">Zona y Tipo de Alquiler</p>  </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'tiempoSinAlquilar' %}" style="color: black;"> <p style="color: blanchedalmond;">Propiedades y Tiempo Sin Alquilar</p>  </a>
+                        </div>
+                    </li>
                     {% endif %}
                 </ul>
             </div> 
