@@ -114,124 +114,146 @@ def ModificarContrato(request, id):
         return redirect(to='index')
 
 
-
+@login_required
 def MostrarContrato(request, id):
-    data={
-        "queti":'qwqweeqwes'
-    }
-    if InquilinoPropiedad.objects.filter(pk=id).exists():
-        contrato = InquilinoPropiedad.objects.get(pk=id)
-        data = {
-            "id": contrato.id,
-            "cliente": contrato.inquilino,
-            "tipo": contrato.inquilino.desc_per,
-            "direccion" : contrato.inquilino.provincia+', '+contrato.inquilino.localidad+', '+contrato.inquilino.calle+', '+contrato.inquilino.numero,
-            "propiedad": contrato.propiedad,
-            "cant_personas": contrato.cant_personas,
-            "importe_total": contrato.importe_total,
-            "fecha_inicio": contrato.fecha_inicio,
-            "fecha_fin": contrato.fecha_fin
+    if request.user.has_perms('contrato.can_view_inquilinopropiedad', 'contrato.can_view_propietariopropiedad'):
+        data={
+            "queti":'qwqweeqwes'
         }
-    return render(request, 'contrato/mostrar_contrato.html', data)
+        if InquilinoPropiedad.objects.filter(pk=id).exists():
+            contrato = InquilinoPropiedad.objects.get(pk=id)
+            data = {
+                "id": contrato.id,
+                "cliente": contrato.inquilino,
+                "tipo": contrato.inquilino.desc_per,
+                "direccion" : contrato.inquilino.provincia+', '+contrato.inquilino.localidad+', '+contrato.inquilino.calle+', '+contrato.inquilino.numero,
+                "propiedad": contrato.propiedad,
+                "cant_personas": contrato.cant_personas,
+                "importe_total": contrato.importe_total,
+                "fecha_inicio": contrato.fecha_inicio,
+                "fecha_fin": contrato.fecha_fin
+            }
+        return render(request, 'contrato/mostrar_contrato.html', data)
+    else:
+        messages.error(request,'No cuenta con permiso para visualizar los contratos')
+        return redirect(to="index")
 
 
-
+@login_required
 def ConfirmarEliminarContrato(request, id):
-    data={
-        "queti":'qwqweeqwes'
-    }
-    if InquilinoPropiedad.objects.filter(pk=id).exists():
-        contrato = InquilinoPropiedad.objects.get(pk=id)
-        data = {
-            "id": contrato.id,
-            "cliente": contrato.inquilino,
-            "tipo": contrato.inquilino.desc_per,
-            "direccion" : contrato.inquilino.provincia+', '+contrato.inquilino.localidad+', '+contrato.inquilino.calle+', '+contrato.inquilino.numero,
-            "propiedad": contrato.propiedad,
-            "cant_personas": contrato.cant_personas,
-            "importe_total": contrato.importe_total,
-            "fecha_inicio": contrato.fecha_inicio,
-            "fecha_fin": contrato.fecha_fin
+    if request.user.has_perms('contrato.can_delete_inquilinopropiedad', 'contrato.can_delete_propietariopropiedad'):
+        data={
+            "queti":'qwqweeqwes'
         }
-    return render(request, 'contrato/eliminar_contrato.html', data)
+        if InquilinoPropiedad.objects.filter(pk=id).exists():
+            contrato = InquilinoPropiedad.objects.get(pk=id)
+            data = {
+                "id": contrato.id,
+                "cliente": contrato.inquilino,
+                "tipo": contrato.inquilino.desc_per,
+                "direccion" : contrato.inquilino.provincia+', '+contrato.inquilino.localidad+', '+contrato.inquilino.calle+', '+contrato.inquilino.numero,
+                "propiedad": contrato.propiedad,
+                "cant_personas": contrato.cant_personas,
+                "importe_total": contrato.importe_total,
+                "fecha_inicio": contrato.fecha_inicio,
+                "fecha_fin": contrato.fecha_fin
+            }
+        return render(request, 'contrato/eliminar_contrato.html', data)
+    else:
+        messages.error(request,'No tienes permisos para eliminar contratos')
+        return redirect(to = "index")
 
 
-
+@login_required
 def EliminarContrato(request, id):
-    if PropietarioPropiedad.objects.filter(pk = id).exists():
-        contrato = PropietarioPropiedad.objects.get(pk = id)
-        if contrato.cancelacion:
-            messages.error(request,'No se puede eliminar un contrato cancelado')
-            return redirect(to='listado_contratos')
-        contrato.delete()
-        messages.success(request,'SE HA ELIMINADO CON EXITO')
-    elif InquilinoPropiedad.objects.filter(pk = id).exists():
-        contrato = InquilinoPropiedad.objects.get(pk= id)
-        if contrato.cancelacion:
-            messages.error(request,'No se puede eliminar un contrato cancelado')
-            return redirect(to='listado_contratos')
-        propiedad = Propiedad.objects.get(pk=contrato.propiedad.id)
-        propiedad.estado_actual = 'DISPONIBLE'
-        propiedad.save()
-        GenerarEstado(propiedad)
-        contrato.delete()
-        messages.success(request,'SE HA ELIMINADO CON EXITO')     
+    if request.user.has_perms('contrato.can_delete_inquilinopropiedad','contrato.can_delete_propietariopropiedad'):
+        if PropietarioPropiedad.objects.filter(pk = id).exists():
+            contrato = PropietarioPropiedad.objects.get(pk = id)
+            if contrato.cancelacion:
+                messages.error(request,'No se puede eliminar un contrato cancelado')
+                return redirect(to='listado_contratos')
+            contrato.delete()
+            messages.success(request,'SE HA ELIMINADO CON EXITO')
+        elif InquilinoPropiedad.objects.filter(pk = id).exists():
+            contrato = InquilinoPropiedad.objects.get(pk= id)
+            if contrato.cancelacion:
+                messages.error(request,'No se puede eliminar un contrato cancelado')
+                return redirect(to='listado_contratos')
+            propiedad = Propiedad.objects.get(pk=contrato.propiedad.id)
+            propiedad.estado_actual = 'DISPONIBLE'
+            propiedad.save()
+            GenerarEstado(propiedad)
+            contrato.delete()
+            messages.success(request,'SE HA ELIMINADO CON EXITO')     
 
-    return redirect(to='listado_contratos')
-
-
-
-def ListadoContrato(request):
-
-    contratosPropietarios = PropietarioPropiedad.objects.all()
-    contratosInquilinos = InquilinoPropiedad.objects.all() 
-    data = {
-        "propietarios" : contratosPropietarios,
-        "inquilinos": contratosInquilinos
-    }
-    return render(request,"contrato/listado_contratos.html", data)
-
-
-def ConfirmarCancelacion(request,id):
-    data={
-        "queti":'qwqweeqwes'
-    }
-    if InquilinoPropiedad.objects.filter(pk=id).exists():
-        contrato = InquilinoPropiedad.objects.get(pk=id)
-        if contrato.cancelacion:
-            messages.error(request, 'Este contrato ya fue cancelado')
-            return redirect(to='listado_contratos')
-        data = {
-            "id": contrato.id,
-            "cliente": contrato.inquilino,
-            "tipo": contrato.inquilino.desc_per,
-            "direccion" : contrato.inquilino.provincia+', '+contrato.inquilino.localidad+', '+contrato.inquilino.calle+', '+contrato.inquilino.numero,
-            "propiedad": contrato.propiedad,
-            "cant_personas": contrato.cant_personas,
-            "importe_total": contrato.importe_total,
-            "fecha_inicio": contrato.fecha_inicio,
-            "fecha_fin": contrato.fecha_fin
-        }
-    return render(request, 'contrato/cancelar_contrato.html', data)
-
-
-
-def CancelarContrato(request, id):
-    if InquilinoPropiedad.objects.filter(pk=id).exists():
-        contrato = InquilinoPropiedad.objects.get(pk=id)
-        if contrato.cancelacion:
-            messages.error(request, 'Este contrato ya fue cancelado')
-            return redirect(to='listado_contratos')
-        contrato.cancelacion = True
-        contrato.fecha_cancelacion = datetime.date.today()
-        contrato.save()
-        #Liberar propiedad
-        propiedad = contrato.propiedad
-        propiedad.estado_actual = 'DISPONIBLE'
-        propiedad.save()
-        GenerarEstado(propiedad)
-        messages.success(request, 'Se ha cancelado correctamente el contrato')
         return redirect(to='listado_contratos')
-    
-    messages.error(request,'No se encuentra el contrato')
-    return redirect(to='listado_contratos')
+    else:
+        messages.error(request,'No tienen permiso para eliminar contratos')
+        return redirect(to="index")
+
+
+@login_required
+def ListadoContrato(request):
+    if request.user.has_perms('contrato.can_view_inquilinopropiedad', 'contrato.can_view_propietariopropiedad'):
+        contratosPropietarios = PropietarioPropiedad.objects.all()
+        contratosInquilinos = InquilinoPropiedad.objects.all() 
+        data = {
+            "propietarios" : contratosPropietarios,
+            "inquilinos": contratosInquilinos
+        }
+        return render(request,"contrato/listado_contratos.html", data)
+    else:
+        messages.error(request,'No cuentas con permisos para visualizar los contratos')
+        return redirect(to = "index")
+
+@login_required
+def ConfirmarCancelacion(request,id):
+    if request.user.has_perms('contrato.can_change_inquilinopropiedad', 'contrato.can_change_propietariopropiedad'):
+        data={
+            "queti":'qwqweeqwes'
+        }
+        if InquilinoPropiedad.objects.filter(pk=id).exists():
+            contrato = InquilinoPropiedad.objects.get(pk=id)
+            if contrato.cancelacion:
+                messages.error(request, 'Este contrato ya fue cancelado')
+                return redirect(to='listado_contratos')
+            data = {
+                "id": contrato.id,
+                "cliente": contrato.inquilino,
+                "tipo": contrato.inquilino.desc_per,
+                "direccion" : contrato.inquilino.provincia+', '+contrato.inquilino.localidad+', '+contrato.inquilino.calle+', '+contrato.inquilino.numero,
+                "propiedad": contrato.propiedad,
+                "cant_personas": contrato.cant_personas,
+                "importe_total": contrato.importe_total,
+                "fecha_inicio": contrato.fecha_inicio,
+                "fecha_fin": contrato.fecha_fin
+            }
+        return render(request, 'contrato/cancelar_contrato.html', data)
+    else:  
+        messages.error(request,'No cuentas con permiso para modificar contratos')
+        return redirect(to = "index")
+
+@login_required
+def CancelarContrato(request, id):
+    if request.user.has_perms('contrato.can_change_inquilinopropiedad', 'contrato.can_change_propietariopropiedad'):
+        if InquilinoPropiedad.objects.filter(pk=id).exists():
+            contrato = InquilinoPropiedad.objects.get(pk=id)
+            if contrato.cancelacion:
+                messages.error(request, 'Este contrato ya fue cancelado')
+                return redirect(to='listado_contratos')
+            contrato.cancelacion = True
+            contrato.fecha_cancelacion = datetime.date.today()
+            contrato.save()
+            #Liberar propiedad
+            propiedad = contrato.propiedad
+            propiedad.estado_actual = 'DISPONIBLE'
+            propiedad.save()
+            GenerarEstado(propiedad)
+            messages.success(request, 'Se ha cancelado correctamente el contrato')
+            return redirect(to='listado_contratos')
+        
+        messages.error(request,'No se encuentra el contrato')
+        return redirect(to='listado_contratos')
+    else:
+        messages.error(request,'No cuentas con permisos para modificar contratos')
+        return redirect(to = "index")
