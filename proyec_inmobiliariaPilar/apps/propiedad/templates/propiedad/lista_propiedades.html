@@ -78,8 +78,10 @@
                             {% endif %}
 
                             {% if perms.propiedad.delete_propiedad %}
-                            <a href="{% url 'eliminar_propiedad' prop.id %}">Eliminar</a>
+                            <a href="{% url 'confirmar_propiedad' prop.id %}">Eliminar</a>
                             {% endif %}
+
+                            <a href="{% url 'mostrar_propiedad' prop.id %}">Detalles</a>
                             
                         </td>
                     </tr>
@@ -94,6 +96,8 @@
     </div>
 
     {{mensaje}}
+
+    
     
 
 {% endblock %}

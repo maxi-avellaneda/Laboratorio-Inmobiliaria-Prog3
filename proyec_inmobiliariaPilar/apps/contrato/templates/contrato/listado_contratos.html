@@ -5,33 +5,34 @@
 {% block contenido %}
 
 <style>
+
     div#addPropiedades{
-        border: 1px solid black;
-        padding: 2em;
         text-align: center;
         margin-bottom: 2em;
     }
-    div#addPropiedades a{
-        padding: 1em;
+
+    div#addPropiedades button{
+        margin-top: 2px;
+        width: 20em;
+    }
+
+    div#addPropiedades button a{
         color: #ffffff;
-        margin: 1em;
-        background-color: darkblue;
     }
-    table a{
-        margin-right: 1em;
-        background-color: black;
-    }
+
 </style>
+
+<div class="container">
 
 <h1 style="text-align: center;">LISTADO DE CONTRATOS</h1>
 
 <div id="addPropiedades">
     {% if perms.contrato.add_propietariopropiedad %}
-    <a href="{% url 'nuevo_contrato_propietario' %}">NUEVO CONTRATO PROPIETARIO</a>
+        <button class="btn btn-primary btn-lg"><a href="{% url 'nuevo_contrato_propietario' %}">NUEVO CONTRATO PROPIETARIO</a></button>
     {% endif %}
 
     {% if perms.contrato.add_inquilinopropiedad %}
-    <a href="{% url 'nuevo_contrato_inquilino' %}">NUEVO CONTRATO INQUILINO</a>
+        <button class="btn btn-primary btn-lg"><a href="{% url 'nuevo_contrato_inquilino' %}">NUEVO CONTRATO INQUILINO</a></button>
     {% endif %}
 </div>
 
@@ -53,15 +54,17 @@
         <td>{{contrato.propietario.personafisica.nombre}},{{contrato.propietario.personafisica.apellido}}{{contrato.propietario.personajuridica.razon_social}}</td>
         <td>CONTRATO PROPIEDAD</td>
         <td>{{contrato.fecha_alta}}</td>
-        <td>{{contrato.fecha_fin}}</td>
+        <td>{{contrato.fecha_inicio}}</td>
         <td>
             {% if perms.contrato.change_propietariopropiedad %}
-            <a href="{% url 'modificar_contrato' contrato.id %}">Modificar</a> 
+            <button><a href="{% url 'modificar_contrato' contrato.id %}">Modificar</a></button>
             {% endif %}
 
             {% if perms.contrato.delete_propietariopropiedad %}
-            <a href="{% url 'eliminar_contrato' contrato.id %}">Eliminar</a>
+            <button><a href="{% url 'confirmar_contrato' contrato.id %}">Eliminar</a></button>
             {% endif %}
+
+            <button><a href="{% url 'mostrar_contrato' contrato.id %}">Detalles</a></button>
 
         </td>
     </tr>
@@ -72,20 +75,25 @@
         <td>{{contrato.inquilino.personafisica.nombre}},{{contrato.inquilino.personafisica.apellido}}{{contrato.inquilino.personajuridica.razon_social}}</td>
         <td>CONTRATO ALQUILER</td>
         <td>{{contrato.fecha_alta}}</td>
-        <td>{{contrato.vigencia_alquiler}}</td>
+        <td>{{contrato.fecha_inicio}}</td>
         <td>
             {% if perms.contrato.change_inquilinopropiedad %}
-            <a href="{% url 'modificar_contrato' contrato.id %}">Modificar</a> 
+            <button><a href="{% url 'modificar_contrato' contrato.id %}">Modificar</a></button>
             {% endif %}
 
             {% if perms.contrato.delete_inquilinopropiedad %}
-            <a href="{% url 'eliminar_contrato' contrato.id %}">Eliminar</a>
+            <button><a href="{% url 'confirmar_contrato' contrato.id %}">Eliminar</a></button>
             {% endif %}
+
+            <button><a href="{% url 'mostrar_contrato' contrato.id %}">Detalles</a></button>
+            <button><a href="{% url 'confirmar_cancelacion' contrato.id %}">Cancelar</a></button>
+
         </td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
 
+</div>
 
 {% endblock %}

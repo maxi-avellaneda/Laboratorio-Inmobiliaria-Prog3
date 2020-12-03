@@ -48,4 +48,4 @@ class FiltrarPersonaForm(forms.Form):
         ('JURIDICA', 'Juridica'),
     )
 
-    tipo = forms.ChoiceField(choices=opc, required=False)
+    tipo = forms.ChoiceField(choices=opc, required=False, widget=forms.Select(attrs={"class":"form-control"}))

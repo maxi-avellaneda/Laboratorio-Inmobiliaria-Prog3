@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+
+<style>
+
+    div.col-sm-5 p{
+        color: black;
+    }
+
+    div.col-sm-7 p{
+        padding-left: 1em;
+        /* border: 1px solid black; */
+        color: red;
+        /* width: 85%; */
+    }
+
+</style>
+
+
+<div class="container" style="text-align: center; margin-bottom: 1em;">
+
+    {% block titulo %}
+    
+    
+
+    {% endblock %}
+
+    <div class="row">
+        <div class="col-sm-5" style="text-align: right;">
+            <p>ID:</p>  
+            <p>Nombre:</p>  
+            <p>Cuil/Cuit:</p>  
+            <p>Direccion:</p>
+            <p>Telefono:</p>
+            <p>e-mail:</p>          
+        </div>
+        <div class="col-sm-7" style="text-align: left;">
+            <strong>
+            <p>{{id}}</p>            
+            <p>{{nombre}}</p>
+            <p>{{numero}}</p>
+            <p>{{direccion}}</p>
+            <p>{{telefono}}</p>
+            <p>{{mail}} </p>
+            </strong>
+        </div>
+    </div>
+    <br>
+    <br>
+    {% block botones %}
+
+    <button class="btn btn-light" style="border: 1px solid black;"><a href="{% url "listado_personas" %}"> VOLVER</a></button>
+    
+    {% endblock %}
+</div>
+
+
+
+
+
+{% endblock %}

@@ -8,6 +8,8 @@ urlpatterns=[
     path('nueva-persona-juridica/', views.Nueva_Persona_Juridica, name='nueva_persona_juridica'),
     path('listado-personas/', views.Listado_Personas, name='listado_personas'),
     path('modificar-persona/<id>/', views.Modificar_Persona, name='modificar_persona'),
+    path('mostrar-persona/<id>/', views.MostrarPersona, name='mostrar_persona'),
+    path('confirmar-persona/<id>/', views.ConfirmarPersona, name='confirmar_persona'),
     path('eliminar-persona/<id>/', views.Eliminar_Persona, name='eliminar_persona'),
 ]
 

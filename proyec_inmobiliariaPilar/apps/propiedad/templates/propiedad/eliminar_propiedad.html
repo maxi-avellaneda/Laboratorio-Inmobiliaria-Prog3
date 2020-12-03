@@ -1,0 +1,9 @@
+{% extends "propiedad/mostrar_propiedad.html" %}
+
+{% load static %}
+
+{% block botones %}
+<p style="color: black;">Esta seguro que desea eliminar?</p>
+    <button class="btn btn-danger" style="border: 1px solid black;"><a href="{% url "eliminar_propiedad" id %}"> CONFIRMAR</a></button>
+    <button class="btn btn-light" style="border: 1px solid black;"><a href="{% url "listado_propiedades" %}"> CANCELAR</a></button>
+{% endblock %}

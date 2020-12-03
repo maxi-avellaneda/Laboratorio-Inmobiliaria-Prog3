@@ -1,0 +1,18 @@
+{% extends "base/mostrar_persona.html" %}
+
+{% load static %}
+
+{% block titulo %}
+
+<h3>¿QUIERES ELIMINAR A EL CLIENTE {{tipo}}/O {{nombre}}?</h3>
+
+{% endblock %}
+
+
+{% block botones %}
+
+<p style="color: black;">Esta seguro que desea eliminar?</p>
+<button class="btn btn-danger" style="border: 1px solid black;"><a href="{% url "eliminar_persona" id %}"> CONFIRMAR</a></button>
+<button class="btn btn-light" style="border: 1px solid black;"><a href="{% url "listado_personas" %}"> CANCELAR</a></button>
+
+{% endblock %}

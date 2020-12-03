@@ -1,0 +1,54 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+
+<style>
+
+    div.col-sm-5 p{
+        color: black;
+    }
+
+    div.col-sm-7 p{
+        padding-left: 1em;
+        /* border: 1px solid black; */
+        color: red;
+        /* width: 85%; */
+    }
+
+</style>
+
+
+<div class="container" style="text-align: center; margin-bottom: 1em;">
+
+    <div class="row">
+        <div class="col-sm-5" style="text-align: right;">
+            <p>ID:</p>  
+            <p>Metros:</p>  
+            <p>Metros-semicubiertos:</p>  
+            <p>Patio:</p>          
+        </div>
+        <div class="col-sm-7" style="text-align: left;">
+            <strong>
+            <p>{{id}}</p>            
+            <p>{{mts}}</p>
+            <p>{{mts_semicubiertos}}</p>
+            <p>{{patio}}</p>
+            </strong>
+        </div>
+    </div>
+    <br>
+    <br>
+    {% block botones %}
+    
+    <button><a href="{% url "listado_propiedades" %}">VOLVER</a></button>
+
+    {% endblock %}
+</div>
+
+
+
+
+
+{% endblock %}

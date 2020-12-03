@@ -14,4 +14,6 @@ urlpatterns = [
     path('modificarOferta/<id>/',views.ModificarOferta, name='modificar_oferta'),
     path('eliminarOferta/<id>/',views.EliminarOferta, name='eliminar_oferta'),
     path('detallesPropiedad/<id>/',views.detallePropiedad, name='detalles_propiedad'),
+    path('eliminarPropiedad/<id>/',views.ConfirmarPropiedad, name='confirmar_propiedad'),
+    path('mostrarPropiedad/<id>/',views.MostrarPropiedad, name='mostrar_propiedad'),
 ]

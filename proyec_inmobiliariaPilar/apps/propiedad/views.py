@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from datetime import datetime
 from django.http import HttpResponse
+from django.contrib import messages
+from apps.contrato.models import InquilinoPropiedad, PropietarioPropiedad
 from .models import Propiedad, PropiedadCasa, PropiedadDepto, PropiedadHabitacion, Oferta, Estado
 from .forms import PropiedadCasaForm,PropiedadDptoForm,PropiedadHabitacionForm, OfertaForm, EstadoForm, FiltrarPropiedadForm, FiltrarOfertaForm
 
@@ -21,6 +23,7 @@ def ListadoPropiedades(request):
             propiedades = propiedades.filter(zona= zona)
 
     return render(request,'propiedad/lista_propiedades.html',{'propiedades':propiedades, 'form':form})
+
 
 def detallePropiedad(request,id):
     pro = Propiedad.objects.get(pk=id)
@@ -47,6 +50,7 @@ def NuevaPropiedadCasa(request):
             
     return render(request, 'propiedad/nueva_propiedad.html', data)
 
+
 def NuevaPropiedadDpto(request):
     data = {
         "form" : PropiedadDptoForm()
@@ -67,6 +71,7 @@ def NuevaPropiedadDpto(request):
         data["form"] = f
 
     return render(request, 'propiedad/nueva_propiedad.html', data )
+
 
 def NuevaPropiedadHabitacion(request):
     data = {
@@ -89,8 +94,15 @@ def NuevaPropiedadHabitacion(request):
 
     return render(request, 'propiedad/nueva_propiedad.html', data)
 
+
 def ModificarPropiedad(request,id):
     propiedad = Propiedad.objects.get(pk=id)
+    if InquilinoPropiedad.objects.filter(propiedad = propiedad).exists():
+        messages.error(request,'NO SE PUEDE MODIFICAR UNA PROPIEDAD QUE SE ENCUENTRA EN CONTRATO')
+        return redirect(to='listado_propiedades')
+    if PropietarioPropiedad.objects.filter(propiedad = propiedad).exists():
+        messages.error(request,'NO SE PUEDE MODIFICAR UNA PROPIEDAD QUE SE ENCUENTRA EN CONTRATO')
+        return redirect(to='listado_propiedades')
     tipo = propiedad.tipo_propiedad
     data = {
         "mensaje" : 'no se puede'
@@ -154,19 +166,42 @@ def ModificarPropiedad(request,id):
 
     return render(request, 'propiedad/nueva_propiedad.html', data)
 
+
 def EliminarPropiedad(request, id):
 
     if PropiedadCasa.objects.filter(pk=id).exists():
         propiedad = PropiedadCasa.objects.get(pk=id)
+        if InquilinoPropiedad.objects.filter(propiedad = propiedad).exists():
+            messages.error(request, 'NO SE PUEDE ELIMINAR A UNA PROPIEDAD CON UN CONTRATO VIGENTE')
+            return redirect(to='listado_propiedades')
+        if PropietarioPropiedad.objects.filter(propiedad = propiedad).exists():
+            messages.error(request, 'NO SE PUEDE ELIMINAR A UNA PROPIEDAD CON UN CONTRATO VIGENTE')
+            return redirect(to='listado_propiedades') 
         propiedad.delete()
+        messager.success(request, 'ELIMINADO CON EXITO')
     elif PropiedadDepto.objects.filter(pk=id).exists():
         propiedad = PropiedadDepto.objects.get(pk=id)
+        if InquilinoPropiedad.objects.filter(propiedad = propiedad).exists():
+            messages.error(request, 'NO SE PUEDE ELIMINAR A UNA PROPIEDAD CON UN CONTRATO VIGENTE')
+            return redirect(to='listado_propiedades')
+        if PropietarioPropiedad.objects.filter(propiedad = propiedad).exists():
+            messages.error(request, 'NO SE PUEDE ELIMINAR A UNA PROPIEDAD CON UN CONTRATO VIGENTE')
+            return redirect(to='listado_propiedades') 
         propiedad.delete()
+        messager.success(request, 'ELIMINADO CON EXITO')
     elif PropiedadHabitacion.objects.filter(pk=id).exists():
         propiedad = PropiedadHabitacion.objects.get(pk=id)
-        propiedad.delete()    
+        if InquilinoPropiedad.objects.filter(propiedad = propiedad).exists():
+            messages.error(request, 'NO SE PUEDE ELIMINAR A UNA PROPIEDAD CON UN CONTRATO VIGENTE')
+            return redirect(to='listado_propiedades')
+        if PropietarioPropiedad.objects.filter(propiedad = propiedad).exists():
+            messages.error(request, 'NO SE PUEDE ELIMINAR A UNA PROPIEDAD CON UN CONTRATO VIGENTE')
+            return redirect(to='listado_propiedades') 
+        propiedad.delete()
+        messager.success(request, 'ELIMINADO CON EXITO')    
 
     return redirect(to='listado_propiedades')    
+
 
 def NuevaOferta(request):
     data = {
@@ -180,6 +215,7 @@ def NuevaOferta(request):
         data["form"] = f
 
     return render(request, 'propiedad/nueva_propiedad.html', data)
+
 
 def ModificarOferta(request,id):
     oferta = Oferta.objects.get(pk = id)
@@ -197,6 +233,7 @@ def ModificarOferta(request,id):
 
     return render(request, 'propiedad/nueva_propiedad.html', data)
 
+
 def EliminarOferta(request,id):
     if Oferta.objects.filter(pk = id).exists():
         oferta = Oferta.objects.get(pk = id)
@@ -207,6 +244,7 @@ def EliminarOferta(request,id):
 def MostrarOfertas(request):
     ofertas = Oferta.objects.all()
     return render(request,'oferta/ofertas.html', {"ofertas": ofertas})
+
 
 def ListarOfertas(request):
     data = {
@@ -228,6 +266,7 @@ def ListarOfertas(request):
         data["form"] = FiltrarOfertaForm(data=request.POST)
     return render(request,'oferta/listado_ofertas.html', data)
 
+
 def GenerarEstado(propiedad):
     if Estado.objects.filter(propiedad=propiedad).exists():
         estado_anterior = Estado.objects.filter(propiedad=propiedad).last()
@@ -237,3 +276,49 @@ def GenerarEstado(propiedad):
         Estado.objects.create(propiedad=propiedad,fec_inicio=datetime.now(), fec_fin=None, estado=propiedad.estado_actual,band=True)
     else:
         Estado.objects.create(propiedad =propiedad, fec_inicio= propiedad.fecha_alta, fec_fin=None,estado=propiedad.estado_actual,band=True)
+
+
+def MostrarPropiedad(request,id):
+    if PropiedadCasa.objects.filter(pk=id).exists():
+        propiedad = PropiedadCasa.objects.get(pk = id)
+        data = {
+            "id": propiedad.id,
+            "mts": propiedad.mts,
+            "mts_semicubiertos": propiedad.mts_semicubiertos,
+            "patio": propiedad.propiedadcasa.patio ,
+        }
+        return render(request, 'propiedad/mostrar_propiedad.html', data)
+    
+    return redirect(to='listado_propiedades')
+
+
+def ConfirmarPropiedad(request,id):
+    if PropiedadCasa.objects.filter(pk=id).exists():
+        propiedad = PropiedadCasa.objects.get(pk = id)
+        data = {
+            "id": propiedad.id,
+            "mts": propiedad.mts,
+            "mts_semicubiertos": propiedad.mts_semicubiertos,
+            "patio": propiedad.propiedadcasa.patio ,
+        }
+        return render(request, 'propiedad/eliminar_propiedad.html', data)
+
+    if PropiedadHabitacion.objects.filter(pk=id).exists():
+        propiedad = PropiedadHabitacion.objects.get(pk = id)
+        data = {
+            "id": propiedad.id,
+            "mts": propiedad.mts,
+            "mts_semicubiertos": propiedad.mts_semicubiertos,
+        }
+        return render(request, 'propiedad/eliminar_propiedad.html', data)
+
+    if PropiedadDepto.objects.filter(pk=id).exists():
+        propiedad = PropiedadDepto.objects.get(pk = id)
+        data = {
+            "id": propiedad.id,
+            "mts": propiedad.mts,
+            "mts_semicubiertos": propiedad.mts_semicubiertos,
+        }
+        return render(request, 'propiedad/eliminar_propiedad.html', data)
+    
+    return redirect(to='listado_propiedades')

@@ -131,6 +131,20 @@
                 }
             </style>
             
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" role="alert" style="text-align: center;">
+                            <strong>{{ message }}</strong>
+                        </div>
+                    {% endif %}
+                    {% if message.tags == 'success' %}
+                        <div class="alert alert-success" role="alert" style="text-align: center;">
+                            <strong>{{ message }}</strong>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
             <!-- el block contenido servira para diferentes paginas dinamicas-->
             {% block contenido %}
                 
