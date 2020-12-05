@@ -4,14 +4,14 @@
 
 
 {% block titulo %}
-<h3>¿ESTAS SEGURO DE CANCELAR EL CONTRATO NUMERO: {{id}}?</h3>
-<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta accusamus esse pariatur dolorem blanditiis in, ratione, neque sed provident recusandae quis, id illo. Fugit mollitia dignissimos obcaecati aperiam blanditiis dolorum.</p>
+<h3>¿ESTAS SEGURO DE CANCELAR EL CONTRATO NUMERO: {{contrato.id}}?</h3>
+<p>Al cancelar el contrato la propiedad quedará disponible para otro contrato, el contrato quedara en el sistema se aplicara una fecha de cancelacion, pero no se podrá modificar </p>
 {% endblock %}
 
 
 
 {% block botones %}
 <p style="color: black;">Esta seguro que desea cancelar el contrato?</p>
-<button class="btn btn-danger" style="border: 1px solid black;"><a href="{% url "cancelar_contrato" id %}"> CONFIRMAR</a></button>
+<button class="btn btn-danger" style="border: 1px solid black;"><a href="{% url "cancelar_contrato" contrato.id %}"> CONFIRMAR</a></button>
 <button class="btn btn-light" style="border: 1px solid black;"><a href="{% url "listado_contratos" %}">CANCELAR</a></button>
 {% endblock %}

@@ -137,15 +137,7 @@ def MostrarContrato(request, id):
         if InquilinoPropiedad.objects.filter(pk=id).exists():
             contrato = InquilinoPropiedad.objects.get(pk=id)
             data = {
-                "id": contrato.id,
-                "cliente": contrato.inquilino,
-                "tipo": contrato.inquilino.desc_per,
-                "direccion" : contrato.inquilino.provincia+', '+contrato.inquilino.localidad+', '+contrato.inquilino.calle+', '+contrato.inquilino.numero,
-                "propiedad": contrato.propiedad,
-                "cant_personas": contrato.cant_personas,
-                "importe_total": contrato.importe_total,
-                "fecha_inicio": contrato.fecha_inicio,
-                "fecha_fin": contrato.fecha_fin
+                "contrato":contrato
             }
         return render(request, 'contrato/mostrar_contrato.html', data)
     else:
@@ -229,15 +221,7 @@ def ConfirmarCancelacion(request,id):
                 messages.error(request, 'Este contrato ya fue cancelado')
                 return redirect(to='listado_contratos')
             data = {
-                "id": contrato.id,
-                "cliente": contrato.inquilino,
-                "tipo": contrato.inquilino.desc_per,
-                "direccion" : contrato.inquilino.provincia+', '+contrato.inquilino.localidad+', '+contrato.inquilino.calle+', '+contrato.inquilino.numero,
-                "propiedad": contrato.propiedad,
-                "cant_personas": contrato.cant_personas,
-                "importe_total": contrato.importe_total,
-                "fecha_inicio": contrato.fecha_inicio,
-                "fecha_fin": contrato.fecha_fin
+                "contrato":contrato
             }
         return render(request, 'contrato/cancelar_contrato.html', data)
     else:  
