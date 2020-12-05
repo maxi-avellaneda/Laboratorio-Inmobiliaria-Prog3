@@ -1,0 +1,79 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+
+{% block contenido %}
+<h1 style="font-size: x-large;text-align: center;margin: 20px;color: black;">
+    <strong>ESTADISTICAS</strong>
+</h1>
+
+
+<div style="margin: 20px;">
+
+    <h3 style="color: black;text-align: center;">Propiedades y Tiempo <strong>SIN ALQUILAR</strong> </h3>
+
+    <table>
+        <caption>Tabla de propiedades y el rango de fechas que no fueron alquiladas</caption>
+        <tr>
+            <th>Codigo Propiedad</th>
+            <th>Estado</th>
+            <th>Rango de Tiempo Sin Alquilar (desde-hasta)</th>
+        </tr>
+        
+        {% for es in sinAlquilar %}  
+      
+        <tr>
+            <td>{{es.propiedad.id}}</td>
+            <td>{{es.propiedad.estado_actual}}</td>
+            <td>{{es.fec_inicio}}  <i class='fas fa-window-minimize' style="font-size: 20px;margin-bottom: 5px;"></i> 
+                {% if es.fec_fin %} {{es.fec_fin}}
+                {% else %} Hasta la fecha no cambio
+                 {% endif %}
+
+            </td>
+        </tr>
+        {% endfor %}
+       
+       
+    </table>
+</div>
+
+<style>
+    table{
+        margin-top: 50px;
+        caption-side: bottom;
+        margin-left: auto;
+        margin-right: auto;
+        border-collapse: collapse;
+    }
+
+    td,th{
+        border: 2px solid black;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+        
+    }
+
+    th{
+        background-color: #BA2100;
+        color: white;
+    }
+
+    caption{
+        padding-top: 20px;
+        font-style: italic;
+        text-align: center;
+    }
+    td{
+        text-align: center;
+        color: black;
+    }
+
+</style>
+
+
+{% endblock %}

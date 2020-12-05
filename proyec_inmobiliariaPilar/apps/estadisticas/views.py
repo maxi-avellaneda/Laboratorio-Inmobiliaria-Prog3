@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from apps.propiedad.models import Propiedad,Estado
 from apps.contrato.models import PropietarioPropiedad,InquilinoPropiedad
+from apps.propiedad.forms import FiltrarPropiedadForm
 
 
 # Create your views here.
@@ -121,9 +122,23 @@ def preferencia_zona_tipoAlquiler(request):
     'datosDiario':datosDiario,'datosSemanal':datosSemanal,'datosMensual':datosMensual})
 
 @login_required
-def tiempoSinAlquilar(request):
+def atiempoSinAlquilar(request):
 
     sinAlquilar = Estado.objects.exclude(estado__icontains='OCUPADO')
 
     return render(request,'estadisticas/tiempoSinAlquilar.html',
     {'sinAlquilar':sinAlquilar})
+
+@login_required
+def tiempoSinAlquilar(request):
+    if request.user.has_perms('propiedad.can_view_propiedad'):
+        propiedades = Estado.objects.exclude(estado__icontains="OCUPADO")
+        if request.method == 'POST':
+            id= request.POST.get('buscarID')
+            if id != "":
+                propiedades = propiedades.filter(propiedad__id=id)
+
+        return render(request,'estadisticas/tiempoSinAlquilar.html',{'propiedades':propiedades})
+    else:
+        messages.error(request,'No tienes permisos para visualizar las PROPIEDADES')
+        return redirect(to = "index")

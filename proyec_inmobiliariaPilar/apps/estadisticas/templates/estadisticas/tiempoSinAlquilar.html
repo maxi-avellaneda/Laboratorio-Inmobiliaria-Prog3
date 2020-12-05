@@ -1,47 +1,24 @@
 {% extends 'base/base.html' %}
 
-{% load static %}
-
-
 {% block contenido %}
-<h1 style="font-size: x-large;text-align: center;margin: 20px;color: black;">
-    <strong>ESTADISTICAS</strong>
-</h1>
-
-
-<div style="margin: 20px;">
-
-    <h3 style="color: black;text-align: center;">Propiedades y Tiempo <strong>SIN ALQUILAR</strong> </h3>
-
-    <table>
-        <caption>Tabla de propiedades y el rango de fechas que no fueron alquiladas</caption>
-        <tr>
-            <th>Codigo Propiedad</th>
-            <th>Estado</th>
-            <th>Rango de Tiempo Sin Alquilar (desde-hasta)</th>
-        </tr>
-        
-        {% for es in sinAlquilar %}  
-      
-        <tr>
-            <td>{{es.propiedad.id}}</td>
-            <td>{{es.propiedad.estado_actual}}</td>
-            <td>{{es.fec_inicio}}  <i class='fas fa-window-minimize' style="font-size: 20px;margin-bottom: 5px;"></i> 
-                {% if es.fec_fin %} {{es.fec_fin}}
-                {% else %} Hasta la fecha no cambio
-                 {% endif %}
-
-            </td>
-        </tr>
-        {% endfor %}
-       
-       
-    </table>
-</div>
-
-<style>
-    table{
-        margin-top: 50px;
+    <style>
+        div#addPropiedades{
+            border: 1px solid black;
+            padding: 2em;
+            text-align: center;
+            margin-bottom: 2em;
+        }
+        div#addPropiedades a{
+            padding: 1em;
+            color: #ffffff;
+            margin: 1em;
+            background-color: darkblue;
+        }
+        table a{
+            margin-right: 1em;
+            background-color: black;
+        }
+        table{
         caption-side: bottom;
         margin-left: auto;
         margin-right: auto;
@@ -72,8 +49,72 @@
         text-align: center;
         color: black;
     }
+    </style>
 
-</style>
+
+    <h1 style="font-size: x-large;text-align: center;margin: 20px;color: black;">
+        <strong>ESTADISTICAS</strong>
+    </h1>
+    <h3 style="color: black;text-align: center;">Propiedades y Tiempo <strong>SIN ALQUILAR</strong> </h3>
+   
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-sm-2" style="border: 1px solid black;">
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+
+                    <label for="buscarID">ID Propiedad: </label>
+                    <input type="text" name="buscarID" id="buscarID" placeholder="ID " maxlength="5" size="15"><br><br>
+
+                    <input type="submit" value="Buscar">
+
+                </form>
+
+            </div>
+
+            
+            <!-- COMIENZA LA TABLA -->
+            
+            <div class="col-sm-10">
+
+
+                <table class="table-bordered" style="width: 100%;">
+                    <thead class="thead-dark" style="background-color: black;">
+                    <tr style="color: blanchedalmond; text-align: center;">
+                        <th scope="col">ID PROPIEDAD</th>
+                        <th scope="col">Estados De La Propiedad</th>
+                        <th scope="col">Rango de Tiempo Sin Alquilar (desde-hasta)</th>
+                    </tr>
+                    </thead>
+
+                    {% for prop in propiedades %}
+
+                    <tbody>
+                    <tr>
+                        <td>{{prop.propiedad.id}}</td>
+                        <td>{{prop.estado}}</td>
+                        <td>{{prop.fec_inicio}}  <i class='fas fa-window-minimize' style="font-size: 20px;margin-bottom: 5px;"></i> 
+                            {% if prop.fec_fin %} {{prop.fec_fin}}
+                            {% else %} no cambio su estado
+                             {% endif %}
+            
+                        </td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {{mensaje}}
 
 
 {% endblock %}
