@@ -4,13 +4,13 @@
 
 
 {% block titulo %}
-<h3>¿QUIERES ELIMINAR EL CONTRATO NUMERO: {{id}}?</h3>
+<h3>¿QUIERES ELIMINAR EL CONTRATO NUMERO: {{contrato.pk}}?</h3>
 {% endblock %}
 
 
 
 {% block botones %}
 <p style="color: black;">Esta seguro que desea eliminar?</p>
-<button class="btn btn-danger" style="border: 1px solid black;"><a href="{% url "eliminar_contrato" id %}"> CONFIRMAR</a></button>
+<button class="btn btn-danger" style="border: 1px solid black;"><a href="{% url "eliminar_contrato" contrato.pk %}"> CONFIRMAR</a></button>
 <button class="btn btn-light" style="border: 1px solid black;"><a href="{% url "listado_contratos" %}">CANCELAR</a></button>
 {% endblock %}

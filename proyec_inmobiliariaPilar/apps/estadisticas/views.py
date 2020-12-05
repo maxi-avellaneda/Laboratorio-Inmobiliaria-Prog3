@@ -1,12 +1,13 @@
+from datetime import date
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from apps.propiedad.models import Propiedad,Estado
 from apps.contrato.models import PropietarioPropiedad,InquilinoPropiedad
-from datetime import date
 
 
 # Create your views here.
 
-
+@login_required
 def zonaMenorAlquiler(request):
 
     alquiladas_zonaNorte = InquilinoPropiedad.objects.filter(propiedad__zona__icontains='Norte').count()
@@ -20,8 +21,7 @@ def zonaMenorAlquiler(request):
     'alquiladas_zonaNorte':alquiladas_zonaNorte,'alquiladas_zonaSur':alquiladas_zonaSur,
     'alquiladas_zonaEste':alquiladas_zonaEste,'alquiladas_zonaOeste':alquiladas_zonaOeste})
 
-
-
+@login_required
 def porcentajeOcupacion(request):
 
     total = Propiedad.objects.all().count()
@@ -44,6 +44,7 @@ def porcentajeOcupacion(request):
     {'porcentaje_ocupadas':porcentaje_ocupadas,'porcentaje_disponibles':porcentaje_disponibles,
     'porcentaje_mantenimiento':porcentaje_mantenimiento,'total':total})
 
+@login_required
 def preferencia_zona_tipoPropiedad(request):
 
     alquiladas_zonaNorteYtipoCasa=InquilinoPropiedad.objects.filter(propiedad__zona__icontains='Norte',propiedad__tipo_propiedad__icontains='Casa').count()
@@ -81,6 +82,7 @@ def preferencia_zona_tipoPropiedad(request):
     'alquiladas_zonaOesteYtipoHabi':alquiladas_zonaOesteYtipoHabi,
     'datosCasa':datosCasa,'datosDepto':datosDepto,'datosHabi':datosHabi})
 
+@login_required
 def preferencia_zona_tipoAlquiler(request):
 
     alquiladas_zonaNorteYtipoDiario=InquilinoPropiedad.objects.filter(propiedad__zona__icontains='Norte',propiedad__tipo_alquiler__icontains='Diario').count()
@@ -118,7 +120,7 @@ def preferencia_zona_tipoAlquiler(request):
     'alquiladas_zonaOesteYtipoMensual':alquiladas_zonaOesteYtipoMensual,
     'datosDiario':datosDiario,'datosSemanal':datosSemanal,'datosMensual':datosMensual})
 
-
+@login_required
 def tiempoSinAlquilar(request):
 
     sinAlquilar = Estado.objects.exclude(estado__icontains='OCUPADO')

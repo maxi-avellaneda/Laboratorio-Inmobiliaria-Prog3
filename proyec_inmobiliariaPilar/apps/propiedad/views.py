@@ -30,6 +30,8 @@ def ListadoPropiedades(request):
         messages.error(request,'No tienes permisos para visualizar las PROPIEDADES')
         return redirect(to = "index")
 
+
+
 @login_required
 def detallePropiedad(request,id):
     if request.user.has_perms('propiedad.can_view_propiedad'):
@@ -38,6 +40,8 @@ def detallePropiedad(request,id):
     else:
         messages.error(request,'No tienes permiso para visualizar PROPIEDADES')
         return redirect(to = "index")
+
+
 
 @login_required
 def NuevaPropiedadCasa(request):
@@ -57,12 +61,23 @@ def NuevaPropiedadCasa(request):
                 form.save()
                 casa = Propiedad.objects.last()
                 GenerarEstado(casa)
+                mensaje = 'Se agrego una nueva casa al sistema CASA ID: {0}'.format(casa.id)
+                messages.success(request,mensaje)
+                data = {
+                    "id": casa.id,
+                    "mts": casa.mts,
+                    "mts_semicubiertos": casa.mts_semicubiertos,
+                    "patio": casa.propiedadcasa.patio ,
+                }
+                return render(request, 'propiedad/mostrar_propiedad.html', data)
             data["form"] = f
                 
         return render(request, 'propiedad/nueva_propiedad.html', data)
     else:
         messages.error(request,'No tienes permiso para ingresar PROPIEDADES')
         return redirect(to = "index")
+
+
 
 @login_required
 def NuevaPropiedadDpto(request):
@@ -82,13 +97,23 @@ def NuevaPropiedadDpto(request):
                 form.save()
                 dpto = Propiedad.objects.last()
                 GenerarEstado(dpto)
-                data["mensaje"]= 'guardado con exito'
+                mensaje = 'Se agrego una nuevo DEPARTAMENTO al sistema DEPARTAMENTO ID: {0}'.format(dpto.pk)
+                messages.success(request,mensaje)
+                data = {
+                    "id": dpto.id,
+                    "mts": dpto.mts,
+                    "mts_semicubiertos": dpto.mts_semicubiertos,
+                    "patio": dpto.zona,
+                }
+                return render(request, 'propiedad/mostrar_propiedad.html', data)
             data["form"] = f
 
         return render(request, 'propiedad/nueva_propiedad.html', data )
     else:
         messages.error(request,'No tienes permiso para el ingreso de PROPIEDADES')
         return redirect(to = "index")
+
+
 
 @login_required
 def NuevaPropiedadHabitacion(request):
@@ -108,13 +133,23 @@ def NuevaPropiedadHabitacion(request):
                 form.save()
                 habitacion = Propiedad.objects.last()
                 GenerarEstado(habitacion)
-                data["mensaje"]= 'guardado con exito'
+                mensaje = 'Se agrego una nuevo DEPARTAMENTO al sistema DEPARTAMENTO ID: {0}'.format(habitacion.pk)
+                messages.success(request,mensaje)
+                data = {
+                    "id": habitacion.id,
+                    "mts": habitacion.mts,
+                    "mts_semicubiertos": habitacion.mts_semicubiertos,
+                    "patio": habitacion.zona,
+                }
+                return render(request, 'propiedad/mostrar_propiedad.html', data)
             data["form"] = f
 
         return render(request, 'propiedad/nueva_propiedad.html', data)
     else:
         messages.error(request,'No tienes permiso para el ingreso de PROPIEDADES')
         return redirect(to = "index")
+
+
 
 @login_required
 def ModificarPropiedad(request,id):
@@ -191,7 +226,9 @@ def ModificarPropiedad(request,id):
     else:  
         messages.error(request,'No tienes permiso para modificar PROPIEDADES')
         return redirect(to = "index")
-    
+
+
+
 @login_required
 def EliminarPropiedad(request, id):
     if request.user.has_perms('propiedad.can_delete_propiedad'):
@@ -231,6 +268,8 @@ def EliminarPropiedad(request, id):
         messages.error(request,'No tienes permiso para eliminar PROPIEDADES')    
         return redirect(to = "index")
 
+
+
 @login_required
 def NuevaOferta(request):
     if request.user.has_perms('oferta.can_add_oferta'):
@@ -241,13 +280,16 @@ def NuevaOferta(request):
             f = OfertaForm(request.POST)
             if f.is_valid():
                 f.save()
-                data["mensaje"] = 'guardado con exito'
+                messages.success(request,'La oferta se genero correctamente')
+                return redirect(to = "listado_ofertas")
             data["form"] = f
 
         return render(request, 'propiedad/nueva_propiedad.html', data)
     else:
         messages.error(request,'No tienes permisos para el ingreso de OFERTAS')
         return redirect(to = "index")
+
+
 
 @login_required
 def ModificarOferta(request,id):
@@ -260,15 +302,15 @@ def ModificarOferta(request,id):
             f = OfertaForm(data=request.POST, instance=oferta)
             if f.is_valid():
                 f.save()
-                data = {
-                    "mensaje":'guardado correctamente',
-                    "form": OfertaForm(instance=oferta)
-                }
-
+                messages.success(request,'La oferta se modifico correctamente')
+                return redirect(to = "listado_ofertas")
+            data["form"]=f
         return render(request, 'propiedad/nueva_propiedad.html', data)
     else:
         messages.error(request, 'No tienes permisos para modifcar OFERTAS')
         return redirect(to = "index")
+
+
 
 @login_required
 def EliminarOferta(request,id):
@@ -276,10 +318,13 @@ def EliminarOferta(request,id):
         if Oferta.objects.filter(pk = id).exists():
             oferta = Oferta.objects.get(pk = id)
             oferta.delete()
+            messages.success(request,'La oferta eliminó correctamente')
         return redirect(to='listado_ofertas')
     else:
         messages.error(request,'No tienes permiso para eliminar OFERTAS')
         return redirect(to="index")
+
+
 
 @login_required
 def MostrarOfertas(request):
@@ -289,6 +334,8 @@ def MostrarOfertas(request):
     else:
         messages.error(request,'No tienes permiso para visualizar las OFERTAS')
         return redirect(to = "index")
+
+
 
 @login_required
 def ListarOfertas(request):
@@ -316,6 +363,7 @@ def ListarOfertas(request):
         return redirect(to = "index")
 
 
+
 def GenerarEstado(propiedad):
     if Estado.objects.filter(propiedad=propiedad).exists():
         estado_anterior = Estado.objects.filter(propiedad=propiedad).last()
@@ -325,6 +373,8 @@ def GenerarEstado(propiedad):
         Estado.objects.create(propiedad=propiedad,fec_inicio=datetime.now(), fec_fin=None, estado=propiedad.estado_actual,band=True)
     else:
         Estado.objects.create(propiedad =propiedad, fec_inicio= propiedad.fecha_alta, fec_fin=None,estado=propiedad.estado_actual,band=True)
+
+
 
 @login_required
 def MostrarPropiedad(request,id):
@@ -343,6 +393,8 @@ def MostrarPropiedad(request,id):
     else:
         messages.error(request,'No tienes permisos para visualizar PROPIEDADES')
         return redirect(to = "index")
+
+
 
 @login_required
 def ConfirmarPropiedad(request,id):

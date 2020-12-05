@@ -26,6 +26,34 @@
 
     {% endblock %}
 
+    {% if contrato.comision %}
+    <div class="row">
+        <div class="col-sm-5" style="text-align: right;">
+            <p>ID:</p>                                  
+            <p>Cliente:</p>
+            <p>Tipo de Cliente:</p>  
+            <p>Direccion:</p>  
+            <p>Propiedad:</p>
+            <p>Comision:</p>
+            <p>Importe:</p>
+            <p>fecha_inicio:</p>
+            <p>fecha_fin:</p>          
+        </div>
+        <div class="col-sm-7" style="text-align: left;">
+            <strong>
+            <p>{{contrato.pk}}</p>
+            <p>{{contrato.propietario}}</p>            
+            <p>{{contrato.propietario.desc_per}}</p>
+            <p>{{contrato.propietario.provincia}},{{contrato.propietario.localidad}},{{contrato.propietario.barrio}},{{contrato.propietario.calle}},{{contrato.propietario.numero}}</p>
+            <p>{{contrato.propiedad}}</p>
+            <p>{{contrato.comision}}</p>
+            <p>{{contrato.propiedad.precio}}</p>
+            <p>{{contrato.fecha_inicio}}</p>
+            <p>{{contrato.fecha_fin}} </p>
+            </strong>
+        </div>
+    </div>
+    {% else %}
     <div class="row">
         <div class="col-sm-5" style="text-align: right;">
             <p>ID:</p>                                  
@@ -34,24 +62,28 @@
             <p>Direccion:</p>  
             <p>Propiedad:</p>
             <p>Cantidad de personas:</p>
-            <p>Importe:</p>
+            <p>Importe Total:</p>
             <p>fecha_inicio:</p>
             <p>fecha_fin:</p>          
         </div>
         <div class="col-sm-7" style="text-align: left;">
             <strong>
-            <p>{{id}}</p>
-            <p>{{cliente}}</p>            
-            <p>{{tipo}}</p>
-            <p>{{direccion}}</p>
-            <p>{{propiedad}}</p>
-            <p>{{cant_personas}}</p>
-            <p>{{importe_total}}</p>
-            <p>{{fecha_inicio}}</p>
-            <p>{{fecha_fin}} </p>
+            <p>{{contrato.pk}}</p>
+            <p>{{contrato.inquilino}}</p>            
+            <p>{{contrato.inquilino.desc_per}}</p>
+            <p>{{contrato.inquilino.provincia}},{{contrato.inquilino.localidad}},{{contrato.inquilino.barrio}},{{contrato.inquilino.calle}},{{contrato.inquilino.numero}}</p>
+            <p>{{contrato.propiedad}}</p>
+            <p>{{contrato.cant_personas}}</p>
+            <p>{{contrato.importe_total}}</p>
+            <p>{{contrato.fecha_inicio}}</p>
+            <p>{{contrato.fecha_fin}} </p>
             </strong>
         </div>
     </div>
+
+
+
+    {% endif %}
     <br>
     <br>
 

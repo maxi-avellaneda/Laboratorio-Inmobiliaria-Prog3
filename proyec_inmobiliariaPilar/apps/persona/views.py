@@ -88,10 +88,18 @@ def Modificar_Persona(request, id):
                     f.nombre = f.nombre.upper()
                     f.apellido = f.apellido.upper()
                     f.save()
-                    data={
-                    "mensaje":'guardado correctamente',
-                    "form": PersonaFisicaForm(instance=persona),
+                    persona = PersonaFisica.objects.get(pk=persona.pk)
+                    data = {
+                        "id" : persona.id,
+                        "nombre": persona.nombre + ' ' + persona.apellido,
+                        "numero": persona.cuil ,
+                        "direccion": persona.provincia + ' - ' + persona.localidad + ' - ' + persona.calle + ' - ' + persona.numero,
+                        "telefono": persona.telefono,
+                        "mail": persona.mail,
+                        "tipo":persona.desc_per
                     }
+                    messages.success(request,'El cliente se modifico correctamente')
+                    return render(request,"base/mostrar_persona.html", data)
                 data["form"] = formulario 
 
         elif PersonaJuridica.objects.filter(pk = id).exists():
@@ -109,10 +117,18 @@ def Modificar_Persona(request, id):
                     f.calle = f.calle.upper()
                     f.razon_social = f.razon_social.upper()
                     f.save()
-                    data={
-                    "mensaje":'guardado correctamente',
-                    "form": PersonaJuridicaForm(instance=servicio),
+                    persona = PersonaJuridica.objects.get(pk = persona.pk)
+                    data = {
+                        "id" : persona.id,
+                        "nombre": persona.razon_social,
+                        "numero": persona.cuit ,
+                        "direccion": persona.provincia + ' - ' + persona.localidad + ' - ' + persona.calle + ' - ' + persona.numero,
+                        "telefono": persona.telefono,
+                        "mail": persona.mail,
+                        "tipo": persona.desc_per
                     }
+                    messages.success(request,'El cliente se modifico correctamente')
+                    return render(request,"base/mostrar_persona.html", data)
                 data["form"] = formulario      
 
         return render(request, "base/nueva_persona.html", data)

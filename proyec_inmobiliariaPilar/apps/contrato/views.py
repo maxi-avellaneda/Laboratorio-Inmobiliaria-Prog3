@@ -24,7 +24,13 @@ def NuevoContrato(request):
                     f = formulario.save(commit=False)
                     f.cancelacion = False
                     f.fecha_cancelacion = None
-                    data['mensaje'] = 'guardado con exito'
+                    f.save()
+                    contrato = PropietarioPropiedad.objects.last()
+                    data = {
+                        "contrato":contrato
+                    }
+                    messages.success(request,'El contrato se generó correctamente')
+                    return render(request, "contrato/mostrar_contrato.html", data)
                 data["form"] = formulario
             
             return render(request, "contrato/nuevo_contrato.html", data)
@@ -50,7 +56,12 @@ def NuevoContrato(request):
                     propiedad.save()
                     GenerarEstado(propiedad)
                     f.save()
-                    data['mensaje'] = 'guardado con exito'
+                    contrato = InquilinoPropiedad.objects.last()
+                    data = {
+                        "contrato":contrato
+                    }
+                    messages.success(request,'El contrato se generó correctamente')
+                    return render(request, "contrato/mostrar_contrato.html", data)
                 data["form"] = formulario
 
         return render(request, "contrato/nuevo_contrato.html", data)
@@ -148,15 +159,12 @@ def ConfirmarEliminarContrato(request, id):
         if InquilinoPropiedad.objects.filter(pk=id).exists():
             contrato = InquilinoPropiedad.objects.get(pk=id)
             data = {
-                "id": contrato.id,
-                "cliente": contrato.inquilino,
-                "tipo": contrato.inquilino.desc_per,
-                "direccion" : contrato.inquilino.provincia+', '+contrato.inquilino.localidad+', '+contrato.inquilino.calle+', '+contrato.inquilino.numero,
-                "propiedad": contrato.propiedad,
-                "cant_personas": contrato.cant_personas,
-                "importe_total": contrato.importe_total,
-                "fecha_inicio": contrato.fecha_inicio,
-                "fecha_fin": contrato.fecha_fin
+                "contrato":contrato
+            }
+        if PropietarioPropiedad.objects.filter(pk=id).exists():
+            contrato = PropietarioPropiedad.objects.get(pk=id)
+            data = {
+                "contrato":contrato
             }
         return render(request, 'contrato/eliminar_contrato.html', data)
     else:
