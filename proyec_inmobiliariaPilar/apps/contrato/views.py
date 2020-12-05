@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import datetime
 from .forms import PropietarioPropiedadForm, InquilinoPropiedadForm
-from apps.propiedad.models import Propiedad, Estado
+from apps.propiedad.models import Propiedad, Estado, Oferta
 from .models import PropietarioPropiedad,InquilinoPropiedad
 from apps.propiedad.views import GenerarEstado
 from django.contrib import messages
@@ -52,6 +52,9 @@ def NuevoContrato(request):
                     f.cancelacion = False
                     f.fecha_cancelacion = None
                     propiedad = Propiedad.objects.get(pk=f.propiedad.id)
+                    if Oferta.objects.filter(propiedad = propiedad).exists():
+                        oferta = Oferta.objects.get(propiedad = propiedad)
+                        oferta.delete()
                     propiedad.estado_actual = 'OCUPADO'
                     propiedad.save()
                     GenerarEstado(propiedad)

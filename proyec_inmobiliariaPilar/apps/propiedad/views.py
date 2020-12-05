@@ -279,7 +279,10 @@ def NuevaOferta(request):
         if request.method == 'POST':
             f = OfertaForm(request.POST)
             if f.is_valid():
-                f.save()
+                oferta = f.save(commit=False)
+                if InquilinoPropiedad.objects.filter(propiedad = oferta.propiedad, cancelacion = False).exists():
+                    messages.error(request,'La propiedad se encuentra en contrato')
+                    return redirect(to = "listado_ofertas")    
                 messages.success(request,'La oferta se genero correctamente')
                 return redirect(to = "listado_ofertas")
             data["form"] = f
@@ -325,16 +328,9 @@ def EliminarOferta(request,id):
         return redirect(to="index")
 
 
-
-@login_required
 def MostrarOfertas(request):
-    if request.user.has_perms('oferta.can_view_oferta'):
-        ofertas = Oferta.objects.all()
-        return render(request,'oferta/ofertas.html', {"ofertas": ofertas})
-    else:
-        messages.error(request,'No tienes permiso para visualizar las OFERTAS')
-        return redirect(to = "index")
-
+    ofertas = Oferta.objects.all()
+    return render(request,'oferta/ofertas.html', {"ofertas": ofertas})
 
 
 @login_required
@@ -361,7 +357,6 @@ def ListarOfertas(request):
     else:
         messages.error(request,'No tienes permiso para visualizar las OFERTAS')
         return redirect(to = "index")
-
 
 
 def GenerarEstado(propiedad):
